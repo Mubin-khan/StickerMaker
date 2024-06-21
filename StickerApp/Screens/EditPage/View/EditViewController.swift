@@ -1,0 +1,70 @@
+//
+//  EditViewController.swift
+//  StickerApp
+//
+//  Created by Mubin Khan on 6/18/24.
+//
+
+import UIKit
+
+class EditViewController: UIViewController {
+
+    @IBOutlet weak var contentImageView: UIImageView!
+    @IBOutlet weak var contentImageHeightCon: NSLayoutConstraint!
+    @IBOutlet weak var contentImageWidthCon: NSLayoutConstraint!
+    @IBOutlet weak var container: UIView!
+    
+    lazy var displayLink: CADisplayLink = CADisplayLink(target: self,
+                                                      selector: #selector(displayLinkFired(link:)))
+    
+    var frames : [UIImage] = []
+    var currentFrameNumber : Int = 0
+    
+    init(frames : [UIImage]) {
+        self.frames = frames
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.navigationController?.isNavigationBarHidden = true
+        
+        self.displayLink.add(to: .main, forMode: .common)
+        self.displayLink.preferredFramesPerSecond = 5
+        
+        contentImageView.layer.cornerRadius = 10
+        contentImageView.layer.borderWidth = 10
+        contentImageView.layer.borderColor = UIColor.green.cgColor
+        
+        let sz = frames[0].size.calculateFinalSize(in: CGSize(width: 300, height: 300))
+        contentImageWidthCon.constant = sz.width
+        contentImageHeightCon.constant = sz.height
+    }
+
+    @objc func displayLinkFired(link: CADisplayLink) {
+        contentImageView.image = frames[currentFrameNumber]
+        currentFrameNumber += 1;
+        if currentFrameNumber >= frames.count {
+            currentFrameNumber = 0
+        }
+    }
+    
+    @IBAction func backAction(_ sender: Any) {
+        displayLink.invalidate()
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func strokeWidthChangeAction(_ sender: UISlider, forEvent event: UIEvent) {
+        contentImageView.layer.borderWidth = CGFloat(sender.value * 20)
+    }
+    
+    @IBAction func speedChangeAction(_ sender: UISlider, forEvent event: UIEvent) {
+        self.displayLink.preferredFramesPerSecond = Int(sender.value * 9) + 1
+    }
+    
+}
