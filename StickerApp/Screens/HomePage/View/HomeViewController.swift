@@ -46,7 +46,14 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate {
        
     }
     
+    @IBAction func textToStickerAction(_ sender: Any) {
+        let vc = TextInputViewController()
+        vc.modalPresentationStyle = .overFullScreen
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @IBAction func getGifAction(_ sender: Any) {
+        
     }
     
     @IBAction func getPhotoAction(_ sender: Any) {

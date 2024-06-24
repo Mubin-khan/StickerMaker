@@ -51,6 +51,14 @@
                         <action selector="getPhotoAction:" destination="-1" eventType="touchUpInside" id="HYB-nw-1tw"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7r0-1F-PQE">
+                    <rect key="frame" x="200" y="266" width="56" height="35"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Text"/>
+                    <connections>
+                        <action selector="textToStickerAction:" destination="-1" eventType="touchUpInside" id="Dr1-fX-Bl5"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -60,9 +68,11 @@
                 <constraint firstItem="mk5-TS-UZw" firstAttribute="leading" secondItem="2l2-DK-aID" secondAttribute="leading" id="CtS-Pp-6Mh"/>
                 <constraint firstItem="A7e-O3-yxb" firstAttribute="centerY" secondItem="s00-bD-DsJ" secondAttribute="centerY" id="IBD-mq-q1T"/>
                 <constraint firstItem="mk5-TS-UZw" firstAttribute="top" secondItem="2l2-DK-aID" secondAttribute="bottom" constant="50" id="R1B-Gr-TcL"/>
+                <constraint firstItem="7r0-1F-PQE" firstAttribute="centerY" secondItem="mk5-TS-UZw" secondAttribute="centerY" id="VOI-qb-Xum"/>
                 <constraint firstItem="s00-bD-DsJ" firstAttribute="leading" secondItem="2l2-DK-aID" secondAttribute="trailing" constant="50" id="bYk-my-7eQ"/>
                 <constraint firstItem="2l2-DK-aID" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="122" id="ck6-qM-Eav"/>
                 <constraint firstItem="s00-bD-DsJ" firstAttribute="centerY" secondItem="2l2-DK-aID" secondAttribute="centerY" id="rst-Qq-zPd"/>
+                <constraint firstItem="7r0-1F-PQE" firstAttribute="centerX" secondItem="s00-bD-DsJ" secondAttribute="centerX" id="xxf-N8-7Hm"/>
             </constraints>
             <point key="canvasLocation" x="102" y="20"/>
         </view>

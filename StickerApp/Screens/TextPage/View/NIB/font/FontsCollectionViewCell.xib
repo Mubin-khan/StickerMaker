@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="gTV-IL-0wX" customClass="FontsCollectionViewCell" customModule="StickerApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="261" height="105"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="261" height="105"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="31W-v7-shz">
+                        <rect key="frame" x="2" y="40.666666666666664" width="257" height="23.999999999999993"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0eD-FI-9Jy">
+                                <rect key="frame" x="107.66666666666669" y="1.3333333333333357" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="0eD-FI-9Jy" firstAttribute="centerX" secondItem="31W-v7-shz" secondAttribute="centerX" id="FVH-Ya-LUZ"/>
+                            <constraint firstItem="0eD-FI-9Jy" firstAttribute="centerY" secondItem="31W-v7-shz" secondAttribute="centerY" id="G1W-nb-wxf"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="JWo-kl-j5V"/>
+                            <constraint firstAttribute="height" constant="24" id="er8-6n-HSg"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="31W-v7-shz" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="q4d-qY-gH3"/>
+                <constraint firstAttribute="trailing" secondItem="31W-v7-shz" secondAttribute="trailing" constant="2" id="qa2-5N-Dwb"/>
+                <constraint firstItem="31W-v7-shz" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="rnG-8O-A8y"/>
+            </constraints>
+            <size key="customSize" width="261" height="105"/>
+            <connections>
+                <outlet property="fontContainerview" destination="31W-v7-shz" id="P3l-9V-PpX"/>
+                <outlet property="fontLabel" destination="0eD-FI-9Jy" id="9PG-tr-3yj"/>
+            </connections>
+            <point key="canvasLocation" x="261.83206106870227" y="39.08450704225352"/>
+        </collectionViewCell>
+    </objects>
+</document>

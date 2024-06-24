@@ -35,11 +35,11 @@ class EditViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         
         self.displayLink.add(to: .main, forMode: .common)
-        self.displayLink.preferredFramesPerSecond = 5
+        self.displayLink.preferredFramesPerSecond = 30
         
-        contentImageView.layer.cornerRadius = 10
-        contentImageView.layer.borderWidth = 10
-        contentImageView.layer.borderColor = UIColor.green.cgColor
+//        contentImageView.layer.cornerRadius = 10
+//        contentImageView.layer.borderWidth = 10
+//        contentImageView.layer.borderColor = UIColor.green.cgColor
         
         let sz = frames[0].size.calculateFinalSize(in: CGSize(width: 300, height: 300))
         contentImageWidthCon.constant = sz.width
@@ -64,7 +64,7 @@ class EditViewController: UIViewController {
     }
     
     @IBAction func speedChangeAction(_ sender: UISlider, forEvent event: UIEvent) {
-        self.displayLink.preferredFramesPerSecond = Int(sender.value * 9) + 1
+        self.displayLink.preferredFramesPerSecond = Int(sender.value * 30) + 1
     }
     
 }
