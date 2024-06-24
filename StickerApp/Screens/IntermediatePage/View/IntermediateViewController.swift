@@ -52,7 +52,7 @@ class IntermediateViewController: UIViewController {
 
     }
     
-    func extractFramesFromVideo(at url: URL, frameCount: Int = 10, fromDuration : ) {
+    func extractFramesFromVideo(at url: URL, frameCount: Int = 10) {
         let asset = AVAsset(url: url)
         let assetDuration = CMTimeGetSeconds(asset.duration)
         let times = stride(from: 0, to: assetDuration, by: assetDuration / Double(frameCount - 1)).map {
