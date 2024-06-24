@@ -139,3 +139,7 @@ enum CornerPosition: Int {
 public enum CornerShape {
     case square, line
 }
+
+public enum CropRatio {
+    case free, square
+}

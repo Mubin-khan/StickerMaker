@@ -10,6 +10,11 @@ import UIKit
 public class ARImageCropper: UIView {
     
     // MARK: - PROPERTIES
+    public var currentCropStyle : CropRatio = .free {
+        didSet {
+            resetCropperArea()
+        }
+    }
     private let viewForImage: UIView
     private let overlayView: UIView
     private var imageSize: CGSize?
@@ -195,19 +200,19 @@ public class ARImageCropper: UIView {
         }
         
         if image != nil {
-            UIGraphicsBeginImageContextWithOptions(viewForImage.layer.bounds.size, true, 0)
+//            UIGraphicsBeginImageContextWithOptions(viewForImage.layer.bounds.size, true, 0)
+//            
+//            let path = UIBezierPath.init(rect: viewForImage.bounds)
+//            UIColor.clear.setFill()
+//            path.fill()
+//            
+//            image?.draw(in: imageRect!)
+//            let result = UIGraphicsGetImageFromCurrentImageContext()
+//            
+//            UIGraphicsEndImageContext();
             
-            let path = UIBezierPath.init(rect: viewForImage.bounds)
-            UIColor.clear.setFill()
-            path.fill()
-            
-            image?.draw(in: imageRect!)
-            let result = UIGraphicsGetImageFromCurrentImageContext()
-            
-            UIGraphicsEndImageContext();
-            
-            let theImageRef = result!.cgImage
-            viewForImage.layer.contents = theImageRef as AnyObject
+//            let theImageRef = result!.cgImage
+//            viewForImage.layer.contents = theImageRef as AnyObject
             guard let rect = imageRect else { return }
             if rect.height > rect.width {
                 maximumPossibleHeight = rect.width * (croppedImageSize.height / croppedImageSize.width)
@@ -226,7 +231,14 @@ public class ARImageCropper: UIView {
                     maximumPossibleHeight = height
                 }
             }
-            cropRect = rectFromStartAndEnd(CGPoint(x: 0, y: 0), endPoint: CGPoint(x: maximumPossibleWidth, y: maximumPossibleHeight))
+            if currentCropStyle == .free {
+                cropRect = rectFromStartAndEndFree(CGPoint(x: 0, y: 0), endPoint: CGPoint(x: bounds.width, y: bounds.height))
+            }else {
+                let xx = (rect.width - maximumPossibleWidth) / 2
+                let yy = (rect.height - maximumPossibleHeight) / 2
+                cropRect = rectFromStartAndEndSquare(CGPoint(x: xx, y: yy), endPoint: CGPoint(x: maximumPossibleWidth, y: maximumPossibleHeight))
+            }
+           
         }
         
     }
@@ -330,8 +342,13 @@ public class ARImageCropper: UIView {
                 maximumPossibleHeight = height
             }
         }
-        cropRect = rectFromStartAndEnd(CGPoint(x: 0, y: 0), endPoint: CGPoint(x: maximumPossibleWidth, y: maximumPossibleHeight))
-        
+        if currentCropStyle == .free {
+            cropRect = rectFromStartAndEndFree(CGPoint(x: 0, y: 0), endPoint: CGPoint(x: bounds.width, y: bounds.height))
+        }else {
+            let xx = (rect.width - maximumPossibleWidth) / 2
+            let yy = (rect.height - maximumPossibleHeight) / 2
+            cropRect = rectFromStartAndEndSquare(CGPoint(x: 0, y: 0), endPoint: CGPoint(x: maximumPossibleWidth, y: maximumPossibleHeight))
+        }
     }
     
     public func resetCropperArea() {
@@ -340,7 +357,7 @@ public class ARImageCropper: UIView {
         
     }
     
-    private func rectFromStartAndEnd(_ startPoint: CGPoint, endPoint: CGPoint) -> CGRect {
+    private func rectFromStartAndEndFree(_ startPoint: CGPoint, endPoint: CGPoint) -> CGRect {
         var top, left, bottom, right: CGFloat
         top = min(startPoint.y, endPoint.y)
         bottom = max(startPoint.y, endPoint.y)
@@ -373,55 +390,55 @@ public class ARImageCropper: UIView {
         return internalCropRect!
     }
     
-//    private func rectFromStartAndEnd(_ startPoint:CGPoint, endPoint: CGPoint) -> CGRect {
-//        var  top, left, bottom, right: CGFloat
-//        top = min(startPoint.y, endPoint.y)
-//        bottom = max(startPoint.y, endPoint.y)
-//        
-//        left = min(startPoint.x, endPoint.x)
-//        right = max(startPoint.x, endPoint.x)
-//        
-//        let theHeightScaleFactor = croppedImageSize.height / croppedImageSize.width
-//        let theWidthScaleFactor = croppedImageSize.width / croppedImageSize.height
-//        let width = right - left
-//        let height = bottom - top
-//        
-//        if isFirstTime {
-//            isFirstTime = false
-//            return CGRect(x: xPosition, y: yPosition, width: width, height: height)
-//        } else {
-//            if left < imageRect!.minX {
-//                left = imageRect!.minX
-//            }
-//            if top < imageRect!.minY {
-//                top = imageRect!.minY
-//            }
-//            if croppedImageSize.width > croppedImageSize.height {
-//                let calculatedHeight = width * theHeightScaleFactor
-//                if calculatedHeight > maximumPossibleHeight || width > maximumPossibleWidth {
-//                    if internalCropRect != nil {
-//                        return internalCropRect!
-//                    }
-//                }
-//                if top > (imageRect!.maxY - (width * theHeightScaleFactor)) && bottom >= imageRect!.maxY {
-//                    top = imageRect!.maxY - (width * theHeightScaleFactor)
-//                }
-//                return CGRect(x: left, y: top, width: width, height: width * theHeightScaleFactor)
-//            } else {
-//                let calculatedWidth = height * theWidthScaleFactor
-//                if height > maximumPossibleHeight || calculatedWidth > maximumPossibleWidth {
-//                    if internalCropRect != nil {
-//                        return internalCropRect!
-//                    }
-//                }
-//                if left > (imageRect!.maxX - (height * theWidthScaleFactor)) && right >= imageRect!.maxX {
-//                    left = imageRect!.maxX - (height * theWidthScaleFactor)
-//                }
-//                return CGRect(x: left, y: top, width: height * theWidthScaleFactor, height: height)
-//            }
-//        }
-//        
-//    }
+    private func rectFromStartAndEndSquare(_ startPoint:CGPoint, endPoint: CGPoint) -> CGRect {
+        var  top, left, bottom, right: CGFloat
+        top = min(startPoint.y, endPoint.y)
+        bottom = max(startPoint.y, endPoint.y)
+        
+        left = min(startPoint.x, endPoint.x)
+        right = max(startPoint.x, endPoint.x)
+        
+        let theHeightScaleFactor = croppedImageSize.height / croppedImageSize.width
+        let theWidthScaleFactor = croppedImageSize.width / croppedImageSize.height
+        let width = right - left
+        let height = bottom - top
+        
+        if isFirstTime {
+            isFirstTime = false
+            return CGRect(x: xPosition, y: yPosition, width: width, height: height)
+        } else {
+            if left < imageRect!.minX {
+                left = imageRect!.minX
+            }
+            if top < imageRect!.minY {
+                top = imageRect!.minY
+            }
+            if croppedImageSize.width > croppedImageSize.height {
+                let calculatedHeight = width * theHeightScaleFactor
+                if calculatedHeight > maximumPossibleHeight || width > maximumPossibleWidth {
+                    if internalCropRect != nil {
+                        return internalCropRect!
+                    }
+                }
+                if top > (imageRect!.maxY - (width * theHeightScaleFactor)) && bottom >= imageRect!.maxY {
+                    top = imageRect!.maxY - (width * theHeightScaleFactor)
+                }
+                return CGRect(x: left, y: top, width: width, height: width * theHeightScaleFactor)
+            } else {
+                let calculatedWidth = height * theWidthScaleFactor
+                if height > maximumPossibleHeight || calculatedWidth > maximumPossibleWidth {
+                    if internalCropRect != nil {
+                        return internalCropRect!
+                    }
+                }
+                if left > (imageRect!.maxX - (height * theWidthScaleFactor)) && right >= imageRect!.maxX {
+                    left = imageRect!.maxX - (height * theWidthScaleFactor)
+                }
+                return CGRect(x: left, y: top, width: height * theWidthScaleFactor, height: height)
+            }
+        }
+        
+    }
     
     @objc private func handleDragInView(_ panGesture: UIPanGestureRecognizer) {
         
@@ -488,7 +505,12 @@ extension ARImageCropper: CornerpointProtocol {
         let otherIndex:Int = (pointIndex! + 2) % 4
         
         //Calculate a new cropRect using those 2 corners
-        cropRect = rectFromStartAndEnd(newCornerPoint.centerPoint!, endPoint: cornerpoints[otherIndex].centerPoint!)
+        if currentCropStyle == .free {
+            cropRect = rectFromStartAndEndFree(newCornerPoint.centerPoint!, endPoint: cornerpoints[otherIndex].centerPoint!)
+        }else {
+            cropRect = rectFromStartAndEndSquare(newCornerPoint.centerPoint!, endPoint: cornerpoints[otherIndex].centerPoint!)
+        }
+       
         
     }
     

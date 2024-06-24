@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import AVFoundation
 
 class IntermediateViewController: UIViewController {
 
     @IBOutlet weak var containerView: UIView!
     private var cornerpoints =  [CornerpointView]()
+    var frames : [UIImage] = []
     
     private var imageCropper: ARImageCropper!
     
@@ -18,12 +20,16 @@ class IntermediateViewController: UIViewController {
         super.viewDidLoad()
 
         self.navigationController?.isNavigationBarHidden = true
+        initializeCropper(with: UIImage(named: "test")!)
+    }
+    
+    func initializeCropper(with img : UIImage){
         // Initialize the ARImageCropper instance
         imageCropper = ARImageCropper(frame: .zero)
         imageCropper.backgroundColor = .clear
         
         // Set the properties for the image cropper
-        imageCropper.image = UIImage(named: "image1")
+        imageCropper.image = img
         imageCropper.croppedImageSize = CGSize(width: 100, height: 100) // Set the desired cropped image size
         imageCropper.borderColor = .black // Customize the border color
         imageCropper.borderWidth = 2.0 // Customize the border width
@@ -43,8 +49,44 @@ class IntermediateViewController: UIViewController {
             imageCropper.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 0),
             imageCropper.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 0) // Maintain aspect ratio
         ])
+
     }
     
+    func extractFramesFromVideo(at url: URL, frameCount: Int = 10, fromDuration : ) {
+        let asset = AVAsset(url: url)
+        let assetDuration = CMTimeGetSeconds(asset.duration)
+        let times = stride(from: 0, to: assetDuration, by: assetDuration / Double(frameCount - 1)).map {
+            CMTimeMakeWithSeconds($0, preferredTimescale: asset.duration.timescale)
+        }
+        
+        extractFrames(at: times, from: asset)
+    }
     
+    func extractFrames(at times: [CMTime], from asset: AVAsset) {
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        imageGenerator.appliesPreferredTrackTransform = true
 
+        let dispatchGroup = DispatchGroup()
+
+        for time in times {
+            dispatchGroup.enter()
+            imageGenerator.generateCGImagesAsynchronously(forTimes: [NSValue(time: time)]) { _, cgImage, _, _, error in
+                if let cgImage = cgImage {
+                    let uiImage = UIImage(cgImage: cgImage)
+                    self.frames.append(uiImage.normalizeImageOrientation())
+                } else if let error = error {
+                    print("Error generating image: \(error.localizedDescription)")
+                }
+                dispatchGroup.leave()
+            }
+        }
+    }
+    
+    @IBAction func freeStyleAction(_ sender: Any) {
+        imageCropper.currentCropStyle = .free
+    }
+    
+    @IBAction func squareStyleAction(_ sender: Any) {
+        imageCropper.currentCropStyle = .square
+    }
 }

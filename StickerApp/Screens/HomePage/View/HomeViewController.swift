@@ -107,10 +107,6 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate {
             CMTimeMakeWithSeconds($0, preferredTimescale: asset.duration.timescale)
         }
         
-        // Ensures the last frame is exactly at the end
-//        var adjustedTimes = times
-//        adjustedTimes[frameCount - 1] = asset.duration
-
         extractFrames(at: times, from: asset)
     }
 
