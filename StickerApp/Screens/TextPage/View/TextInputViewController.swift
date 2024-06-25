@@ -281,10 +281,20 @@ class TextInputViewController: UIViewController {
     func upAndDownAnimation(){
         
         UIView.animateKeyframes(withDuration: 2, delay: 0, options: [], animations: {
-            self.animatedLabel.transform = CGAffineTransformMakeTranslation(0, 1)
+           
             // Keyframe 2: Move down and change color to red
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1.0) {
-                self.animatedLabel.transform = CGAffineTransformMakeTranslation(0, -1)
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 0.25) {
+                self.animatedLabel.transform = CGAffineTransformMakeTranslation(0, 30)
+            }
+            
+            // Keyframe 3: Zoom in
+            UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.5) {
+                self.animatedLabel.transform = CGAffineTransformMakeTranslation(0, -30)
+            }
+            
+            // Keyframe 3: Zoom in
+            UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25) {
+                self.animatedLabel.transform = CGAffineTransformMakeTranslation(0, 0)
             }
             
         }, completion: { [self] _ in
