@@ -40,8 +40,8 @@ class EditViewController: UIViewController {
 //        contentImageView.layer.cornerRadius = 10
 //        contentImageView.layer.borderWidth = 10
 //        contentImageView.layer.borderColor = UIColor.green.cgColor
-        
-        let sz = frames[0].size.calculateFinalSize(in: CGSize(width: 300, height: 300))
+        let availableWidth = view.bounds.width - 50
+        let sz = frames[0].size.calculateFinalSize(in: CGSize(width: availableWidth, height: availableWidth))
         contentImageWidthCon.constant = sz.width
         contentImageHeightCon.constant = sz.height
     }

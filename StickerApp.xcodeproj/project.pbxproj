@@ -12,6 +12,7 @@
 		864F324A2C19FF96006A62AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 864F32492C19FF96006A62AD /* Assets.xcassets */; };
 		864F324D2C19FF96006A62AD /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 864F324C2C19FF96006A62AD /* Base */; };
 		865845472C2317EF00AAAA27 /* CIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865845462C2317EF00AAAA27 /* CIImage+Extensions.swift */; };
+		8696EAD52C2B434700B4E7C2 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8696EAD42C2B434700B4E7C2 /* UILabel+Extensions.swift */; };
 		86973D342C2166FC00445778 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86973D332C2166FC00445778 /* HomeViewController.xib */; };
 		86973D352C2166FC00445778 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86973D322C2166FC00445778 /* HomeViewController.swift */; };
 		86973D3A2C2189E000445778 /* EditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86973D392C2189E000445778 /* EditViewController.xib */; };
@@ -43,6 +44,7 @@
 		864F324C2C19FF96006A62AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		864F324E2C19FF96006A62AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		865845462C2317EF00AAAA27 /* CIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Extensions.swift"; sourceTree = "<group>"; };
+		8696EAD42C2B434700B4E7C2 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		86973D322C2166FC00445778 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		86973D332C2166FC00445778 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		86973D382C2189E000445778 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				86973D3D2C21A52400445778 /* UIImage+Extensions.swift */,
 				86973D402C21A57200445778 /* CGSize+Extensions.swift */,
 				865845462C2317EF00AAAA27 /* CIImage+Extensions.swift */,
+				8696EAD42C2B434700B4E7C2 /* UILabel+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 			files = (
 				86C662B92C29F0D500E2F04D /* CustomTextLabel.swift in Sources */,
 				86C662AC2C29DCD000E2F04D /* FontsCollectionViewCell.swift in Sources */,
+				8696EAD52C2B434700B4E7C2 /* UILabel+Extensions.swift in Sources */,
 				86973D3B2C2189E000445778 /* EditViewController.swift in Sources */,
 				864F32412C19FF95006A62AD /* AppDelegate.swift in Sources */,
 				86C662942C29C1FC00E2F04D /* TextInputViewController.swift in Sources */,

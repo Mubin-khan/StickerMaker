@@ -9,6 +9,7 @@ import UIKit
 
 class TextFeatureCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var featueTitle: UILabel!
     static let textFeatureidentifier = "TextFeatureCollectionViewCell"
     
     override func awakeFromNib() {
