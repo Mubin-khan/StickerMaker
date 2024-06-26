@@ -8,19 +8,221 @@
 import UIKit
 import AVFoundation
 
-class IntermediateViewController: UIViewController {
+class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate {
 
+    @IBOutlet weak var frameCollectionView: UICollectionView!
+    @IBOutlet weak var frameContainerView: UIView!
+    @IBOutlet weak var rightSliderTraillingCons: NSLayoutConstraint!
+    @IBOutlet weak var leftSliderLeadingCons: NSLayoutConstraint!
+    @IBOutlet weak var rightSliderView: UIView!
+    @IBOutlet weak var leftSliderView: UIView!
+    @IBOutlet weak var sliderLeadingCon: NSLayoutConstraint!
+    @IBOutlet weak var sliderContainerView: UIView!
+    @IBOutlet weak var sliderView: UIView!
+    @IBOutlet weak var playPlauseImageView: UIImageView!
+    let avPlayerLayerContainer = AvPlayerLayerContainerView(frame: .zero)
     @IBOutlet weak var containerView: UIView!
     private var cornerpoints =  [CornerpointView]()
-    var frames : [UIImage] = []
-    
+    let url : URL
     private var imageCropper: ARImageCropper!
+    
+    var player : AVPlayer!
+    
+    var frames : [Double : UIImage] = [:]
+    var times : [CMTime] = []
+    
+    init(url : URL){
+        self.url = url
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.navigationController?.isNavigationBarHidden = true
-        initializeCropper(with: UIImage(named: "test")!)
+        
+        loadPlayer(from: url)
+        setConstraints()
+        configureCollectionView()
+        extractFramesFromVideo(at: url)
+    }
+    
+    private func configureCollectionView(){
+        let nib = UINib(nibName: frameCollectionViewCell.frameIdentifier, bundle: nil)
+        frameCollectionView.register(nib, forCellWithReuseIdentifier: frameCollectionViewCell.frameIdentifier)
+        frameCollectionView.delegate = self
+        frameCollectionView.dataSource = self
+    }
+    
+    private func setConstraints(){
+        sliderContainerView.layer.cornerRadius = 4
+        sliderView.layer.cornerRadius = 4
+        
+        addGestureToView(view: sliderView)
+        addGestureToView(view: leftSliderView)
+        addGestureToView(view: rightSliderView)
+        leftSliderView.tag = 1
+        rightSliderView.tag = 2
+        sliderView.tag = 3
+    }
+    
+    var sliderPangesture : UIPanGestureRecognizer?
+    func addGestureToView(view : UIView){
+        view.isUserInteractionEnabled = true
+        sliderPangesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        
+        guard let sliderPangesture = sliderPangesture else {return}
+        sliderPangesture.delegate = self
+        view.addGestureRecognizer(sliderPangesture)
+    }
+    
+    private var beginningPoint = CGPoint.zero
+    private var leadingPoint = CGFloat.zero
+    
+    
+    @objc func handlePanGesture(_ recognizer : UIPanGestureRecognizer){
+        
+        guard let view = recognizer.view else {
+            return
+        }
+        
+        switch view.tag {
+        case 1 : handleLeftSliderRecognizer(recognizer)
+        case 2 : handleRightSliderRecognizer(recognizer)
+        case 3 : handleSliderRecognizer(recognizer)
+        default : break
+        }
+    }
+    
+    func handleRightSliderRecognizer(_ recognizer : UIPanGestureRecognizer){
+        let touchLocation = recognizer.location(in: view.superview)
+        switch recognizer.state {
+        case .began:
+            self.beginningPoint = touchLocation
+            self.leadingPoint = rightSliderTraillingCons.constant
+            pauseAction()
+        case .changed, .ended:
+            var leadingValue = self.leadingPoint + (self.beginningPoint.x - touchLocation.x)
+            if leadingValue < 0 {
+                leadingValue = 0
+            }else if leadingValue > frameCollectionView.bounds.width - ( leftSliderLeadingCons.constant + (leftSliderView.bounds.width + 0.01)) {
+                leadingValue = frameCollectionView.bounds.width - (leftSliderLeadingCons.constant + (leftSliderView.bounds.width + 0.01))
+            }
+            
+            rightSliderTraillingCons.constant = leadingValue
+           
+        default : break
+        }
+        
+    }
+    
+    func handleLeftSliderRecognizer(_ recognizer : UIPanGestureRecognizer){
+        let touchLocation = recognizer.location(in: view.superview)
+        switch recognizer.state {
+        case .began:
+            self.beginningPoint = touchLocation
+            self.leadingPoint = leftSliderLeadingCons.constant
+           pauseAction()
+        case .changed, .ended:
+            var leadingValue = self.leadingPoint + (touchLocation.x - self.beginningPoint.x)
+            if leadingValue < 0 {
+                leadingValue = 0
+            }else if leadingValue > frameCollectionView.bounds.width - (rightSliderView.bounds.width + rightSliderTraillingCons.constant + 0.01) {
+                leadingValue = frameCollectionView.bounds.width - (rightSliderView.bounds.width + rightSliderTraillingCons.constant + 0.01)
+            }
+            leftSliderLeadingCons.constant = leadingValue
+           
+        default : break
+        }
+        
+    }
+    
+    func handleSliderRecognizer(_ recognizer : UIPanGestureRecognizer){
+        let touchLocation = recognizer.location(in: view.superview)
+        switch recognizer.state {
+        case .began:
+            self.beginningPoint = touchLocation
+            self.leadingPoint = sliderLeadingCon.constant
+            pauseAction()
+        case .changed, .ended:
+            var leadingValue = self.leadingPoint + (touchLocation.x - self.beginningPoint.x)
+            if leadingValue < 0 {
+                leadingValue = 0
+            }else if leadingValue > (sliderContainerView.bounds.width - sliderView.bounds.width) {
+                leadingValue = sliderContainerView.bounds.width - sliderView.bounds.width
+            }
+            sliderLeadingCon.constant = leadingValue
+            
+            seekVideo()
+           
+        default : break
+        }
+        
+    }
+    
+    private func seekVideo() {
+        let frameWidth = frameCollectionView.bounds.width / 10
+        let sliderTotalWidth = sliderContainerView.bounds.width - sliderView.bounds.width
+        let numberOfFramesLeft = times.count - 10
+        let remainingCollectionWidth = CGFloat(numberOfFramesLeft) * frameWidth
+        let tmp = remainingCollectionWidth * sliderLeadingCon.constant / sliderTotalWidth
+        
+        frameCollectionView.contentOffset.x = tmp
+        
+        
+    }
+    
+    private func loadPlayer(from url : URL){
+        let asset = AVAsset(url: url)
+        let playerItem = AVPlayerItem(asset: asset)
+        player = AVPlayer(playerItem: playerItem)
+        
+        containerView.addSubview(avPlayerLayerContainer)
+        avPlayerLayerContainer.backgroundColor = UIColor.clear
+        guard let testPlayerLayer = avPlayerLayerContainer.layer as? AVPlayerLayer else {return }
+        testPlayerLayer.player = player
+        testPlayerLayer.needsDisplayOnBoundsChange = true
+        testPlayerLayer.videoGravity = .resizeAspect
+        avPlayerLayerContainer.translatesAutoresizingMaskIntoConstraints = false
+
+        let leadingConstraint = avPlayerLayerContainer.leadingAnchor.constraint(equalTo: containerView.leadingAnchor)
+        let trailingConstraint = avPlayerLayerContainer.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
+        let bottomConstraint = avPlayerLayerContainer.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+        let topConstarint = avPlayerLayerContainer.topAnchor.constraint(equalTo: containerView.topAnchor)
+        NSLayoutConstraint.activate([ leadingConstraint, trailingConstraint, bottomConstraint, topConstarint ])
+        
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        imageGenerator.appliesPreferredTrackTransform = true
+
+        let time = CMTimeMakeWithSeconds(0, preferredTimescale: asset.duration.timescale)
+        imageGenerator.generateCGImagesAsynchronously(forTimes: [NSValue(time: time)]) { _, cgImage, _, _, error in
+            if let cgImage = cgImage {
+                let uiImage = UIImage(cgImage: cgImage)
+                DispatchQueue.main.async {
+                    self.initializeCropper(with: uiImage)
+                }
+            } else if let error = error {
+                print("Error generating image: \(error.localizedDescription)")
+            }
+        }
+        
+        NotificationCenter.default
+            .addObserver(self,
+            selector: #selector(playerDidFinishPlaying),
+            name: .AVPlayerItemDidPlayToEndTime,
+            object: player.currentItem
+        )
+        
+        player.volume = 0
+        player?.play()
+    }
+    
+    @objc func playerDidFinishPlaying(){
+        pauseAction()
     }
     
     func initializeCropper(with img : UIImage){
@@ -31,11 +233,11 @@ class IntermediateViewController: UIViewController {
         // Set the properties for the image cropper
         imageCropper.image = img
         imageCropper.croppedImageSize = CGSize(width: 100, height: 100) // Set the desired cropped image size
-        imageCropper.borderColor = .black // Customize the border color
+        imageCropper.borderColor = .white // Customize the border color
         imageCropper.borderWidth = 2.0 // Customize the border width
         imageCropper.cornersColor = .green // Customize the corners color
         imageCropper.cornersSize = CGSize(width: 20, height: 20) // Customize the corners size
-        imageCropper.cornersLineWidth = 3 // Customize the corners line width
+        imageCropper.cornersLineWidth = 5 // Customize the corners line width
         imageCropper.cornerShape = .square // Customize the corner shape
         
         // Add the image cropper to the view hierarchy
@@ -52,10 +254,20 @@ class IntermediateViewController: UIViewController {
 
     }
     
-    func extractFramesFromVideo(at url: URL, frameCount: Int = 10) {
+    func extractFramesFromVideo(at url: URL) {
         let asset = AVAsset(url: url)
         let assetDuration = CMTimeGetSeconds(asset.duration)
-        let times = stride(from: 0, to: assetDuration, by: assetDuration / Double(frameCount - 1)).map {
+        
+        var frameCount = 0
+        if asset.duration.seconds <= 10 {
+            frameCount = 10
+            sliderView.isUserInteractionEnabled = false
+            sliderView.backgroundColor = .gray
+        }else {
+            frameCount = Int(ceil(asset.duration.seconds))
+        }
+        
+        times = stride(from: 0, to: assetDuration, by: assetDuration / Double(frameCount)).map {
             CMTimeMakeWithSeconds($0, preferredTimescale: asset.duration.timescale)
         }
         
@@ -73,7 +285,11 @@ class IntermediateViewController: UIViewController {
             imageGenerator.generateCGImagesAsynchronously(forTimes: [NSValue(time: time)]) { _, cgImage, _, _, error in
                 if let cgImage = cgImage {
                     let uiImage = UIImage(cgImage: cgImage)
-                    self.frames.append(uiImage.normalizeImageOrientation())
+                    self.frames[time.seconds] = uiImage.normalizeImageOrientation()
+                    
+                    DispatchQueue.main.async {
+                        self.frameCollectionView.reloadData()
+                    }
                 } else if let error = error {
                     print("Error generating image: \(error.localizedDescription)")
                 }
@@ -88,5 +304,74 @@ class IntermediateViewController: UIViewController {
     
     @IBAction func squareStyleAction(_ sender: Any) {
         imageCropper.currentCropStyle = .square
+    }
+    
+    @IBAction func backAction(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func playPauseButtonAction(_ sender: Any) {
+        if player?.rate == 0 {
+           playAction()
+        }else {
+           pauseAction()
+        }
+    }
+    
+    private func playAction(){
+        if (player.currentItem?.duration.seconds)! <= player.currentTime().seconds {
+            player.seek(to: .zero)
+        }
+        player?.play()
+        playPlauseImageView.image = UIImage(named: "pauseButton")
+    }
+    
+    private func pauseAction(){
+        player?.pause()
+        playPlauseImageView.image = UIImage(named: "playButton")
+    }
+    
+}
+
+extension IntermediateViewController : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        times.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: frameCollectionViewCell.frameIdentifier, for: indexPath) as? frameCollectionViewCell {
+            if (frames[times[indexPath.row].seconds] != nil) {
+                cell.frameImageView.image = frames[times[indexPath.row].seconds]
+            }else {
+                cell.frameImageView.image = nil
+            }
+            
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: (collectionView.bounds.width / 10), height: collectionView.bounds.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
+}
+
+
+class AvPlayerLayerContainerView: UIView {
+    
+    override public class var layerClass: Swift.AnyClass {
+        return AVPlayerLayer.self
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
     }
 }

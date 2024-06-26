@@ -34,6 +34,10 @@
 		86C775182C240F3D003A58F8 /* IntermediateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86C775162C240F3D003A58F8 /* IntermediateViewController.xib */; };
 		86C7751B2C241107003A58F8 /* CornerPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7751A2C241107003A58F8 /* CornerPointView.swift */; };
 		86C7751D2C241210003A58F8 /* ARImageCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7751C2C241210003A58F8 /* ARImageCropper.swift */; };
+		86F7C3172C2C683A00684B5B /* GifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F7C3152C2C683A00684B5B /* GifViewController.swift */; };
+		86F7C3182C2C683A00684B5B /* GifViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86F7C3162C2C683A00684B5B /* GifViewController.xib */; };
+		86F7C31C2C2C8E2800684B5B /* frameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F7C31A2C2C8E2800684B5B /* frameCollectionViewCell.swift */; };
+		86F7C31D2C2C8E2800684B5B /* frameCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86F7C31B2C2C8E2800684B5B /* frameCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +70,10 @@
 		86C775162C240F3D003A58F8 /* IntermediateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntermediateViewController.xib; sourceTree = "<group>"; };
 		86C7751A2C241107003A58F8 /* CornerPointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerPointView.swift; sourceTree = "<group>"; };
 		86C7751C2C241210003A58F8 /* ARImageCropper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARImageCropper.swift; sourceTree = "<group>"; };
+		86F7C3152C2C683A00684B5B /* GifViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifViewController.swift; sourceTree = "<group>"; };
+		86F7C3162C2C683A00684B5B /* GifViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GifViewController.xib; sourceTree = "<group>"; };
+		86F7C31A2C2C8E2800684B5B /* frameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = frameCollectionViewCell.swift; sourceTree = "<group>"; };
+		86F7C31B2C2C8E2800684B5B /* frameCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = frameCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +119,7 @@
 		86973D2D2C21665B00445778 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				86F7C3112C2C680800684B5B /* Gif */,
 				86C662902C29C1DC00E2F04D /* TextPage */,
 				86C775132C240F02003A58F8 /* IntermediatePage */,
 				86973D362C2189C600445778 /* EditPage */,
@@ -266,6 +275,7 @@
 		86C775142C240F28003A58F8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				86F7C3192C2C8D2100684B5B /* NIB */,
 				86C775192C2410E4003A58F8 /* subview */,
 				86C775152C240F3D003A58F8 /* IntermediateViewController.swift */,
 				86C775162C240F3D003A58F8 /* IntermediateViewController.xib */,
@@ -280,6 +290,48 @@
 				86C7751A2C241107003A58F8 /* CornerPointView.swift */,
 			);
 			path = subview;
+			sourceTree = "<group>";
+		};
+		86F7C3112C2C680800684B5B /* Gif */ = {
+			isa = PBXGroup;
+			children = (
+				86F7C3142C2C681B00684B5B /* ViewModel */,
+				86F7C3132C2C681400684B5B /* Model */,
+				86F7C3122C2C681000684B5B /* View */,
+			);
+			path = Gif;
+			sourceTree = "<group>";
+		};
+		86F7C3122C2C681000684B5B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				86F7C3152C2C683A00684B5B /* GifViewController.swift */,
+				86F7C3162C2C683A00684B5B /* GifViewController.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		86F7C3132C2C681400684B5B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		86F7C3142C2C681B00684B5B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		86F7C3192C2C8D2100684B5B /* NIB */ = {
+			isa = PBXGroup;
+			children = (
+				86F7C31A2C2C8E2800684B5B /* frameCollectionViewCell.swift */,
+				86F7C31B2C2C8E2800684B5B /* frameCollectionViewCell.xib */,
+			);
+			path = NIB;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -342,12 +394,14 @@
 			files = (
 				86973D3A2C2189E000445778 /* EditViewController.xib in Resources */,
 				86C662A92C29C84100E2F04D /* ColorCollectionViewCell.xib in Resources */,
+				86F7C31D2C2C8E2800684B5B /* frameCollectionViewCell.xib in Resources */,
 				86C662AD2C29DCD000E2F04D /* FontsCollectionViewCell.xib in Resources */,
 				86C775182C240F3D003A58F8 /* IntermediateViewController.xib in Resources */,
 				86C662952C29C1FC00E2F04D /* TextInputViewController.xib in Resources */,
 				864F324A2C19FF96006A62AD /* Assets.xcassets in Resources */,
 				864F324D2C19FF96006A62AD /* Base in Resources */,
 				86973D342C2166FC00445778 /* HomeViewController.xib in Resources */,
+				86F7C3182C2C683A00684B5B /* GifViewController.xib in Resources */,
 				86C662A52C29C72200E2F04D /* TextFeatureCollectionViewCell.xib in Resources */,
 				86C662B22C29DF9900E2F04D /* AnimCollectionViewCell.xib in Resources */,
 			);
@@ -364,9 +418,11 @@
 				86C662AC2C29DCD000E2F04D /* FontsCollectionViewCell.swift in Sources */,
 				8696EAD52C2B434700B4E7C2 /* UILabel+Extensions.swift in Sources */,
 				86973D3B2C2189E000445778 /* EditViewController.swift in Sources */,
+				86F7C31C2C2C8E2800684B5B /* frameCollectionViewCell.swift in Sources */,
 				864F32412C19FF95006A62AD /* AppDelegate.swift in Sources */,
 				86C662942C29C1FC00E2F04D /* TextInputViewController.swift in Sources */,
 				86C775172C240F3D003A58F8 /* IntermediateViewController.swift in Sources */,
+				86F7C3172C2C683A00684B5B /* GifViewController.swift in Sources */,
 				86973D3E2C21A52400445778 /* UIImage+Extensions.swift in Sources */,
 				86C7751D2C241210003A58F8 /* ARImageCropper.swift in Sources */,
 				864F32432C19FF95006A62AD /* SceneDelegate.swift in Sources */,

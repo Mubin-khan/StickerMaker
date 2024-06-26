@@ -97,7 +97,8 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate {
                             do {
                                 try FileManager.default.moveItem(at: url, to: tempURL)
                                 DispatchQueue.main.async {
-                                    self.extractFramesFromVideo(at: tempURL)
+//                                    self.extractFramesFromVideo(at: tempURL)
+                                    self.gotoEditPage(with: tempURL)
                                 }
                             } catch {
                                 print("Error moving file: \(error.localizedDescription)")
@@ -137,7 +138,7 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate {
         }
 
         dispatchGroup.notify(queue: .main) {
-            self.gotoEditPage()
+//            self.gotoEditPage()
         }
     }
     
@@ -189,13 +190,13 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate {
             }
         }
         
-        gotoEditPage()
+//        gotoEditPage()
     }
     
-    private func gotoEditPage(){
+    private func gotoEditPage(with url : URL){
         DispatchQueue.main.async {
 //            let vc = EditViewController(frames: self.frames)
-            let vc = IntermediateViewController()
+            let vc = IntermediateViewController(url: url)
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
