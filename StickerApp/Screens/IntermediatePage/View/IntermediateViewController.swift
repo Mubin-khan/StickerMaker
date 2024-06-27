@@ -10,6 +10,9 @@ import AVFoundation
 
 class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate {
 
+    @IBOutlet weak var testLabel: UILabel!
+    @IBOutlet weak var seekarLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var seekarView: UIView!
     @IBOutlet weak var frameCollectionView: UICollectionView!
     @IBOutlet weak var frameContainerView: UIView!
     @IBOutlet weak var rightSliderTraillingCons: NSLayoutConstraint!
@@ -27,9 +30,10 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
     private var imageCropper: ARImageCropper!
     
     var player : AVPlayer!
-    
     var frames : [Double : UIImage] = [:]
     var times : [CMTime] = []
+    var minimumtime : CMTime = .zero
+    var maximumtime : CMTime = CMTime(seconds: 10, preferredTimescale: 600)
     
     init(url : URL){
         self.url = url
@@ -109,8 +113,8 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
             var leadingValue = self.leadingPoint + (self.beginningPoint.x - touchLocation.x)
             if leadingValue < 0 {
                 leadingValue = 0
-            }else if leadingValue > frameCollectionView.bounds.width - ( leftSliderLeadingCons.constant + (leftSliderView.bounds.width + 0.01)) {
-                leadingValue = frameCollectionView.bounds.width - (leftSliderLeadingCons.constant + (leftSliderView.bounds.width + 0.01))
+            }else if leadingValue > frameContainerView.bounds.width - ( leftSliderLeadingCons.constant + (leftSliderView.bounds.width * 2)) {
+                leadingValue = frameContainerView.bounds.width - (leftSliderLeadingCons.constant + (leftSliderView.bounds.width * 2))
             }
             
             rightSliderTraillingCons.constant = leadingValue
@@ -131,8 +135,8 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
             var leadingValue = self.leadingPoint + (touchLocation.x - self.beginningPoint.x)
             if leadingValue < 0 {
                 leadingValue = 0
-            }else if leadingValue > frameCollectionView.bounds.width - (rightSliderView.bounds.width + rightSliderTraillingCons.constant + 0.01) {
-                leadingValue = frameCollectionView.bounds.width - (rightSliderView.bounds.width + rightSliderTraillingCons.constant + 0.01)
+            }else if leadingValue > frameContainerView.bounds.width - (rightSliderView.bounds.width * 2 + rightSliderTraillingCons.constant) {
+                leadingValue = frameContainerView.bounds.width - (rightSliderView.bounds.width * 2 + rightSliderTraillingCons.constant)
             }
             leftSliderLeadingCons.constant = leadingValue
            
@@ -217,7 +221,25 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
             object: player.currentItem
         )
         
-        player.volume = 0
+        player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.01, preferredTimescale: Int32(NSEC_PER_SEC)), queue: DispatchQueue.main) { [weak self] (CMTime) -> Void in
+            if let self = self {
+                
+                self.testLabel.text = CMTime.seconds.returnExpetedDurationString()
+                
+                if self.player?.currentItem?.status == .readyToPlay {
+                    if CMTime >= maximumtime {
+                        pauseAction()
+                        
+                        return
+                    }
+                    let diff = (frameContainerView.bounds.width - (rightSliderView.bounds.width + rightSliderTraillingCons.constant)) - (leftSliderLeadingCons.constant + leftSliderView.bounds.width)
+                    let curPosition = diff / (maximumtime.seconds - minimumtime.seconds) * CMTime.seconds
+                    seekarLeadingConstraint.constant = curPosition
+                }
+            }
+        }
+        
+        player?.volume = 0
         player?.play()
     }
     
@@ -227,18 +249,15 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
     
     func initializeCropper(with img : UIImage){
         // Initialize the ARImageCropper instance
-        imageCropper = ARImageCropper(frame: .zero)
+        imageCropper = ARImageCropper(frame: containerView.bounds)
         imageCropper.backgroundColor = .clear
         
         // Set the properties for the image cropper
         imageCropper.image = img
-        imageCropper.croppedImageSize = CGSize(width: 100, height: 100) // Set the desired cropped image size
+//        imageCropper.croppedImageSize = CGSize(width: 100, height: 100) // Set the desired cropped image size
         imageCropper.borderColor = .white // Customize the border color
         imageCropper.borderWidth = 2.0 // Customize the border width
-        imageCropper.cornersColor = .green // Customize the corners color
-        imageCropper.cornersSize = CGSize(width: 20, height: 20) // Customize the corners size
-        imageCropper.cornersLineWidth = 5 // Customize the corners line width
-        imageCropper.cornerShape = .square // Customize the corner shape
+       
         
         // Add the image cropper to the view hierarchy
         view.addSubview(imageCropper)
@@ -263,8 +282,10 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
             frameCount = 10
             sliderView.isUserInteractionEnabled = false
             sliderView.backgroundColor = .gray
+            maximumtime = asset.duration
         }else {
             frameCount = Int(ceil(asset.duration.seconds))
+            maximumtime = CMTime(seconds: 10, preferredTimescale: 600)
         }
         
         times = stride(from: 0, to: assetDuration, by: assetDuration / Double(frameCount)).map {
@@ -319,8 +340,9 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
     }
     
     private func playAction(){
-        if (player.currentItem?.duration.seconds)! <= player.currentTime().seconds {
+        if (player.currentItem?.duration)! <= player.currentTime() || maximumtime <= player.currentTime() {
             player.seek(to: .zero)
+            seekarLeadingConstraint.constant = 0
         }
         player?.play()
         playPlauseImageView.image = UIImage(named: "pauseButton")

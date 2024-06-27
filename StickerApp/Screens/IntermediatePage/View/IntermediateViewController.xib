@@ -19,9 +19,12 @@
                 <outlet property="playPlauseImageView" destination="8Ad-RA-rdP" id="yS5-hN-ykc"/>
                 <outlet property="rightSliderTraillingCons" destination="vZ0-tu-d4b" id="Khv-GX-d0Y"/>
                 <outlet property="rightSliderView" destination="CfU-qI-HnO" id="UiW-uN-j3d"/>
+                <outlet property="seekarLeadingConstraint" destination="IId-vV-Sqb" id="tPz-bx-aoC"/>
+                <outlet property="seekarView" destination="xSh-Xz-m0e" id="5Pe-Wn-zCc"/>
                 <outlet property="sliderContainerView" destination="mmu-rk-Qqq" id="L3m-iU-Mov"/>
                 <outlet property="sliderLeadingCon" destination="od8-vp-BQt" id="MOv-4m-kfB"/>
                 <outlet property="sliderView" destination="2Rm-Xx-tFo" id="djE-Pb-C98"/>
+                <outlet property="testLabel" destination="J4q-dk-Ekr" id="1PA-bZ-iia"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -233,15 +236,25 @@
                                     <rect key="frame" x="333" y="0.0" width="0.0" height="50"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xSh-Xz-m0e">
+                                    <rect key="frame" x="14" y="-2" width="4" height="54"/>
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="4" id="jFn-Sx-X0q"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="CfU-qI-HnO" firstAttribute="leading" secondItem="GRx-Xh-88P" secondAttribute="trailing" id="0cG-dX-zMb"/>
+                                <constraint firstItem="xSh-Xz-m0e" firstAttribute="top" secondItem="Qxp-6q-yzD" secondAttribute="top" constant="-2" id="38a-8b-Mvi"/>
                                 <constraint firstItem="Xp2-S1-F4z" firstAttribute="leading" secondItem="Qxp-6q-yzD" secondAttribute="leading" id="4IQ-3B-NXu"/>
                                 <constraint firstAttribute="bottom" secondItem="YPe-6Q-aCp" secondAttribute="bottom" id="6Yq-nJ-oSd"/>
+                                <constraint firstAttribute="bottom" secondItem="xSh-Xz-m0e" secondAttribute="bottom" constant="-2" id="6wy-f3-pce"/>
                                 <constraint firstItem="YLu-FZ-mgH" firstAttribute="leading" secondItem="Xp2-S1-F4z" secondAttribute="trailing" id="7X8-zD-J9e"/>
                                 <constraint firstItem="YPe-6Q-aCp" firstAttribute="top" secondItem="Qxp-6q-yzD" secondAttribute="top" id="CjV-hi-SqO"/>
                                 <constraint firstAttribute="bottom" secondItem="Xp2-S1-F4z" secondAttribute="bottom" id="GkE-xg-T4Q"/>
+                                <constraint firstItem="xSh-Xz-m0e" firstAttribute="leading" secondItem="YLu-FZ-mgH" secondAttribute="trailing" id="IId-vV-Sqb"/>
                                 <constraint firstItem="YLu-FZ-mgH" firstAttribute="top" secondItem="Qxp-6q-yzD" secondAttribute="top" id="LMf-LL-yWY"/>
                                 <constraint firstItem="YPe-6Q-aCp" firstAttribute="leading" secondItem="Qxp-6q-yzD" secondAttribute="leading" constant="10" id="LUO-IY-cVp"/>
                                 <constraint firstAttribute="bottom" secondItem="Ydv-Ai-iRQ" secondAttribute="bottom" id="QRd-Ng-2Ys"/>
@@ -333,7 +346,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IbQ-Pt-hhm">
-                    <rect key="frame" x="0.0" y="105" width="393" height="427"/>
+                    <rect key="frame" x="10" y="115" width="373" height="407"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
@@ -344,12 +357,12 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0K3-Tc-9TO" secondAttribute="trailing" id="CmZ-NH-hoP"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="WAg-Ao-cmf" secondAttribute="trailing" id="IHQ-XC-Dpg"/>
                 <constraint firstItem="0K3-Tc-9TO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="PO7-DQ-6Gf"/>
-                <constraint firstItem="IbQ-Pt-hhm" firstAttribute="top" secondItem="0K3-Tc-9TO" secondAttribute="bottom" id="VPm-uz-r6W"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="IbQ-Pt-hhm" secondAttribute="trailing" id="a2R-Bb-rIf"/>
-                <constraint firstItem="IbQ-Pt-hhm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="gSr-P7-Ijk"/>
+                <constraint firstItem="IbQ-Pt-hhm" firstAttribute="top" secondItem="0K3-Tc-9TO" secondAttribute="bottom" constant="10" id="VPm-uz-r6W"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="IbQ-Pt-hhm" secondAttribute="trailing" constant="10" id="a2R-Bb-rIf"/>
+                <constraint firstItem="IbQ-Pt-hhm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="gSr-P7-Ijk"/>
                 <constraint firstItem="0K3-Tc-9TO" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="u8T-hP-Hem"/>
                 <constraint firstItem="WAg-Ao-cmf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="xHD-es-r07"/>
-                <constraint firstItem="WAg-Ao-cmf" firstAttribute="top" secondItem="IbQ-Pt-hhm" secondAttribute="bottom" id="zOl-cm-Yeu"/>
+                <constraint firstItem="WAg-Ao-cmf" firstAttribute="top" secondItem="IbQ-Pt-hhm" secondAttribute="bottom" constant="10" id="zOl-cm-Yeu"/>
             </constraints>
             <point key="canvasLocation" x="46.564885496183201" y="20.422535211267608"/>
         </view>

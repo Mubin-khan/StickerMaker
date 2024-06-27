@@ -67,7 +67,7 @@ class CornerpointView: UIView {
                                          action: #selector(handleCornerDrag(_:)))
         addGestureRecognizer(dragger)
         //Make the corner point view big enough to drag with a finger.
-        bounds.size = CGSize(width: 30, height: 30)
+        bounds.size = CGSize(width: 40, height: 40)
         
         //Add a layer to the view to draw an outline for this corner point.
         
@@ -75,24 +75,24 @@ class CornerpointView: UIView {
         let linePath = UIBezierPath()
         switch cornerPosition {
         case .topLeft:
-            linePath.move(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.midY))
+            linePath.move(to: CGPoint(x: layer.bounds.midX - 2, y: layer.bounds.midY))
             linePath.addLine(to: CGPoint(x: layer.bounds.midX + cornersSize.width, y: layer.bounds.midY))
-            linePath.move(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.midY))
+            linePath.move(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.midY - 2))
             linePath.addLine(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.midY + cornersSize.height))
         case .topRight:
-            linePath.move(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.midY))
+            linePath.move(to: CGPoint(x: layer.bounds.midX + 2, y: layer.bounds.midY))
             linePath.addLine(to: CGPoint(x: layer.bounds.midX - cornersSize.width, y: layer.bounds.midY))
-            linePath.move(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.midY))
+            linePath.move(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.midY - 2))
             linePath.addLine(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.midY + cornersSize.height))
         case .bottomLeft:
-            linePath.move(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.midY))
+            linePath.move(to: CGPoint(x: layer.bounds.midX - 2, y: layer.bounds.midY))
             linePath.addLine(to: CGPoint(x: layer.bounds.midX + cornersSize.width, y: layer.bounds.midY))
-            linePath.move(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.midY))
+            linePath.move(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.midY + 2))
             linePath.addLine(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.midY - cornersSize.height))
         case .bottomRight:
-            linePath.move(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.midY))
+            linePath.move(to: CGPoint(x: layer.bounds.midX + 2, y: layer.bounds.midY))
             linePath.addLine(to: CGPoint(x: layer.bounds.midX - cornersSize.width, y: layer.bounds.midY))
-            linePath.move(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.midY))
+            linePath.move(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.midY - 2))
             linePath.addLine(to: CGPoint(x: layer.bounds.midX, y: layer.bounds.midY - cornersSize.height))
         }
         newLayer.lineWidth = cornersLineWidth

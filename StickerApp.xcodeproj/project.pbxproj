@@ -34,6 +34,7 @@
 		86C775182C240F3D003A58F8 /* IntermediateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86C775162C240F3D003A58F8 /* IntermediateViewController.xib */; };
 		86C7751B2C241107003A58F8 /* CornerPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7751A2C241107003A58F8 /* CornerPointView.swift */; };
 		86C7751D2C241210003A58F8 /* ARImageCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7751C2C241210003A58F8 /* ARImageCropper.swift */; };
+		86CD4B172C2DF1BB001C4AFD /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CD4B162C2DF1BB001C4AFD /* Double+Extensions.swift */; };
 		86F7C3172C2C683A00684B5B /* GifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F7C3152C2C683A00684B5B /* GifViewController.swift */; };
 		86F7C3182C2C683A00684B5B /* GifViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86F7C3162C2C683A00684B5B /* GifViewController.xib */; };
 		86F7C31C2C2C8E2800684B5B /* frameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F7C31A2C2C8E2800684B5B /* frameCollectionViewCell.swift */; };
@@ -70,6 +71,7 @@
 		86C775162C240F3D003A58F8 /* IntermediateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntermediateViewController.xib; sourceTree = "<group>"; };
 		86C7751A2C241107003A58F8 /* CornerPointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerPointView.swift; sourceTree = "<group>"; };
 		86C7751C2C241210003A58F8 /* ARImageCropper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARImageCropper.swift; sourceTree = "<group>"; };
+		86CD4B162C2DF1BB001C4AFD /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		86F7C3152C2C683A00684B5B /* GifViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifViewController.swift; sourceTree = "<group>"; };
 		86F7C3162C2C683A00684B5B /* GifViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GifViewController.xib; sourceTree = "<group>"; };
 		86F7C31A2C2C8E2800684B5B /* frameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = frameCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				86973D402C21A57200445778 /* CGSize+Extensions.swift */,
 				865845462C2317EF00AAAA27 /* CIImage+Extensions.swift */,
 				8696EAD42C2B434700B4E7C2 /* UILabel+Extensions.swift */,
+				86CD4B162C2DF1BB001C4AFD /* Double+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				86C662AC2C29DCD000E2F04D /* FontsCollectionViewCell.swift in Sources */,
 				8696EAD52C2B434700B4E7C2 /* UILabel+Extensions.swift in Sources */,
 				86973D3B2C2189E000445778 /* EditViewController.swift in Sources */,
+				86CD4B172C2DF1BB001C4AFD /* Double+Extensions.swift in Sources */,
 				86F7C31C2C2C8E2800684B5B /* frameCollectionViewCell.swift in Sources */,
 				864F32412C19FF95006A62AD /* AppDelegate.swift in Sources */,
 				86C662942C29C1FC00E2F04D /* TextInputViewController.swift in Sources */,

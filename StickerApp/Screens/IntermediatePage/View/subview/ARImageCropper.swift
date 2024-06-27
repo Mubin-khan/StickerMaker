@@ -30,10 +30,10 @@ public class ARImageCropper: UIView {
     private var maximumPossibleWidth: CGFloat = 0
     public var croppedImageSize: CGSize = CGSize()
     public var borderColor: UIColor = .red
-    public var borderWidth: CGFloat = 1.0
-    public var cornersColor: UIColor = .yellow
-    public var cornersSize: CGSize = CGSize(width: 15, height: 15)
-    public var cornersLineWidth: CGFloat = 2
+    public var borderWidth: CGFloat = 1.5
+    public var cornersColor: UIColor = .white
+    public var cornersSize: CGSize = CGSize(width: 30, height: 30)
+    public var cornersLineWidth: CGFloat = 4
     public var cornerShape: CornerShape = .line
     private var isFirstTime = true
     fileprivate var internalCropRect: CGRect?
@@ -345,9 +345,10 @@ public class ARImageCropper: UIView {
         if currentCropStyle == .free {
             cropRect = rectFromStartAndEndFree(CGPoint(x: 0, y: 0), endPoint: CGPoint(x: bounds.width, y: bounds.height))
         }else {
+            
             let xx = (rect.width - maximumPossibleWidth) / 2
             let yy = (rect.height - maximumPossibleHeight) / 2
-            cropRect = rectFromStartAndEndSquare(CGPoint(x: 0, y: 0), endPoint: CGPoint(x: maximumPossibleWidth, y: maximumPossibleHeight))
+            cropRect = rectFromStartAndEndSquare(CGPoint(x: xx, y: yy), endPoint: CGPoint(x: maximumPossibleWidth, y: maximumPossibleHeight))
         }
     }
     
@@ -398,45 +399,27 @@ public class ARImageCropper: UIView {
         left = min(startPoint.x, endPoint.x)
         right = max(startPoint.x, endPoint.x)
         
-        let theHeightScaleFactor = croppedImageSize.height / croppedImageSize.width
-        let theWidthScaleFactor = croppedImageSize.width / croppedImageSize.height
         let width = right - left
         let height = bottom - top
         
-        if isFirstTime {
-            isFirstTime = false
-            return CGRect(x: xPosition, y: yPosition, width: width, height: height)
-        } else {
-            if left < imageRect!.minX {
-                left = imageRect!.minX
-            }
-            if top < imageRect!.minY {
-                top = imageRect!.minY
-            }
-            if croppedImageSize.width > croppedImageSize.height {
-                let calculatedHeight = width * theHeightScaleFactor
-                if calculatedHeight > maximumPossibleHeight || width > maximumPossibleWidth {
-                    if internalCropRect != nil {
-                        return internalCropRect!
-                    }
-                }
-                if top > (imageRect!.maxY - (width * theHeightScaleFactor)) && bottom >= imageRect!.maxY {
-                    top = imageRect!.maxY - (width * theHeightScaleFactor)
-                }
-                return CGRect(x: left, y: top, width: width, height: width * theHeightScaleFactor)
-            } else {
-                let calculatedWidth = height * theWidthScaleFactor
-                if height > maximumPossibleHeight || calculatedWidth > maximumPossibleWidth {
-                    if internalCropRect != nil {
-                        return internalCropRect!
-                    }
-                }
-                if left > (imageRect!.maxX - (height * theWidthScaleFactor)) && right >= imageRect!.maxX {
-                    left = imageRect!.maxX - (height * theWidthScaleFactor)
-                }
-                return CGRect(x: left, y: top, width: height * theWidthScaleFactor, height: height)
+        if left < imageRect!.minX {
+            left = imageRect!.minX
+        }
+        if top < imageRect!.minY {
+            top = imageRect!.minY
+        }
+       
+        let calculatedWidth = height
+        if height > maximumPossibleHeight || calculatedWidth > maximumPossibleWidth {
+            if internalCropRect != nil {
+                return internalCropRect!
             }
         }
+        if left > (imageRect!.maxX - height ) && right >= imageRect!.maxX {
+            left = imageRect!.maxX - height
+        }
+        let tmp = max(width, height)
+        return CGRect(x: left, y: top, width: tmp, height: tmp)
         
     }
     
