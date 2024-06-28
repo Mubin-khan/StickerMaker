@@ -1,0 +1,6 @@
+framework module Pods_StickerApp {
+  umbrella header "Pods-StickerApp-umbrella.h"
+
+  export *
+  module * { export * }
+}

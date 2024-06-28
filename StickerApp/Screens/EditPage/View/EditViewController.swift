@@ -36,10 +36,7 @@ class EditViewController: UIViewController {
         
         self.displayLink.add(to: .main, forMode: .common)
         self.displayLink.preferredFramesPerSecond = 30
-        
-//        contentImageView.layer.cornerRadius = 10
-//        contentImageView.layer.borderWidth = 10
-//        contentImageView.layer.borderColor = UIColor.green.cgColor
+ 
         let availableWidth = view.bounds.width - 50
         let sz = frames[0].size.calculateFinalSize(in: CGSize(width: availableWidth, height: availableWidth))
         contentImageWidthCon.constant = sz.width
@@ -56,7 +53,7 @@ class EditViewController: UIViewController {
     
     @IBAction func backAction(_ sender: Any) {
         displayLink.invalidate()
-        navigationController?.popViewController(animated: true)
+        navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func strokeWidthChangeAction(_ sender: UISlider, forEvent event: UIEvent) {

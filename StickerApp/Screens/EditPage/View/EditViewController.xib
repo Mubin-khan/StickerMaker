@@ -63,7 +63,7 @@
                         <constraint firstItem="vm0-gl-Z3v" firstAttribute="centerY" secondItem="SSQ-2F-Dni" secondAttribute="centerY" id="ura-d9-EaI"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U3R-Sm-azg">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U3R-Sm-azg">
                     <rect key="frame" x="0.0" y="652" width="393" height="200"/>
                     <subviews>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="feo-Vb-5cA">

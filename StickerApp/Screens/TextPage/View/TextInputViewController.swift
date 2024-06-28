@@ -496,6 +496,11 @@ class TextInputViewController: UIViewController {
         let vc = EditViewController(frames: frames)
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @IBAction func backAction(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
 }
 
 extension TextInputViewController : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {

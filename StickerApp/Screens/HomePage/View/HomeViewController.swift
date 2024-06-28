@@ -53,7 +53,18 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate {
     }
     
     @IBAction func getGifAction(_ sender: Any) {
-        
+        if !NetWorkManager.shared.isNetworkReachable() {
+            showError(title: "Error!", message: "No Internet! Please check your network connectivity.")
+            return
+        }
+        let vc = GifViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showError(title : String, message : String){
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
     }
     
     @IBAction func getPhotoAction(_ sender: Any) {
