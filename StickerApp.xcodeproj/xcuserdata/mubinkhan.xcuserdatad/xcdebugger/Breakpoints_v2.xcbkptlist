@@ -39,38 +39,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F5207DDF-4A39-4A83-9234-71F43C668C5A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerApp/Screens/IntermediatePage/View/subview/ARImageCropper.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
-            landmarkName = "layoutSubviews()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3AE7E357-4A5F-4A49-AF5B-F3E59D4BC176"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerApp/Screens/IntermediatePage/View/subview/ARImageCropper.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
-            landmarkName = "layoutSubviews()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "FA5A93F1-5D68-46D1-BCE6-D137EAAD7E3D"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -158,9 +126,9 @@
             filePath = "StickerApp/Screens/IntermediatePage/View/subview/ARImageCropper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "351"
-            endingLineNumber = "351"
-            landmarkName = "updateCropperArea(size:)"
+            startingLineNumber = "380"
+            endingLineNumber = "380"
+            landmarkName = "rectFromStartAndEndFree(_:endPoint:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -174,9 +142,9 @@
             filePath = "StickerApp/Screens/IntermediatePage/View/subview/ARImageCropper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "403"
-            endingLineNumber = "403"
-            landmarkName = "rectFromStartAndEndSquare(_:endPoint:)"
+            startingLineNumber = "432"
+            endingLineNumber = "432"
+            landmarkName = "handleDragInView(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -184,31 +152,15 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "4519953E-67E6-4F97-A3F9-16C0C73CFAF2"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StickerApp/Screens/IntermediatePage/View/subview/ARImageCropper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "422"
-            endingLineNumber = "422"
-            landmarkName = "rectFromStartAndEndSquare(_:endPoint:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D244CEE3-E6D9-4C03-AE2C-C4B0CC6DAD77"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StickerApp/Screens/IntermediatePage/View/IntermediateViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "252"
-            endingLineNumber = "252"
-            landmarkName = "initializeCropper(with:)"
+            startingLineNumber = "451"
+            endingLineNumber = "451"
+            landmarkName = "handleDragInView(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

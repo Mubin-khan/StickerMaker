@@ -17,4 +17,9 @@ extension Double {
         
         return String(format: "%02d:%02d.\(miliString)", minutes, seconds)
     }
+    
+    func roundToDecimal(_ fractionDigits: Int) -> Double {
+        let multiplier = pow(10, Double(fractionDigits))
+        return Darwin.round(self * multiplier) / multiplier
+    }
 }

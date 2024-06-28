@@ -10,7 +10,7 @@ import AVFoundation
 
 class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate {
 
-    @IBOutlet weak var testLabel: UILabel!
+    @IBOutlet weak var currentDurationLimit: UILabel!
     @IBOutlet weak var seekarLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var seekarView: UIView!
     @IBOutlet weak var frameCollectionView: UICollectionView!
@@ -32,8 +32,18 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
     var player : AVPlayer!
     var frames : [Double : UIImage] = [:]
     var times : [CMTime] = []
-    var minimumtime : CMTime = .zero
-    var maximumtime : CMTime = CMTime(seconds: 10, preferredTimescale: 600)
+    var minimumtime : CMTime = .zero {
+        didSet {
+            currentDurationLimit.text = "\(String(format:"%.1f", minimumtime.seconds)) ~ \(String(format:"%.1f", maximumtime.seconds))s"
+        }
+    }
+    var maximumtime : CMTime = CMTime(seconds: 10, preferredTimescale: 600) {
+        didSet {
+            currentDurationLimit.text = "\(String(format:"%.1f", minimumtime.seconds)) ~ \(String(format:"%.1f", maximumtime.seconds))s"
+        }
+    }
+    var totalDuration : CMTime = .zero
+    var totalPixel : CGFloat = .zero
     
     init(url : URL){
         self.url = url
@@ -52,7 +62,9 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
         loadPlayer(from: url)
         setConstraints()
         configureCollectionView()
-        extractFramesFromVideo(at: url)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.extractFramesFromVideo(at: self.url)
+        }
     }
     
     private func configureCollectionView(){
@@ -118,6 +130,19 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
             }
             
             rightSliderTraillingCons.constant = leadingValue
+            
+            let rightInPixel = frameContainerView.bounds.width - (leadingValue + rightSliderView.bounds.width) + frameCollectionView.contentOffset.x
+            let timeInseconds = rightInPixel * totalDuration.seconds / totalPixel
+            maximumtime = CMTime(seconds: timeInseconds, preferredTimescale: 600)
+            
+            if recognizer.state == .ended {
+                seekarView.isHidden = false
+                seekarLeadingConstraint.constant = 0
+                player.seek(to: minimumtime, toleranceBefore: .zero, toleranceAfter: .zero)
+            }else {
+                seekarView.isHidden = true
+                player.seek(to: maximumtime, toleranceBefore: .zero, toleranceAfter: .zero)
+            }
            
         default : break
         }
@@ -140,6 +165,18 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
             }
             leftSliderLeadingCons.constant = leadingValue
            
+            let leftInPixel = leftSliderLeadingCons.constant + frameCollectionView.contentOffset.x
+            let timeInseconds = leftInPixel * totalDuration.seconds / totalPixel
+            minimumtime = CMTime(seconds: timeInseconds, preferredTimescale: 600)
+           
+            if recognizer.state == .ended {
+                seekarView.isHidden = false
+                seekarLeadingConstraint.constant = 0
+                player.seek(to: minimumtime, toleranceBefore: .zero, toleranceAfter: .zero)
+            }else {
+                seekarView.isHidden = true
+                player.seek(to: minimumtime, toleranceBefore: .zero, toleranceAfter: .zero)
+            }
         default : break
         }
         
@@ -161,14 +198,14 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
             }
             sliderLeadingCon.constant = leadingValue
             
-            seekVideo()
+            seekVideo(recognizer)
            
         default : break
         }
         
     }
     
-    private func seekVideo() {
+    private func seekVideo(_ recognizer : UIPanGestureRecognizer) {
         let frameWidth = frameCollectionView.bounds.width / 10
         let sliderTotalWidth = sliderContainerView.bounds.width - sliderView.bounds.width
         let numberOfFramesLeft = times.count - 10
@@ -177,14 +214,28 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
         
         frameCollectionView.contentOffset.x = tmp
         
+        let leftInPixel = leftSliderLeadingCons.constant + frameCollectionView.contentOffset.x
+        let timeInseconds = leftInPixel * totalDuration.seconds / totalPixel
+        minimumtime = CMTime(seconds: timeInseconds, preferredTimescale: 600)
+          
+        let rightInPixel = frameContainerView.bounds.width - (rightSliderTraillingCons.constant + rightSliderView.bounds.width) + frameCollectionView.contentOffset.x
+        let timeInseconds2 = rightInPixel * totalDuration.seconds / totalPixel
+        maximumtime = CMTime(seconds: timeInseconds2, preferredTimescale: 600)
         
+        player.seek(to: minimumtime, toleranceBefore: .zero, toleranceAfter: .zero)
+        if recognizer.state == .changed {
+            seekarView.isHidden = true
+        }else{
+            seekarView.isHidden = false
+        }
+        seekarLeadingConstraint.constant = 0
     }
     
     private func loadPlayer(from url : URL){
         let asset = AVAsset(url: url)
         let playerItem = AVPlayerItem(asset: asset)
         player = AVPlayer(playerItem: playerItem)
-        
+        totalDuration = asset.duration
         containerView.addSubview(avPlayerLayerContainer)
         avPlayerLayerContainer.backgroundColor = UIColor.clear
         guard let testPlayerLayer = avPlayerLayerContainer.layer as? AVPlayerLayer else {return }
@@ -224,17 +275,18 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
         player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.01, preferredTimescale: Int32(NSEC_PER_SEC)), queue: DispatchQueue.main) { [weak self] (CMTime) -> Void in
             if let self = self {
                 
-                self.testLabel.text = CMTime.seconds.returnExpetedDurationString()
-                
                 if self.player?.currentItem?.status == .readyToPlay {
                     if CMTime >= maximumtime {
                         pauseAction()
                         
                         return
                     }
-                    let diff = (frameContainerView.bounds.width - (rightSliderView.bounds.width + rightSliderTraillingCons.constant)) - (leftSliderLeadingCons.constant + leftSliderView.bounds.width)
-                    let curPosition = diff / (maximumtime.seconds - minimumtime.seconds) * CMTime.seconds
-                    seekarLeadingConstraint.constant = curPosition
+                    
+                    if player?.rate != 0 {
+                        let diff = (frameContainerView.bounds.width - (rightSliderView.bounds.width + rightSliderTraillingCons.constant)) - (leftSliderLeadingCons.constant + leftSliderView.bounds.width)
+                        let curPosition = diff / (maximumtime.seconds - minimumtime.seconds) * (CMTime.seconds - minimumtime.seconds)
+                        seekarLeadingConstraint.constant = curPosition
+                    }
                 }
             }
         }
@@ -292,6 +344,7 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
             CMTimeMakeWithSeconds($0, preferredTimescale: asset.duration.timescale)
         }
         
+        totalPixel = CGFloat(times.count) * (frameCollectionView.bounds.width / 10)
         extractFrames(at: times, from: asset)
     }
     
@@ -341,7 +394,7 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
     
     private func playAction(){
         if (player.currentItem?.duration)! <= player.currentTime() || maximumtime <= player.currentTime() {
-            player.seek(to: .zero)
+            player.seek(to: minimumtime, toleranceBefore: .zero, toleranceAfter: .zero)
             seekarLeadingConstraint.constant = 0
         }
         player?.play()
