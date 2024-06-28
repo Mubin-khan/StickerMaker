@@ -35,7 +35,7 @@ class EditViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         
         self.displayLink.add(to: .main, forMode: .common)
-        self.displayLink.preferredFramesPerSecond = 30
+        self.displayLink.preferredFramesPerSecond = 5
  
         let availableWidth = view.bounds.width - 50
         let sz = frames[0].size.calculateFinalSize(in: CGSize(width: availableWidth, height: availableWidth))

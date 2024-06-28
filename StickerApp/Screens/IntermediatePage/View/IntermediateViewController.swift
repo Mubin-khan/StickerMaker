@@ -10,6 +10,7 @@ import AVFoundation
 
 class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate {
 
+    @IBOutlet weak var loaderView: UIView!
     @IBOutlet weak var currentDurationLimit: UILabel!
     @IBOutlet weak var seekarLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var seekarView: UIView!
@@ -306,12 +307,6 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
         
         // Set the properties for the image cropper
         imageCropper.image = img
-//        imageCropper.croppedImageSize = CGSize(width: 100, height: 100) // Set the desired cropped image size
-//        imageCropper.borderColor = .cyan // Customize the border color
-//        imageCropper.borderWidth = 2.0 // Customize the border width
-       
-        
-        // Add the image cropper to the view hierarchy
         view.addSubview(imageCropper)
         
         // Set the frame or constraints for the image cropper
@@ -406,6 +401,62 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
         playPlauseImageView.image = UIImage(named: "playButton")
     }
     
+    @IBAction func NextAction(_ sender: Any) {
+        loaderView.isHidden = false
+        let asset = AVAsset(url: url)
+        let assetDuration = CMTimeGetSeconds(asset.duration)
+        
+        let frameCount = 10
+        
+        let frameTimes = stride(from: 0, to: assetDuration, by: assetDuration / Double(frameCount)).map {
+            CMTimeMakeWithSeconds($0, preferredTimescale: asset.duration.timescale)
+        }
+        
+        extractFramesForEditPage(at: frameTimes, from: asset) { frames in
+            DispatchQueue.main.async {
+                if frames.count > 0 {
+                    let vc = EditViewController(frames: frames)
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }else {
+                    self.hideLoaderView()
+                }
+            }
+        }
+    }
+    
+    func extractFramesForEditPage(at times: [CMTime], from asset: AVAsset, completion : @escaping ([UIImage]) -> ()) {
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        imageGenerator.appliesPreferredTrackTransform = true
+        var frames : [UIImage] = []
+        let dispatchGroup = DispatchGroup()
+
+        for time in times {
+            dispatchGroup.enter()
+            imageGenerator.generateCGImagesAsynchronously(forTimes: [NSValue(time: time)]) { _, cgImage, _, _, error in
+                if let cgImage = cgImage {
+                    let uiImage = UIImage(cgImage: cgImage)
+                    frames.append(uiImage)
+                    
+                } else if let error = error {
+                    
+                    print("Error generating image: \(error.localizedDescription)")
+                }
+                dispatchGroup.leave()
+            }
+        }
+        
+        
+        dispatchGroup.notify(queue: .main) {
+            // This block is called when all tasks have completed
+            completion(frames)
+        }
+    }
+    
+    func hideLoaderView(){
+        DispatchQueue.main.async {
+            self.loaderView.isHidden = true
+        }
+    }
 }
 
 extension IntermediateViewController : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {

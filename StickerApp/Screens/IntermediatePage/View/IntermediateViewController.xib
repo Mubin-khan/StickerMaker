@@ -16,6 +16,7 @@
                 <outlet property="frameContainerView" destination="Qxp-6q-yzD" id="8Xv-fV-h7s"/>
                 <outlet property="leftSliderLeadingCons" destination="SuI-Ng-UW6" id="fmE-9M-Sud"/>
                 <outlet property="leftSliderView" destination="YLu-FZ-mgH" id="QPG-oi-50V"/>
+                <outlet property="loaderView" destination="RIa-TN-3LR" id="Oxf-Br-wiQ"/>
                 <outlet property="playPlauseImageView" destination="8Ad-RA-rdP" id="yS5-hN-ykc"/>
                 <outlet property="rightSliderTraillingCons" destination="vZ0-tu-d4b" id="Khv-GX-d0Y"/>
                 <outlet property="rightSliderView" destination="CfU-qI-HnO" id="UiW-uN-j3d"/>
@@ -53,12 +54,15 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sLG-Bl-53l">
-                            <rect key="frame" x="328" y="4" width="45" height="38"/>
+                            <rect key="frame" x="333" y="4" width="40" height="38"/>
                             <fontDescription key="fontDescription" name="PingFangSC-Semibold" family="PingFang SC" pointSize="18"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="Done">
+                            <state key="normal" title="Next">
                                 <color key="titleColor" red="0.22680165820000001" green="0.44321322279999997" blue="0.47310799320000002" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <connections>
+                                <action selector="NextAction:" destination="-1" eventType="touchUpInside" id="g3v-WE-MlP"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -374,16 +378,34 @@
                     <rect key="frame" x="10" y="115" width="373" height="407"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RIa-TN-3LR">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="29m-bl-U3I">
+                            <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
+                            <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.6780836093" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="29m-bl-U3I" firstAttribute="centerX" secondItem="RIa-TN-3LR" secondAttribute="centerX" id="5Ge-z6-kLC"/>
+                        <constraint firstItem="29m-bl-U3I" firstAttribute="centerY" secondItem="RIa-TN-3LR" secondAttribute="centerY" id="MLc-bo-cqL"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="RIa-TN-3LR" secondAttribute="bottom" id="4FC-7J-KuV"/>
                 <constraint firstAttribute="bottom" secondItem="WAg-Ao-cmf" secondAttribute="bottom" id="5d9-fx-ctY"/>
+                <constraint firstItem="RIa-TN-3LR" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="842-Xf-KGe"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0K3-Tc-9TO" secondAttribute="trailing" id="CmZ-NH-hoP"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="WAg-Ao-cmf" secondAttribute="trailing" id="IHQ-XC-Dpg"/>
                 <constraint firstItem="0K3-Tc-9TO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="PO7-DQ-6Gf"/>
                 <constraint firstItem="IbQ-Pt-hhm" firstAttribute="top" secondItem="0K3-Tc-9TO" secondAttribute="bottom" constant="10" id="VPm-uz-r6W"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="IbQ-Pt-hhm" secondAttribute="trailing" constant="10" id="a2R-Bb-rIf"/>
+                <constraint firstItem="RIa-TN-3LR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="c7w-Un-mdy"/>
+                <constraint firstItem="RIa-TN-3LR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ewF-4H-ehO"/>
                 <constraint firstItem="IbQ-Pt-hhm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="gSr-P7-Ijk"/>
                 <constraint firstItem="0K3-Tc-9TO" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="u8T-hP-Hem"/>
                 <constraint firstItem="WAg-Ao-cmf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="xHD-es-r07"/>
