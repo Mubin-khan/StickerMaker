@@ -29,9 +29,9 @@ public class ARImageCropper: UIView {
     private var maximumPossibleHeight: CGFloat = 0
     private var maximumPossibleWidth: CGFloat = 0
     public var croppedImageSize: CGSize = CGSize()
-    public var borderColor: UIColor = .red
+    public var borderColor: UIColor = .cyan
     public var borderWidth: CGFloat = 1.5
-    public var cornersColor: UIColor = .white
+    public var cornersColor: UIColor = .cyan
     public var cornersSize: CGSize = CGSize(width: 30, height: 30)
     public var cornersLineWidth: CGFloat = 4
     public var cornerShape: CornerShape = .line
@@ -66,7 +66,16 @@ public class ARImageCropper: UIView {
     public var image: UIImage? {
         didSet {
             removePreviousCornerPoints()
-            imageSize = image?.size
+            if let sz = image?.size {
+                if sz.width < bounds.width && sz.height < bounds.height {
+                    let aX = bounds.width / sz.width
+                    let aY = bounds.height / sz.height
+                    let minV = min(aX, aY)
+                    imageSize = CGSize(width: sz.width * minV, height: sz.height * minV)
+                }else {
+                    imageSize = sz
+                }
+            }
             if (croppedImageSize.height < 10 && croppedImageSize.width < 10) || (croppedImageSize.height > frame.height || croppedImageSize.width > frame.width) {
                 croppedImageSize.height = 50
                 croppedImageSize.width = 50
@@ -419,6 +428,11 @@ public class ARImageCropper: UIView {
             left = imageRect!.maxX - height
         }
         let tmp = max(width, height)
+        
+        if width < 40 || height < 40 {
+            return internalCropRect!
+        }
+        
         return CGRect(x: left, y: top, width: tmp, height: tmp)
         
     }

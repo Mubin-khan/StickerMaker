@@ -126,8 +126,8 @@
             filePath = "StickerApp/Screens/IntermediatePage/View/subview/ARImageCropper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "380"
-            endingLineNumber = "380"
+            startingLineNumber = "389"
+            endingLineNumber = "389"
             landmarkName = "rectFromStartAndEndFree(_:endPoint:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -142,8 +142,8 @@
             filePath = "StickerApp/Screens/IntermediatePage/View/subview/ARImageCropper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "432"
-            endingLineNumber = "432"
+            startingLineNumber = "446"
+            endingLineNumber = "446"
             landmarkName = "handleDragInView(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -158,8 +158,8 @@
             filePath = "StickerApp/Screens/IntermediatePage/View/subview/ARImageCropper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "451"
-            endingLineNumber = "451"
+            startingLineNumber = "465"
+            endingLineNumber = "465"
             landmarkName = "handleDragInView(_:)"
             landmarkType = "7">
          </BreakpointContent>

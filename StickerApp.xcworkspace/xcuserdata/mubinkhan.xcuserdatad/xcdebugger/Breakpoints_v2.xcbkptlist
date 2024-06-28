@@ -14,8 +14,8 @@
             filePath = "StickerApp/Screens/IntermediatePage/View/subview/ARImageCropper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "init(frame:)"
             landmarkType = "7">
          </BreakpointContent>

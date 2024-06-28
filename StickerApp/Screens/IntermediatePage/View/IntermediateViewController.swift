@@ -307,8 +307,8 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
         // Set the properties for the image cropper
         imageCropper.image = img
 //        imageCropper.croppedImageSize = CGSize(width: 100, height: 100) // Set the desired cropped image size
-        imageCropper.borderColor = .white // Customize the border color
-        imageCropper.borderWidth = 2.0 // Customize the border width
+//        imageCropper.borderColor = .cyan // Customize the border color
+//        imageCropper.borderWidth = 2.0 // Customize the border width
        
         
         // Add the image cropper to the view hierarchy
