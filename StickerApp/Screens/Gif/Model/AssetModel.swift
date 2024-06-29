@@ -18,13 +18,13 @@ enum AssetModelError: Error {
 
 struct AssetModel: Decodable {
     
-    struct Nanogif: Decodable {
+    struct Gif: Decodable {
         let url: URL
         let preview: URL
     }
     
     struct Media: Decodable {
-        let nanogif: Nanogif
+        let tinygif: Gif
     }
     
     struct Result: Decodable {

@@ -131,8 +131,8 @@ class TextInputViewController: UIViewController {
         NSLayoutConstraint.activate([
             containerview.centerXAnchor.constraint(equalTo: inputTextContainer.centerXAnchor),
             containerview.centerYAnchor.constraint(equalTo: inputTextContainer.centerYAnchor),
-            containerview.widthAnchor.constraint(equalToConstant: inputTextContainer.bounds.width - 60),
-            containerview.heightAnchor.constraint(equalToConstant: inputTextContainer.bounds.height - 60)
+            containerview.widthAnchor.constraint(equalToConstant: inputTextContainer.bounds.width - 30),
+            containerview.heightAnchor.constraint(equalToConstant: inputTextContainer.bounds.height - 30)
         ])
         
         containerview.addSubview(animatedLabel)
@@ -187,7 +187,7 @@ class TextInputViewController: UIViewController {
             case .RightAndLeft : rightAndLeftAnimation()
             case .leftToRight : leftToRightAnimation()
             case .upAndDown : upAndDownAnimation()
-            case .topToBottom : topToBottomAnimation()
+//            case .topToBottom : topToBottomAnimation()
             case .Flip : flipAnimation()
             default : break
             }
@@ -319,20 +319,20 @@ class TextInputViewController: UIViewController {
         })
     }
     
-    func topToBottomAnimation(){
-        UIView.animateKeyframes(withDuration: 2, delay: 0, animations: {
-            self.animatedLabel.transform = CGAffineTransformMakeTranslation(0 , -self.containerview.bounds.height + 10)
-            
-            // Keyframe 2: Move down and change color to red
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1.0) {
-                self.animatedLabel.transform = CGAffineTransformMakeTranslation(0, self.containerview.bounds.height - 10)
-            }
-        }, completion: { [self] _ in
-            if selectedAnimationIndex != -1 && availableAnimations.allCases[selectedAnimationIndex] == .topToBottom {
-                self.topToBottomAnimation()
-            }
-        })
-    }
+//    func topToBottomAnimation(){
+//        UIView.animateKeyframes(withDuration: 2, delay: 0, animations: {
+//            self.animatedLabel.transform = CGAffineTransformMakeTranslation(0 , -self.containerview.bounds.height + 10)
+//            
+//            // Keyframe 2: Move down and change color to red
+//            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1.0) {
+//                self.animatedLabel.transform = CGAffineTransformMakeTranslation(0, self.containerview.bounds.height - 10)
+//            }
+//        }, completion: { [self] _ in
+//            if selectedAnimationIndex != -1 && availableAnimations.allCases[selectedAnimationIndex] == .topToBottom {
+//                self.topToBottomAnimation()
+//            }
+//        })
+//    }
     
     
     var frames : [UIImage] = []
@@ -719,10 +719,32 @@ var availableColors: [UIColor] = [
 
 
 var availableFonts : [String] = [
+    "Academy Engraved LET",
+    "AcademyEngravedLetPlain",
+    "Al Nile",
+    "AlNile-Bold",
+    "American Typewriter",
+    "AmericanTypewriter-Bold",
+    "AmericanTypewriter-Condensed",
+    "AmericanTypewriter-CondensedBold",
+    "AmericanTypewriter-CondensedLight",
+    "AmericanTypewriter-Light",
+    "Apple Color Emoji",
+    "Apple SD Gothic Neo",
+    "AppleSDGothicNeo-Bold",
+    "AppleSDGothicNeo-Light",
+    "AppleSDGothicNeo-Medium",
+    "AppleSDGothicNeo-SemiBold",
+    "AppleSDGothicNeo-Thin",
+    "AppleSDGothicNeo-UltraLight",
     "Arial",
-    "Arial-BoldMT",
     "Arial-BoldItalicMT",
+    "Arial-BoldMT",
     "Arial-ItalicMT",
+    "ArialHebrew",
+    "ArialHebrew-Bold",
+    "ArialHebrew-Light",
+    "ArialRoundedMTBold",
     "Avenir",
     "Avenir-Black",
     "Avenir-BlackOblique",
@@ -730,60 +752,197 @@ var availableFonts : [String] = [
     "Avenir-BookOblique",
     "Avenir-Heavy",
     "Avenir-HeavyOblique",
-    "Avenir-Light",
-    "Avenir-LightOblique",
-    "Avenir-Medium",
-    "Avenir-MediumOblique",
     "Avenir-Oblique",
+    "Avenir-Roman",
+    "AvenirNext-Bold",
+    "AvenirNext-BoldItalic",
+    "AvenirNext-DemiBold",
+    "AvenirNext-DemiBoldItalic",
+    "AvenirNext-Heavy",
+    "AvenirNext-HeavyItalic",
+    "AvenirNext-Italic",
+    "AvenirNext-Medium",
+    "AvenirNext-MediumItalic",
+    "AvenirNext-UltraLight",
+    "AvenirNext-UltraLightItalic",
+    "AvenirNextCondensed-Bold",
+    "AvenirNextCondensed-BoldItalic",
+    "AvenirNextCondensed-DemiBold",
+    "AvenirNextCondensed-DemiBoldItalic",
+    "AvenirNextCondensed-Heavy",
+    "AvenirNextCondensed-HeavyItalic",
+    "AvenirNextCondensed-Italic",
+    "AvenirNextCondensed-MediumItalic",
+    "AvenirNextCondensed-UltraLight",
+    "AvenirNextCondensed-UltraLightItalic",
+    "Bangla Sangam MN",
+    "BanglaSangamMN-Bold",
     "Baskerville",
     "Baskerville-Bold",
     "Baskerville-BoldItalic",
     "Baskerville-Italic",
+    "Baskerville-SemiBold",
+    "Baskerville-SemiBoldItalic",
+    "Bodoni 72",
+    "Bodoni 72 Oldstyle",
+    "Bodoni 72 Smallcaps",
+    "BodoniOrnamentsITCTT",
+    "BodoniSvtyTwoITCTT-Bold",
+    "BodoniSvtyTwoITCTT-Book",
+    "BodoniSvtyTwoITCTT-BookIta",
+    "Bradley Hand",
+    "BradleyHandITCTT-Bold",
+    "Chalkboard SE",
+    "ChalkboardSE-Bold",
+    "ChalkboardSE-Light",
+    "ChalkboardSE-Regular",
+    "Chalkduster",
+    "Cochin",
+    "Cochin-Bold",
+    "Cochin-BoldItalic",
+    "Cochin-Italic",
+    "Copperplate",
+    "Copperplate-Bold",
     "Courier",
     "Courier-Bold",
     "Courier-BoldOblique",
     "Courier-Oblique",
-    "Futura",
-    "Futura-Bold",
+    "CourierNewPS-BoldItalicMT",
+    "CourierNewPS-BoldMT",
+    "CourierNewPS-ItalicMT",
+    "DIN Alternate",
+    "DIN Condensed",
+    "Damascus",
+    "DamascusBold",
+    "DamascusMedium",
+    "DamascusSemiBold",
+    "Devanagari Sangam MN",
+    "DevanagariSangamMN-Bold",
+    "Didot",
+    "Didot-Bold",
+    "Didot-Italic",
+    "DiwanMishafi",
+    "Euphemia UCAS",
+    "EuphemiaUCAS-Bold",
+    "EuphemiaUCAS-Italic",
+    "Farah",
+    "Farah",
     "Futura-CondensedExtraBold",
     "Futura-CondensedMedium",
-    "Futura-Medium",
     "Futura-MediumItalic",
+    "Geeza Pro",
+    "GeezaPro-Bold",
     "Georgia",
     "Georgia-Bold",
     "Georgia-BoldItalic",
     "Georgia-Italic",
-    "GillSans",
+    "Gill Sans",
     "GillSans-Bold",
     "GillSans-BoldItalic",
     "GillSans-Italic",
-    "GillSans-Light",
-    "GillSans-LightItalic",
     "GillSans-SemiBold",
     "GillSans-SemiBoldItalic",
+    "GillSans-UltraBold",
+    "Gujarati Sangam MN",
+    "GujaratiSangamMN-Bold",
+    "Gurmukhi MN",
+    "GurmukhiMN-Bold",
     "Helvetica",
     "Helvetica-Bold",
     "Helvetica-BoldOblique",
-    "Helvetica-Light",
-    "Helvetica-LightOblique",
     "Helvetica-Oblique",
+    "HelveticaNeue-Bold",
+    "HelveticaNeue-BoldItalic",
+    "HelveticaNeue-CondensedBlack",
+    "HelveticaNeue-CondensedBold",
+    "HelveticaNeue-Italic",
+    "HelveticaNeue-Medium",
+    "HelveticaNeue-MediumItalic",
+    "HelveticaNeue-ThinItalic",
+    "HelveticaNeue-UltraLight",
+    "HelveticaNeue-UltraLightItalic",
+    "Hiragino Maru Gothic ProN",
+    "Hiragino Mincho ProN",
     "HiraginoSans-W3",
     "HiraginoSans-W6",
+    "Hoefler Text",
+    "HoeflerText-Black",
+    "HoeflerText-BlackItalic",
+    "HoeflerText-Italic",
+    "HoeflerText-Regular",
+    "Iowan Old Style",
+    "IowanOldStyle-Bold",
+    "IowanOldStyle-BoldItalic",
+    "IowanOldStyle-Italic",
+    "IowanOldStyle-Roman",
+    "Kailasa",
+    "Kailasa-Bold",
+    "Kannada Sangam MN",
+    "KannadaSangamMN-Bold",
+    "Kefa-Regular",
+    "Khmer Sangam MN",
+    "Kohinoor Bangla",
+    "Kohinoor Devanagari",
+    "Kohinoor Telugu",
+    "KohinoorBangla-Semibold",
+    "KohinoorDevanagari-Semibold",
+    "KohinoorTelugu-Medium",
+    "Lao Sangam MN",
+    "Malayalam Sangam MN",
+    "MalayalamSangamMN-Bold",
+    "Marker Felt",
     "MarkerFelt-Thin",
-    "Noteworthy",
+    "MarkerFelt-Wide",
+    "Menlo-Bold",
+    "Menlo-BoldItalic",
+    "Menlo-Italic",
     "Noteworthy-Bold",
-    "Palatino",
+    "Optima-Bold",
+    "Optima-BoldItalic",
+    "Optima-ExtraBlack",
+    "Optima-Italic",
+    "Oriya Sangam MN",
+    "OriyaSangamMN-Bold",
     "Palatino-Bold",
     "Palatino-BoldItalic",
     "Palatino-Italic",
-    "TrebuchetMS",
+    "Papyrus",
+    "Papyrus-Condensed",
+    "Party LET",
+    "PartyLetPlain",
+    "PingFang HK",
+    "PingFang SC",
+    "PingFang TC",
+    "PingFangHK-Semibold",
+    "PingFangSC-Semibold",
+    "PingFangTC-Semibold",
+    "Rockwell-Bold",
+    "Rockwell-BoldItalic",
+    "Rockwell-Italic",
+    "Savoye LET",
+    "SavoyeLetPlain",
+    "Sinhala Sangam MN",
+    "SinhalaSangamMN-Bold",
+    "Snell Roundhand",
+    "SnellRoundhand-Black",
+    "SnellRoundhand-Bold",
+    "Symbol",
+    "Tamil Sangam MN",
+    "TamilSangamMN-Bold",
+    "Telugu Sangam MN",
+    "Thonburi-Bold",
+    "Times New Roman",
+    "TimesNewRomanPS-BoldItalicMT",
+    "TimesNewRomanPS-BoldMT",
+    "TimesNewRomanPS-ItalicMT",
     "Trebuchet-BoldItalic",
     "TrebuchetMS-Bold",
     "TrebuchetMS-Italic",
-    "Verdana",
-    "Verdana-Bold",
     "Verdana-BoldItalic",
-    "Verdana-Italic"
+    "Verdana-Italic",
+    "Zapf Dingbats",
+    "ZapfDingbatsITC",
+//    "Zapfino"
 ]
 
 enum availableAnimations : String, CaseIterable {
@@ -792,7 +951,7 @@ enum availableAnimations : String, CaseIterable {
     case ZoomInOut = "Zoom In-Out"
     case RightAndLeft = "Right & Left"
     case leftToRight = "Left To Right"
-    case topToBottom = "Top To Bottom"
+//    case topToBottom = "Top To Bottom"
     case upAndDown = "Up & Down"
     case Flip = "Flip"
 }

@@ -12,7 +12,8 @@ class GifCollectionViewCell: UICollectionViewCell {
     
     static let gifcellIdentifier = "GifCollectionViewCell"
 
-    @IBOutlet weak var gifImageView: UIImageView!
+    @IBOutlet weak var gifImageView: AnimatedImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

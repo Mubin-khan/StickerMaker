@@ -26,10 +26,11 @@ class GifViewController: UIViewController {
         setupNavigation()
         callTrending()
         
-        dataChangedObserverToken = modelStore.observe(\ModelStore.updated) { (object, change) in
+        dataChangedObserverToken = modelStore.observe(\ModelStore.updated) { [weak self] (object, change) in
             
             DispatchQueue.main.async {
-                self.gifCollectionView.reloadData()
+                self?.gifCollectionView.reloadData()
+                self?.gifCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .centeredVertically, animated: false)
             }
         }
         
@@ -50,14 +51,15 @@ class GifViewController: UIViewController {
         backButton.tintColor = .white
         self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
         
-        searchAdaptor = SearchAdaptor(searchView: searchController.searchBar, parentView: view) {
-            self.performQuery(query: self.searchController.searchBar.text ?? "")
+        searchAdaptor = SearchAdaptor(searchView: searchController.searchBar, parentView: view) { [weak self] in
+            self?.performQuery(query: self?.searchController.searchBar.text ?? "")
         }
         
         searchAdaptor?.cancelButtonClicked = { [weak self] (value) in
             if value {
                 DispatchQueue.main.async {
                     self?.gifCollectionView.reloadData()
+                    self?.gifCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .centeredVertically, animated: false)
                 }
             }
         }
@@ -77,26 +79,26 @@ class GifViewController: UIViewController {
     }
     
     func performQuery(query: String) {
-        return self.query.query(query: query, limit:50).send { (result) in
+        return self.query.query(query: query, limit:50).send { [weak self] (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
-                    self.process(data)
+                    self?.process(data)
                 case .error(let error):
-                    self.displayError(error)
+                    self?.displayError(error)
                 }
             }
         }
     }
     
     func callTrending() {
-        return self.trendings.query(limit:50).send { (result) in
+        return self.trendings.query(limit:50).send { [weak self] (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
-                    self.process(data)
+                    self?.process(data)
                 case .error(let error):
-                    self.displayError(error)
+                    self?.displayError(error)
                 }
             }
         }
@@ -149,11 +151,11 @@ extension GifViewController : UICollectionViewDelegateFlowLayout, UICollectionVi
             var url : URL?
             if let txt = searchController.searchBar.text, txt.isEmpty {
                 if modelStore.results.count > 0 {
-                    url = modelStore.results[0].results[indexPath.row].media[0].nanogif.url
+                    url = modelStore.results[0].results[indexPath.row].media[0].tinygif.url
                 }
             }else {
                 if modelStore.results.count > 1 {
-                    url = modelStore.results[1].results[indexPath.row].media[0].nanogif.url
+                    url = modelStore.results[1].results[indexPath.row].media[0].tinygif.url
                 }
             }
             if let url = url {
@@ -183,11 +185,11 @@ extension GifViewController : UICollectionViewDelegateFlowLayout, UICollectionVi
         var url : URL?
         if let txt = searchController.searchBar.text, txt.isEmpty {
             if modelStore.results.count > 0 {
-                url = modelStore.results[0].results[indexPath.row].media[0].nanogif.url
+                url = modelStore.results[0].results[indexPath.row].media[0].tinygif.url
             }
         }else {
             if modelStore.results.count > 1 {
-                url = modelStore.results[1].results[indexPath.row].media[0].nanogif.url
+                url = modelStore.results[1].results[indexPath.row].media[0].tinygif.url
             }
         }
         if let url = url {
@@ -210,7 +212,7 @@ extension GifViewController : UICollectionViewDelegateFlowLayout, UICollectionVi
                     self.hideLoaderView()
                     print("Failed to get GIF representation")
                 }
-            case .failure(let error):
+            case .failure(_):
                 self.hideLoaderView()
             }
         }
