@@ -19,10 +19,10 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vE1-73-B3W">
-                        <rect key="frame" x="39.666666666666664" y="24.666666666666671" width="24" height="24"/>
+                        <rect key="frame" x="36.666666666666664" y="21.666666666666671" width="29.999999999999993" height="30"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="24" id="6cZ-Np-nAK"/>
+                            <constraint firstAttribute="width" constant="30" id="6cZ-Np-nAK"/>
                             <constraint firstAttribute="width" secondItem="vE1-73-B3W" secondAttribute="height" multiplier="1:1" id="zsl-Lf-kCp"/>
                         </constraints>
                     </view>

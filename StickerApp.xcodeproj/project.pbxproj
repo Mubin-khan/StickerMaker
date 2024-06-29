@@ -44,6 +44,7 @@
 		86CD4B252C2DFFAD001C4AFD /* SearchAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CD4B242C2DFFAD001C4AFD /* SearchAdaptor.swift */; };
 		86CD4B292C2DFFB5001C4AFD /* GifCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CD4B262C2DFFB5001C4AFD /* GifCollectionViewCell.swift */; };
 		86CD4B2A2C2DFFB5001C4AFD /* GifCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86CD4B272C2DFFB5001C4AFD /* GifCollectionViewCell.xib */; };
+		86EDC9002C308F9C00E68835 /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86EDC8FF2C308F9C00E68835 /* CGPoint+Extensions.swift */; };
 		86F7C3172C2C683A00684B5B /* GifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F7C3152C2C683A00684B5B /* GifViewController.swift */; };
 		86F7C3182C2C683A00684B5B /* GifViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86F7C3162C2C683A00684B5B /* GifViewController.xib */; };
 		86F7C31C2C2C8E2800684B5B /* frameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F7C31A2C2C8E2800684B5B /* frameCollectionViewCell.swift */; };
@@ -93,6 +94,7 @@
 		86CD4B242C2DFFAD001C4AFD /* SearchAdaptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAdaptor.swift; sourceTree = "<group>"; };
 		86CD4B262C2DFFB5001C4AFD /* GifCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifCollectionViewCell.swift; sourceTree = "<group>"; };
 		86CD4B272C2DFFB5001C4AFD /* GifCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GifCollectionViewCell.xib; sourceTree = "<group>"; };
+		86EDC8FF2C308F9C00E68835 /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
 		86F7C3152C2C683A00684B5B /* GifViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifViewController.swift; sourceTree = "<group>"; };
 		86F7C3162C2C683A00684B5B /* GifViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GifViewController.xib; sourceTree = "<group>"; };
 		86F7C31A2C2C8E2800684B5B /* frameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = frameCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				865845462C2317EF00AAAA27 /* CIImage+Extensions.swift */,
 				8696EAD42C2B434700B4E7C2 /* UILabel+Extensions.swift */,
 				86CD4B162C2DF1BB001C4AFD /* Double+Extensions.swift */,
+				86EDC8FF2C308F9C00E68835 /* CGPoint+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 				86C7751B2C241107003A58F8 /* CornerPointView.swift in Sources */,
 				86C662A42C29C72200E2F04D /* TextFeatureCollectionViewCell.swift in Sources */,
 				86973D412C21A57200445778 /* CGSize+Extensions.swift in Sources */,
+				86EDC9002C308F9C00E68835 /* CGPoint+Extensions.swift in Sources */,
 				86C662B12C29DF9900E2F04D /* AnimCollectionViewCell.swift in Sources */,
 				86AB70B42C2E8B070030E5C2 /* NetworkManager.swift in Sources */,
 				865845472C2317EF00AAAA27 /* CIImage+Extensions.swift in Sources */,
