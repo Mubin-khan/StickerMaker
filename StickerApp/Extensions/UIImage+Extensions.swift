@@ -65,6 +65,16 @@ extension UIImage {
         
         return normalizedImage
     }
+    
+    func cropImage(toRect cropRect: CGRect) -> UIImage? {
+        guard let cgImage = self.cgImage else { return nil }
+
+        // Perform the cropping
+        guard let croppedCgImage = cgImage.cropping(to: cropRect) else { return nil }
+
+        // Create and return a UIImage from the cropped CGImage
+        return UIImage(cgImage: croppedCgImage, scale: 1, orientation: .up)
+    }
 }
 
 

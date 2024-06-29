@@ -304,24 +304,22 @@ public class ARImageCropper: UIView {
         
     }
     
-    public func croppedImage() -> UIImage? {
-        
-        if var cropRect = internalCropRect {
-            var drawRect: CGRect = CGRect.zero
-            drawRect.size = imageSize!
-            drawRect.origin.x = round(-(cropRect.origin.x - xPosition) / aspect)
-            drawRect.origin.y = round(-(cropRect.origin.y - yPosition) / aspect)
-            cropRect.size.width = round(cropRect.size.width/aspect)
-            cropRect.size.height = round(cropRect.size.height/aspect)
-            cropRect.origin.x = round(cropRect.origin.x) - xPosition
-            cropRect.origin.y = round(cropRect.origin.y) - yPosition
+    public func croppedImage() -> CGRect? {
+       
+        if var cropRect = internalCropRect, let sz = image?.size, let imgRect = imageRect {
             
-            UIGraphicsBeginImageContextWithOptions(cropRect.size, true, 0)
-            image?.draw(in: drawRect)
-            let result = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext();
+            // Calculate the scale factors
+            let scaleX = sz.width / imgRect.width
+            let scaleY = sz.height / imgRect.height
             
-            return result
+            // Convert the cropRect from UIImageView coordinates to image coordinates
+            let convertedX = (cropRect.origin.x - xPosition) * scaleX
+            let convertedY = (cropRect.origin.y - yPosition) * scaleY
+            let convertedWidth = cropRect.size.width * scaleX
+            let convertedHeight = cropRect.size.height * scaleY
+            
+            
+            return CGRect(x: convertedX, y: convertedY, width: convertedWidth, height: convertedHeight)
         } else {
             return nil
         }

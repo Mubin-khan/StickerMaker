@@ -402,6 +402,8 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
     }
     
     @IBAction func NextAction(_ sender: Any) {
+        var croppedRect = imageCropper.croppedImage()
+
         loaderView.isHidden = false
         let asset = AVAsset(url: url)
         let assetDuration = CMTimeGetSeconds(asset.duration)
@@ -412,7 +414,7 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
             CMTimeMakeWithSeconds($0, preferredTimescale: asset.duration.timescale)
         }
         
-        extractFramesForEditPage(at: frameTimes, from: asset) { frames in
+        extractFramesForEditPage(at: frameTimes, from: asset, cropRect: croppedRect) { frames in
             DispatchQueue.main.async {
                 if frames.count > 0 {
                     let vc = EditViewController(frames: frames)
@@ -424,7 +426,7 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
         }
     }
     
-    func extractFramesForEditPage(at times: [CMTime], from asset: AVAsset, completion : @escaping ([UIImage]) -> ()) {
+    func extractFramesForEditPage(at times: [CMTime], from asset: AVAsset, cropRect : CGRect?, completion : @escaping ([UIImage]) -> ()) {
         let imageGenerator = AVAssetImageGenerator(asset: asset)
         imageGenerator.appliesPreferredTrackTransform = true
         var frames : [UIImage] = []
@@ -434,9 +436,11 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
             dispatchGroup.enter()
             imageGenerator.generateCGImagesAsynchronously(forTimes: [NSValue(time: time)]) { _, cgImage, _, _, error in
                 if let cgImage = cgImage {
-                    let uiImage = UIImage(cgImage: cgImage)
+                    var uiImage = UIImage(cgImage: cgImage)
+                    if cropRect != nil {
+                        uiImage = uiImage.cropImage(toRect: cropRect!) ?? uiImage
+                    }
                     frames.append(uiImage)
-                    
                 } else if let error = error {
                     
                     print("Error generating image: \(error.localizedDescription)")
