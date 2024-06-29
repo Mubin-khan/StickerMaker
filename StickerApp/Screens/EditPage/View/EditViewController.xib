@@ -86,7 +86,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aDu-YT-Mbw">
                             <rect key="frame" x="0.0" y="5" width="393" height="75"/>
                             <subviews>
-                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rJF-ha-NE0">
+                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.25" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="rJF-ha-NE0">
                                     <rect key="frame" x="28" y="22.666666666666629" width="337" height="31"/>
                                     <connections>
                                         <action selector="strokeWidthChangeAction:forEvent:" destination="-1" eventType="valueChanged" id="yeH-fC-FVj"/>
@@ -101,7 +101,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.60233312074829937" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="feo-Vb-5cA" firstAttribute="leading" secondItem="U3R-Sm-azg" secondAttribute="leading" id="8K1-Ca-rnL"/>
                         <constraint firstItem="aDu-YT-Mbw" firstAttribute="top" secondItem="U3R-Sm-azg" secondAttribute="top" constant="5" id="H1q-pj-N2l"/>
