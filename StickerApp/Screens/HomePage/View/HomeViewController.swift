@@ -173,7 +173,8 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate {
                 return
             }
             
-            self.extractFramesFromLivePhoto(at: videoURL)
+            self.gotoEditPage(with: videoURL)
+//            self.extractFramesFromLivePhoto(at: videoURL)
         }
     }
 
