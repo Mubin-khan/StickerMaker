@@ -402,7 +402,7 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
     }
     
     @IBAction func NextAction(_ sender: Any) {
-        var croppedRect = imageCropper.croppedImage()
+        let croppedRect = imageCropper.croppedImage()
 
         loaderView.isHidden = false
         let asset = AVAsset(url: url)
@@ -417,7 +417,7 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
         extractFramesForEditPage(at: frameTimes, from: asset, cropRect: croppedRect) { frames in
             DispatchQueue.main.async {
                 if frames.count > 0 {
-                    let vc = EditViewController(frames: frames)
+                    let vc = EditViewController(frames: frames, curFeature: .video)
                     self.navigationController?.pushViewController(vc, animated: true)
                 }else {
                     self.hideLoaderView()

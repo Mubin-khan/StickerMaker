@@ -240,3 +240,12 @@ extension CGAffineTransform {
         }
     }
 }
+
+
+public enum GifFeatue {
+    case text
+    case livePhoto
+    case video
+    case gif
+    case image
+}

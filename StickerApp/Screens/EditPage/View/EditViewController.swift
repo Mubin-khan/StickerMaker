@@ -9,6 +9,7 @@ import UIKit
 
 class EditViewController: UIViewController {
 
+    @IBOutlet weak var editFeatureView: UIView!
     @IBOutlet weak var borderView: UIView!
     @IBOutlet weak var borderViewWidthCon: NSLayoutConstraint!
     @IBOutlet weak var borderViewHeightCon: NSLayoutConstraint!
@@ -22,6 +23,7 @@ class EditViewController: UIViewController {
     lazy var displayLink: CADisplayLink = CADisplayLink(target: self,
                                                       selector: #selector(displayLinkFired(link:)))
     
+    var curFeature : GifFeatue
     var borderWidth : CGFloat = 5 {
         didSet {
             borderViewWidthCon.constant = borderWidth
@@ -39,8 +41,9 @@ class EditViewController: UIViewController {
     var frames : [UIImage] = []
     var currentFrameNumber : Int = 0
     
-    init(frames : [UIImage]) {
+    init(frames : [UIImage], curFeature : GifFeatue) {
         self.frames = frames
+        self.curFeature = curFeature
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -63,6 +66,11 @@ class EditViewController: UIViewController {
         borderView.layer.cornerRadius = 2.5
         
         configureCollectionView()
+        
+        if curFeature == .text {
+            editFeatureView.isHidden = true
+            borderView.isHidden = true
+        }
     }
     
     private func configureCollectionView(){

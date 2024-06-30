@@ -493,7 +493,7 @@ class TextInputViewController: UIViewController {
     }
     
     func gotoEditPage(){
-        let vc = EditViewController(frames: frames)
+        let vc = EditViewController(frames: frames, curFeature: .text)
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -598,7 +598,7 @@ extension TextInputViewController : UICollectionViewDelegateFlowLayout, UICollec
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == colorCollectionView {
-            return CGSize(width: 24, height: 24)
+            return CGSize(width: 30, height: 30)
         }
         if collectionView == fontCollectionView {
             var sz = CGSize(width: 100, height: 24)
