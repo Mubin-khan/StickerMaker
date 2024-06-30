@@ -20,6 +20,9 @@
 		86973D3E2C21A52400445778 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86973D3D2C21A52400445778 /* UIImage+Extensions.swift */; };
 		86973D412C21A57200445778 /* CGSize+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86973D402C21A57200445778 /* CGSize+Extensions.swift */; };
 		86AB70B42C2E8B070030E5C2 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AB70B32C2E8B070030E5C2 /* NetworkManager.swift */; };
+		86BB93F42C31AFE400D92A7D /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB93F32C31AFE400D92A7D /* FilterManager.swift */; };
+		86BB93F92C31B4A700D92A7D /* ImageEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86BB93F82C31B4A700D92A7D /* ImageEditViewController.xib */; };
+		86BB93FA2C31B4A700D92A7D /* ImageEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB93F72C31B4A700D92A7D /* ImageEditViewController.swift */; };
 		86C662942C29C1FC00E2F04D /* TextInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C662922C29C1FC00E2F04D /* TextInputViewController.swift */; };
 		86C662952C29C1FC00E2F04D /* TextInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86C662932C29C1FC00E2F04D /* TextInputViewController.xib */; };
 		86C662A42C29C72200E2F04D /* TextFeatureCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C662A22C29C72200E2F04D /* TextFeatureCollectionViewCell.swift */; };
@@ -70,6 +73,9 @@
 		86973D3D2C21A52400445778 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		86973D402C21A57200445778 /* CGSize+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Extensions.swift"; sourceTree = "<group>"; };
 		86AB70B32C2E8B070030E5C2 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		86BB93F32C31AFE400D92A7D /* FilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
+		86BB93F72C31B4A700D92A7D /* ImageEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditViewController.swift; sourceTree = "<group>"; };
+		86BB93F82C31B4A700D92A7D /* ImageEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageEditViewController.xib; sourceTree = "<group>"; };
 		86C662922C29C1FC00E2F04D /* TextInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputViewController.swift; sourceTree = "<group>"; };
 		86C662932C29C1FC00E2F04D /* TextInputViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextInputViewController.xib; sourceTree = "<group>"; };
 		86C662A22C29C72200E2F04D /* TextFeatureCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFeatureCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -143,6 +149,7 @@
 		864F323F2C19FF95006A62AD /* StickerApp */ = {
 			isa = PBXGroup;
 			children = (
+				86BB93F22C31AFC000D92A7D /* Managers */,
 				86AB70B22C2E8AF00030E5C2 /* ServiceLayer */,
 				86973D3C2C21A1C500445778 /* Extensions */,
 				86973D2F2C21667500445778 /* Resources */,
@@ -157,6 +164,7 @@
 		86973D2D2C21665B00445778 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				86BB93F52C31B48000D92A7D /* ImageEditor */,
 				86F7C3112C2C680800684B5B /* Gif */,
 				86C662902C29C1DC00E2F04D /* TextPage */,
 				86C775132C240F02003A58F8 /* IntermediatePage */,
@@ -236,6 +244,31 @@
 				86AB70B32C2E8B070030E5C2 /* NetworkManager.swift */,
 			);
 			path = ServiceLayer;
+			sourceTree = "<group>";
+		};
+		86BB93F22C31AFC000D92A7D /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				86BB93F32C31AFE400D92A7D /* FilterManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		86BB93F52C31B48000D92A7D /* ImageEditor */ = {
+			isa = PBXGroup;
+			children = (
+				86BB93F62C31B48800D92A7D /* View */,
+			);
+			path = ImageEditor;
+			sourceTree = "<group>";
+		};
+		86BB93F62C31B48800D92A7D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				86BB93F72C31B4A700D92A7D /* ImageEditViewController.swift */,
+				86BB93F82C31B4A700D92A7D /* ImageEditViewController.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		86C662902C29C1DC00E2F04D /* TextPage */ = {
@@ -463,6 +496,7 @@
 				86C662A92C29C84100E2F04D /* ColorCollectionViewCell.xib in Resources */,
 				86F7C31D2C2C8E2800684B5B /* frameCollectionViewCell.xib in Resources */,
 				86C662AD2C29DCD000E2F04D /* FontsCollectionViewCell.xib in Resources */,
+				86BB93F92C31B4A700D92A7D /* ImageEditViewController.xib in Resources */,
 				86CD4B2A2C2DFFB5001C4AFD /* GifCollectionViewCell.xib in Resources */,
 				86C775182C240F3D003A58F8 /* IntermediateViewController.xib in Resources */,
 				86C662952C29C1FC00E2F04D /* TextInputViewController.xib in Resources */,
@@ -529,6 +563,7 @@
 				8696EAD52C2B434700B4E7C2 /* UILabel+Extensions.swift in Sources */,
 				86973D3B2C2189E000445778 /* EditViewController.swift in Sources */,
 				86CD4B222C2DFF9A001C4AFD /* Query.swift in Sources */,
+				86BB93F42C31AFE400D92A7D /* FilterManager.swift in Sources */,
 				86CD4B252C2DFFAD001C4AFD /* SearchAdaptor.swift in Sources */,
 				86CD4B202C2DFF9A001C4AFD /* Cache.swift in Sources */,
 				86CD4B172C2DF1BB001C4AFD /* Double+Extensions.swift in Sources */,
@@ -536,6 +571,7 @@
 				86CD4B292C2DFFB5001C4AFD /* GifCollectionViewCell.swift in Sources */,
 				864F32412C19FF95006A62AD /* AppDelegate.swift in Sources */,
 				86C662942C29C1FC00E2F04D /* TextInputViewController.swift in Sources */,
+				86BB93FA2C31B4A700D92A7D /* ImageEditViewController.swift in Sources */,
 				86CD4B232C2DFF9A001C4AFD /* RESTNetworkRequest.swift in Sources */,
 				86C775172C240F3D003A58F8 /* IntermediateViewController.swift in Sources */,
 				86F7C3172C2C683A00684B5B /* GifViewController.swift in Sources */,

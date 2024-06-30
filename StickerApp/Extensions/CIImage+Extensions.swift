@@ -5,7 +5,7 @@
 //  Created by Mubin Khan on 6/19/24.
 //
 
-import Foundation
+import UIKit
 import CoreImage
 
 extension CIImage {
@@ -47,5 +47,14 @@ extension CIImage {
         
         // Apply the transform to the CIImage
         return self.transformed(by: transform)
+    }
+    
+    
+    func toUIImage() -> UIImage? {
+        let context = CIContext()
+        guard let cgImage = context.createCGImage(self, from: self.extent) else {
+            return nil
+        }
+        return UIImage(cgImage: cgImage)
     }
 }

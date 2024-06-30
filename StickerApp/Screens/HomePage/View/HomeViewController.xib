@@ -59,10 +59,20 @@
                         <action selector="textToStickerAction:" destination="-1" eventType="touchUpInside" id="Dr1-fX-Bl5"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Etb-is-qvb">
+                    <rect key="frame" x="159" y="490" width="75" height="35"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                    <connections>
+                        <action selector="testAction:" destination="-1" eventType="touchUpInside" id="EoF-9w-AfK"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="Etb-is-qvb" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="0MS-OE-JPe"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Etb-is-qvb" secondAttribute="bottom" constant="293" id="37e-lc-SWv"/>
                 <constraint firstItem="A7e-O3-yxb" firstAttribute="leading" secondItem="s00-bD-DsJ" secondAttribute="trailing" constant="50" id="5nc-eJ-Wg7"/>
                 <constraint firstItem="2l2-DK-aID" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="BJ2-LT-Kyy"/>
                 <constraint firstItem="mk5-TS-UZw" firstAttribute="leading" secondItem="2l2-DK-aID" secondAttribute="leading" id="CtS-Pp-6Mh"/>

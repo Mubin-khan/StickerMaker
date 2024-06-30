@@ -146,6 +146,13 @@ extension UIImage {
         return colored
     }
 
+    func toCIImage() -> CIImage? {
+        var ci = self.ciImage
+        if ci == nil, let cg = self.cgImage {
+            ci = CIImage(cgImage: cg)
+        }
+        return ci
+    }
 
 }
 
