@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 class EditViewController: UIViewController {
 
@@ -99,6 +100,69 @@ class EditViewController: UIViewController {
     
     @IBAction func speedChangeAction(_ sender: UISlider, forEvent event: UIEvent) {
         self.displayLink.preferredFramesPerSecond = Int(sender.value * 30) + 1
+    }
+    
+    
+    @IBAction func doneAction(_ sender: Any) {
+        var finalImages : [UIImage] = []
+        
+        let tempW = borderWidth * frames[0].size.width / contentImageWidthCon.constant
+        let tempH = borderWidth * frames[0].size.height / contentImageHeightCon.constant
+        
+        let backImageSize = CGSize(width: frames[0].size.width + tempW, height: frames[0].size.height + tempH)
+        let backImage = borderView.toImage().resize(backImageSize)
+        
+        for img in frames {
+            if let bgImage = backImage, let outputImg = imageWithBackgroundMerging(bgImage: bgImage, topImage: img){
+                finalImages.append(outputImg)
+            }
+        }
+        let gifUrl = createAnimatedGIF(with: finalImages, duration: 2)
+        
+        let vc = StickersViewController()
+        vc.gifUrl = gifUrl
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func createAnimatedGIF(with images: [UIImage], duration: TimeInterval, loopCount: Int = 0) -> URL? {
+        let fileProperties = [kCGImagePropertyGIFDictionary as String: [kCGImagePropertyGIFLoopCount as String: loopCount]]
+        let frameProperties = [kCGImagePropertyGIFDictionary as String: [kCGImagePropertyGIFDelayTime as String: duration / Double(images.count)]]
+        
+        let temporaryFileURL = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("\(UUID().uuidString).gif")
+        guard let destination = CGImageDestinationCreateWithURL(temporaryFileURL as CFURL, kUTTypeGIF, images.count, nil) else {
+            return nil
+        }
+        
+        CGImageDestinationSetProperties(destination, fileProperties as CFDictionary)
+        
+        for image in images {
+            CGImageDestinationAddImage(destination, image.cgImage!, frameProperties as CFDictionary)
+        }
+        
+        if !CGImageDestinationFinalize(destination) {
+            return nil
+        }
+        
+        return temporaryFileURL
+    }
+    
+    func imageWithBackgroundMerging(bgImage : UIImage, topImage : UIImage) -> UIImage? {
+       guard let bgCiImage = bgImage.toCIImage(),
+             let topCiImage = topImage.toCIImage() else {return nil}
+        
+        let outputCiImage = combineTwoCIImage(backgroundImage: bgCiImage, foregroundImage: topCiImage)
+        return outputCiImage?.toUIImage()
+    }
+    
+    func combineTwoCIImage(backgroundImage : CIImage, foregroundImage : CIImage ) -> CIImage? {
+        let xx = (backgroundImage.extent.size.width - foregroundImage.extent.size.width) / 2
+        let yy = (backgroundImage.extent.size.height - foregroundImage.extent.size.height) / 2
+        
+        let filter = CIFilter(name: "CISourceOverCompositing")
+        filter?.setValue(foregroundImage, forKey: "inputImage")
+        filter?.setValue(backgroundImage, forKey: "inputBackgroundImage")
+        filter?.setValue(foregroundImage.transformed(by: CGAffineTransformMakeTranslation(xx, yy)), forKey: kCIInputImageKey )
+        return filter?.outputImage
     }
     
 }

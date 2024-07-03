@@ -10,6 +10,7 @@ import Kingfisher
 
 class GifCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     static let gifcellIdentifier = "GifCollectionViewCell"
 
     @IBOutlet weak var gifImageView: AnimatedImageView!
@@ -20,6 +21,12 @@ class GifCollectionViewCell: UICollectionViewCell {
     }
 
     func setup(url : URL){
-        gifImageView.kf.setImage(with: url)
+        self.indicator.startAnimating()
+        gifImageView.kf.setImage(with: url) { result in
+            switch result {
+            case .success(_) : self.indicator.stopAnimating()
+            default : break
+            }
+        }
     }
 }

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		862B97EC2C3306B10074A09D /* StickersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 862B97EB2C3306B10074A09D /* StickersViewController.xib */; };
+		862B97ED2C3306B10074A09D /* StickersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862B97EA2C3306B10074A09D /* StickersViewController.swift */; };
+		862B97EF2C3324EA0074A09D /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862B97EE2C3324EA0074A09D /* UIView+Extensions.swift */; };
 		864F32412C19FF95006A62AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864F32402C19FF95006A62AD /* AppDelegate.swift */; };
 		864F32432C19FF95006A62AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 864F32422C19FF95006A62AD /* SceneDelegate.swift */; };
 		864F324A2C19FF96006A62AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 864F32492C19FF96006A62AD /* Assets.xcassets */; };
@@ -58,6 +61,9 @@
 /* Begin PBXFileReference section */
 		1934617C2AFE5701CAD807E7 /* Pods-StickerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StickerApp.release.xcconfig"; path = "Target Support Files/Pods-StickerApp/Pods-StickerApp.release.xcconfig"; sourceTree = "<group>"; };
 		838C76827727D296B6A94792 /* Pods-StickerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StickerApp.debug.xcconfig"; path = "Target Support Files/Pods-StickerApp/Pods-StickerApp.debug.xcconfig"; sourceTree = "<group>"; };
+		862B97EA2C3306B10074A09D /* StickersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickersViewController.swift; sourceTree = "<group>"; };
+		862B97EB2C3306B10074A09D /* StickersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StickersViewController.xib; sourceTree = "<group>"; };
+		862B97EE2C3324EA0074A09D /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		864F323D2C19FF95006A62AD /* StickerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StickerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		864F32402C19FF95006A62AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		864F32422C19FF95006A62AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +134,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		862B97E92C3306960074A09D /* StickerPage */ = {
+			isa = PBXGroup;
+			children = (
+				862B97EA2C3306B10074A09D /* StickersViewController.swift */,
+				862B97EB2C3306B10074A09D /* StickersViewController.xib */,
+			);
+			path = StickerPage;
+			sourceTree = "<group>";
+		};
 		864F32342C19FF95006A62AD = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +179,7 @@
 		86973D2D2C21665B00445778 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				862B97E92C3306960074A09D /* StickerPage */,
 				86BB93F52C31B48000D92A7D /* ImageEditor */,
 				86F7C3112C2C680800684B5B /* Gif */,
 				86C662902C29C1DC00E2F04D /* TextPage */,
@@ -234,6 +250,7 @@
 				8696EAD42C2B434700B4E7C2 /* UILabel+Extensions.swift */,
 				86CD4B162C2DF1BB001C4AFD /* Double+Extensions.swift */,
 				86EDC8FF2C308F9C00E68835 /* CGPoint+Extensions.swift */,
+				862B97EE2C3324EA0074A09D /* UIView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -500,6 +517,7 @@
 				86CD4B2A2C2DFFB5001C4AFD /* GifCollectionViewCell.xib in Resources */,
 				86C775182C240F3D003A58F8 /* IntermediateViewController.xib in Resources */,
 				86C662952C29C1FC00E2F04D /* TextInputViewController.xib in Resources */,
+				862B97EC2C3306B10074A09D /* StickersViewController.xib in Resources */,
 				864F324A2C19FF96006A62AD /* Assets.xcassets in Resources */,
 				864F324D2C19FF96006A62AD /* Base in Resources */,
 				86973D342C2166FC00445778 /* HomeViewController.xib in Resources */,
@@ -579,6 +597,7 @@
 				86C7751D2C241210003A58F8 /* ARImageCropper.swift in Sources */,
 				864F32432C19FF95006A62AD /* SceneDelegate.swift in Sources */,
 				86C662A82C29C84100E2F04D /* ColorCollectionViewCell.swift in Sources */,
+				862B97EF2C3324EA0074A09D /* UIView+Extensions.swift in Sources */,
 				86CD4B212C2DFF9A001C4AFD /* ModelStore.swift in Sources */,
 				86C7751B2C241107003A58F8 /* CornerPointView.swift in Sources */,
 				86C662A42C29C72200E2F04D /* TextFeatureCollectionViewCell.swift in Sources */,
@@ -588,6 +607,7 @@
 				86AB70B42C2E8B070030E5C2 /* NetworkManager.swift in Sources */,
 				865845472C2317EF00AAAA27 /* CIImage+Extensions.swift in Sources */,
 				86CD4B1F2C2DFF9A001C4AFD /* AssetModel.swift in Sources */,
+				862B97ED2C3306B10074A09D /* StickersViewController.swift in Sources */,
 				86973D352C2166FC00445778 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

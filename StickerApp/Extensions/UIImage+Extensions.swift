@@ -156,6 +156,25 @@ extension UIImage {
 
 }
 
+extension UIImage {
+    func imageResized(to size: CGSize) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            draw(in: CGRect(origin: .zero, size: size))
+        }
+    }
+    
+    func resize(_ size: CGSize) -> UIImage? {
+        if size.width <= 0 || size.height <= 0 {
+            return nil
+        }
+        UIGraphicsBeginImageContextWithOptions(size, false, 1)
+        self.draw(in: CGRect(origin: .zero, size: size))
+        let temp = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return temp
+    }
+}
+
 
 extension CGImage {
     

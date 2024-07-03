@@ -20,6 +20,10 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ppY-Rb-Het" customClass="AnimatedImageView" customModule="Kingfisher">
                         <rect key="frame" x="0.0" y="0.0" width="95" height="86"/>
                     </imageView>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="OnG-yB-G1z">
+                        <rect key="frame" x="37.666666666666664" y="33" width="20" height="20"/>
+                        <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </activityIndicatorView>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
@@ -27,11 +31,14 @@
                 <constraint firstAttribute="bottom" secondItem="ppY-Rb-Het" secondAttribute="bottom" id="9f9-4i-3Ul"/>
                 <constraint firstItem="ppY-Rb-Het" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="MkC-Cx-VxI"/>
                 <constraint firstAttribute="trailing" secondItem="ppY-Rb-Het" secondAttribute="trailing" id="ax5-KR-7l9"/>
+                <constraint firstItem="OnG-yB-G1z" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="p3Y-E0-vDM"/>
+                <constraint firstItem="OnG-yB-G1z" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="ukx-UU-TrS"/>
                 <constraint firstItem="ppY-Rb-Het" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="zHC-1u-EpU"/>
             </constraints>
             <size key="customSize" width="95" height="86"/>
             <connections>
                 <outlet property="gifImageView" destination="ppY-Rb-Het" id="wgg-tV-Em7"/>
+                <outlet property="indicator" destination="OnG-yB-G1z" id="Jcf-MN-CvL"/>
             </connections>
             <point key="canvasLocation" x="54.198473282442748" y="32.394366197183103"/>
         </collectionViewCell>

@@ -46,6 +46,7 @@ class GifViewController: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.largeTitleDisplayMode = .never
         searchController.searchBar.placeholder = "Search Tenor Gif"
+        searchController.searchBar.searchTextField.textColor = .white
         let backButton = UIBarButtonItem()
         backButton.title = "Back"
         backButton.tintColor = .white
