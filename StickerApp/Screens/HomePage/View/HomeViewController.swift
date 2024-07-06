@@ -68,6 +68,11 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate {
     }
     
     @IBAction func getPhotoAction(_ sender: Any) {
+        var configuration = PHPickerConfiguration()
+        configuration.filter = .images
+        configuration.selectionLimit = 1
+        
+        presentPicker(with: configuration)
     }
     
     private func presentPicker(with config : PHPickerConfiguration) {
@@ -92,7 +97,7 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate {
                 }
             }
             
-            if provider.hasItemConformingToTypeIdentifier(UTType.movie.identifier) {
+            else if provider.hasItemConformingToTypeIdentifier(UTType.movie.identifier) {
                 result.itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.movie.identifier) { (url, error) in
                             guard let url = url else {
                                 if let error = error {
@@ -116,6 +121,18 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate {
                             }
                         }
             }
+            else if provider.canLoadObject(ofClass: UIImage.self) {
+                let prov = result.itemProvider
+                prov.loadObject(ofClass: UIImage.self) { im, err in
+                    if let img = im as? UIImage {
+                        DispatchQueue.main.async {
+                            let mainImage = img.asSmallImage ?? img
+                            let vc = EraseViewController(contentImg: mainImage)
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                    }
+                }
+           }
         }
     }
     

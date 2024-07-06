@@ -153,6 +153,75 @@ extension UIImage {
         }
         return ci
     }
+    
+    func convertUIImageToCGImage() -> CGImage? {
+        if let cgImage = self.cgImage {
+            // Directly use the underlying CGImage if available
+            return cgImage
+        } else if let ciImage = self.ciImage {
+            // Render the CIImage to a CGImage if the UIImage was backed by a CIImage
+            let context = CIContext(options: nil)
+            return context.createCGImage(ciImage, from: ciImage.extent)
+        } else {
+            // Render the UIImage to a CGImage if neither cgImage nor ciImage are available
+            UIGraphicsBeginImageContext(self.size)
+            self.draw(at: CGPoint.zero)
+            let renderedImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return renderedImage?.cgImage
+        }
+    }
+    
+    func cropNonTransparent() -> UIImage? {
+        guard let cgImage = self.cgImage else { return nil }
+        guard let dataProvider = cgImage.dataProvider else { return nil }
+        guard let pixelData = dataProvider.data else { return nil }
+        guard let data = CFDataGetBytePtr(pixelData) else { return nil }
+        
+        let width = cgImage.width
+        let height = cgImage.height
+        let bytesPerPixel = cgImage.bitsPerPixel / 8
+        let bytesPerRow = cgImage.bytesPerRow
+        let alphaInfo = cgImage.alphaInfo
+        
+        var minX = width
+        var minY = height
+        var maxX: Int = 0
+        var maxY: Int = 0
+        
+        for y in 0..<height {
+            for x in 0..<width {
+                let pixelIndex = (y * bytesPerRow) + (x * bytesPerPixel)
+                let alpha: UInt8
+                
+                switch alphaInfo {
+                case .first, .premultipliedFirst:
+                    alpha = data[pixelIndex]
+                case .last, .premultipliedLast:
+                    alpha = data[pixelIndex + 3]
+                default:
+                    continue
+                }
+                
+                if alpha > 0 {
+                    if x < minX { minX = x }
+                    if y < minY { minY = y }
+                    if x > maxX { maxX = x }
+                    if y > maxY { maxY = y }
+                }
+            }
+        }
+        
+        if minX >= maxX || minY >= maxY {
+            // No non-transparent pixels found
+            return nil
+        }
+        
+        let cropRect = CGRect(x: minX, y: minY, width: maxX - minX + 1, height: maxY - minY + 1)
+        guard let croppedCgImage = cgImage.cropping(to: cropRect) else { return nil }
+        
+        return UIImage(cgImage: croppedCgImage, scale: self.scale, orientation: self.imageOrientation)
+    }
 
 }
 
