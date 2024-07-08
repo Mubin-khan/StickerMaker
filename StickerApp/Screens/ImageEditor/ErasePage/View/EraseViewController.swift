@@ -68,4 +68,17 @@ class EraseViewController: UIViewController {
         self.present(navVC, animated: true, completion: nil)
     }
     
+    
+    @IBAction func BlurAction(_ sender: Any) {
+        let vc = BlurViewController(fullImage: contentImg)
+        let navVC = UINavigationController(rootViewController: vc)
+        navVC.isNavigationBarHidden = true
+        navVC.modalPresentationStyle = .fullScreen
+        self.present(navVC, animated: true, completion: nil)
+    }
+    
+    @IBAction func nextPageAction(_ sender: Any) {
+        let vc = ImageEditViewController(image: contentImg)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }

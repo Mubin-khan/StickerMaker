@@ -222,6 +222,64 @@ extension UIImage {
         
         return UIImage(cgImage: croppedCgImage, scale: self.scale, orientation: self.imageOrientation)
     }
+    
+    func invertAlpha() -> UIImage? {
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+        let (width, height) = (Int(self.size.width), Int(self.size.height))
+        let bytesPerPixel = 4
+        let bytesPerRow = bytesPerPixel * width
+        let byteOffsetToAlpha = 3
+        if let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bytesPerRow,
+                                   space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: bitmapInfo.rawValue),
+           let cgImage = self.cgImage {
+            context.setFillColor(UIColor.clear.cgColor)
+            context.fill(CGRect(origin: CGPoint.zero, size: self.size))
+            context.draw(cgImage, in: CGRect(origin: CGPoint.zero, size: self.size))
+            if let memory: UnsafeMutableRawPointer = context.data {
+                
+                
+                var y = 0
+                while y<height {
+                    let pointer = memory.advanced(by: bytesPerRow * y)
+                    let buffer = pointer.bindMemory(to: UInt8.self, capacity: bytesPerRow)
+                    
+                    var x = 0
+                    while x<width {
+                        let rowOffset = x * bytesPerPixel + byteOffsetToAlpha
+                        buffer[rowOffset] = 0xff - buffer[rowOffset]
+                        x+=1
+                    }
+                    y+=1
+                }
+                
+                if let cgImage =  context.makeImage() {
+                    return UIImage(cgImage: cgImage)
+                }
+            }
+        }
+        return nil
+    }
+    
+    func blurImage() -> UIImage? {
+        guard let currCgImage = self.cgImage else {
+            return nil
+        }
+        let currCiImage = CIImage(cgImage: currCgImage)
+        
+        let outputImage = currCiImage
+            .applyingFilter("CIAffineClamp", parameters: [
+                "inputTransform": CGAffineTransform.identity
+            ]).applyingFilter("CIGaussianBlur", parameters: [
+                "inputRadius": 40
+            ])
+        
+        let context = CIContext()
+        if let cgImg = context.createCGImage(outputImage, from: CGRect(origin: .zero, size: self.size)) {
+            return UIImage(cgImage: cgImg)
+        } else {
+            return nil
+        }
+    }
 
 }
 

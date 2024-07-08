@@ -222,7 +222,11 @@ class ShapeCropViewController: UIViewController {
         context.clip(to: rect, mask: cgMask)
         context.draw(cgImage, in: rect)
         let img = UIImage(cgImage: context.makeImage()!)
-        let croppedImg = img.cropNonTransparent()
+        let croppedImg = img.cropNonTransparent() ?? img
+        
+
+        let vc = ImageEditViewController(image: croppedImg)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func closeAction(_ sender: Any) {

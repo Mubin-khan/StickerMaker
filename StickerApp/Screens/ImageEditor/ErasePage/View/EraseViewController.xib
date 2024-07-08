@@ -41,7 +41,7 @@
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="stL-y4-rIn" firstAttribute="leading" secondItem="UJz-T0-PyW" secondAttribute="leading" constant="2" id="4xy-6b-SLB"/>
                                 <constraint firstAttribute="width" constant="24" id="8Fg-rV-Azo"/>
@@ -64,9 +64,12 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MdP-QJ-esA">
                                     <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <connections>
+                                        <action selector="nextPageAction:" destination="-1" eventType="touchUpInside" id="SgL-fo-fvj"/>
+                                    </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="MdP-QJ-esA" firstAttribute="top" secondItem="3YT-v6-lGO" secondAttribute="top" id="AaH-rh-r9U"/>
                                 <constraint firstItem="Ztu-Pf-NYm" firstAttribute="top" secondItem="3YT-v6-lGO" secondAttribute="top" constant="2" id="BAn-bk-atE"/>
@@ -120,14 +123,24 @@
                                 <action selector="shapeAction:" destination="-1" eventType="touchUpInside" id="m9m-7P-WCD"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkw-Ro-kTq">
+                            <rect key="frame" x="308.33333333333331" y="46.666666666666629" width="54.333333333333314" height="35"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Blur"/>
+                            <connections>
+                                <action selector="BlurAction:" destination="-1" eventType="touchUpInside" id="IeU-sq-hz2"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="tkw-Ro-kTq" firstAttribute="centerY" secondItem="wcn-Zc-nRW" secondAttribute="centerY" id="4uv-wS-Zzq"/>
                         <constraint firstItem="X9k-tU-uGM" firstAttribute="leading" secondItem="r0c-y0-MVK" secondAttribute="leading" constant="24" id="H03-I2-DDp"/>
                         <constraint firstItem="LTE-so-DP7" firstAttribute="leading" secondItem="X9k-tU-uGM" secondAttribute="trailing" constant="24" id="LfN-cj-0ZI"/>
                         <constraint firstItem="X9k-tU-uGM" firstAttribute="centerY" secondItem="r0c-y0-MVK" secondAttribute="centerY" id="UKN-4l-rpa"/>
                         <constraint firstItem="LTE-so-DP7" firstAttribute="centerY" secondItem="X9k-tU-uGM" secondAttribute="centerY" id="XhI-Rt-Vj8"/>
                         <constraint firstAttribute="height" constant="128" id="hZ8-Yy-Rfn"/>
+                        <constraint firstItem="tkw-Ro-kTq" firstAttribute="leading" secondItem="wcn-Zc-nRW" secondAttribute="trailing" constant="24" id="lwp-Kn-dMH"/>
                         <constraint firstItem="wcn-Zc-nRW" firstAttribute="leading" secondItem="LTE-so-DP7" secondAttribute="trailing" constant="24" id="r8S-jd-QGL"/>
                         <constraint firstItem="wcn-Zc-nRW" firstAttribute="centerY" secondItem="LTE-so-DP7" secondAttribute="centerY" id="uWi-0r-INe"/>
                     </constraints>
@@ -158,9 +171,6 @@
         <image name="check" width="64" height="64"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

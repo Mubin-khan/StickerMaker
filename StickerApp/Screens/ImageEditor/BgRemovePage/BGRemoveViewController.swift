@@ -229,7 +229,10 @@ class BGRemoveViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func doneAction(_ sender: Any) {
-        
+        let img = maskingView.toImage()
+        let nonTransparentOnly = img.cropNonTransparent() ?? img
+        let vc = ImageEditViewController(image: nonTransparentOnly)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }

@@ -54,6 +54,8 @@
 		86C775182C240F3D003A58F8 /* IntermediateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86C775162C240F3D003A58F8 /* IntermediateViewController.xib */; };
 		86C7751B2C241107003A58F8 /* CornerPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7751A2C241107003A58F8 /* CornerPointView.swift */; };
 		86C7751D2C241210003A58F8 /* ARImageCropper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C7751C2C241210003A58F8 /* ARImageCropper.swift */; };
+		86CBCBF92C3C31B000805DF2 /* BlurViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86CBCBF82C3C31B000805DF2 /* BlurViewController.xib */; };
+		86CBCBFA2C3C31B000805DF2 /* BlurViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CBCBF72C3C31B000805DF2 /* BlurViewController.swift */; };
 		86CD4B172C2DF1BB001C4AFD /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CD4B162C2DF1BB001C4AFD /* Double+Extensions.swift */; };
 		86CD4B1F2C2DFF9A001C4AFD /* AssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CD4B192C2DFF9A001C4AFD /* AssetModel.swift */; };
 		86CD4B202C2DFF9A001C4AFD /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CD4B1A2C2DFF9A001C4AFD /* Cache.swift */; };
@@ -123,6 +125,8 @@
 		86C775162C240F3D003A58F8 /* IntermediateViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntermediateViewController.xib; sourceTree = "<group>"; };
 		86C7751A2C241107003A58F8 /* CornerPointView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CornerPointView.swift; sourceTree = "<group>"; };
 		86C7751C2C241210003A58F8 /* ARImageCropper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARImageCropper.swift; sourceTree = "<group>"; };
+		86CBCBF72C3C31B000805DF2 /* BlurViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurViewController.swift; sourceTree = "<group>"; };
+		86CBCBF82C3C31B000805DF2 /* BlurViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlurViewController.xib; sourceTree = "<group>"; };
 		86CD4B162C2DF1BB001C4AFD /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		86CD4B192C2DFF9A001C4AFD /* AssetModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetModel.swift; sourceTree = "<group>"; };
 		86CD4B1A2C2DFF9A001C4AFD /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
@@ -354,6 +358,7 @@
 		86BB93F52C31B48000D92A7D /* ImageEditor */ = {
 			isa = PBXGroup;
 			children = (
+				86CBCBF52C3C319100805DF2 /* BlurView */,
 				86ADC36E2C39482F00FF9849 /* ShapeCrop */,
 				86ADC35F2C390BC600FF9849 /* Brush */,
 				86C14DB32C38782800B506D2 /* ErasePage */,
@@ -525,6 +530,23 @@
 			path = subview;
 			sourceTree = "<group>";
 		};
+		86CBCBF52C3C319100805DF2 /* BlurView */ = {
+			isa = PBXGroup;
+			children = (
+				86CBCBF62C3C31A100805DF2 /* View */,
+			);
+			path = BlurView;
+			sourceTree = "<group>";
+		};
+		86CBCBF62C3C31A100805DF2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				86CBCBF72C3C31B000805DF2 /* BlurViewController.swift */,
+				86CBCBF82C3C31B000805DF2 /* BlurViewController.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		86CD4B1E2C2DFF9A001C4AFD /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -660,6 +682,7 @@
 				864F324A2C19FF96006A62AD /* Assets.xcassets in Resources */,
 				864F324D2C19FF96006A62AD /* Base in Resources */,
 				86973D342C2166FC00445778 /* HomeViewController.xib in Resources */,
+				86CBCBF92C3C31B000805DF2 /* BlurViewController.xib in Resources */,
 				86C14DB72C38784C00B506D2 /* EraseViewController.xib in Resources */,
 				86F7C3182C2C683A00684B5B /* GifViewController.xib in Resources */,
 				86C662A52C29C72200E2F04D /* TextFeatureCollectionViewCell.xib in Resources */,
@@ -723,6 +746,7 @@
 				86CD4B222C2DFF9A001C4AFD /* Query.swift in Sources */,
 				86ADC3642C390BF800FF9849 /* BrushViewController.swift in Sources */,
 				86BB93F42C31AFE400D92A7D /* FilterManager.swift in Sources */,
+				86CBCBFA2C3C31B000805DF2 /* BlurViewController.swift in Sources */,
 				86CD4B252C2DFFAD001C4AFD /* SearchAdaptor.swift in Sources */,
 				86CD4B202C2DFF9A001C4AFD /* Cache.swift in Sources */,
 				86C14DB12C38717900B506D2 /* AppleBgRemover.swift in Sources */,
