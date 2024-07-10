@@ -13,7 +13,7 @@ class BrushViewController: UIViewController, UIGestureRecognizerDelegate {
     enum EditState : String, CaseIterable {
         case erase = "Erase"
         case restore = "Restore"
-//        case invert = "Invert"
+        case invert = "Invert"
         case reset = "Reset"
     }
     
@@ -75,14 +75,19 @@ class BrushViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func createBlackImage(size: CGSize) -> UIImage? {
-        let renderer = UIGraphicsImageRenderer(size: size)
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1 // Use a scale factor of 1 for pixel-perfect rendering
+        let renderer = UIGraphicsImageRenderer(size: size, format: format)
+        
         let image = renderer.image { context in
             // Set the fill color to black
             UIColor.black.setFill()
             context.fill(CGRect(origin: .zero, size: size))
         }
+        
         return image
     }
+
 
     override func viewDidLayoutSubviews() {
         maskLayer.frame = maskingView.bounds
@@ -94,61 +99,61 @@ class BrushViewController: UIViewController, UIGestureRecognizerDelegate {
         installSampleMask()
     }
     
-    private func installSampleMask() {
-        
-        guard let renderer = renderer else { return }
-        let image = renderer.image { (context) in
-            fullImage.draw(in: maskingView.bounds)
-        }
-        maskLayer.contents = image.cgImage
-    }
-    
 //    private func installSampleMask() {
 //        
 //        guard let renderer = renderer else { return }
 //        let image = renderer.image { (context) in
-//            // Draw the base image
 //            fullImage.draw(in: maskingView.bounds)
-//            
-//            // Set the blend mode to normal and draw the mask image
-//            context.cgContext.setBlendMode(.clear)
-//            maskImage?.draw(in: maskingView.bounds, blendMode: .clear, alpha: 1.0)
-//            
-//            // Save the current graphics state
-//            context.cgContext.saveGState()
-//            
-//            // Apply a horizontal flip transformation
-//            context.cgContext.translateBy(x: 0, y: maskingView.bounds.height)
-//            context.cgContext.scaleBy(x: 1.0, y: -1.0)
-//            
-//            // Create a new image from the mask image where the alpha is used as the mask
-//            if let maskCGImage = maskImage?.convertUIImageToCGImage() {
-//                let mask = CGImage(maskWidth: maskCGImage.width,
-//                                   height: maskCGImage.height,
-//                                   bitsPerComponent: maskCGImage.bitsPerComponent,
-//                                   bitsPerPixel: maskCGImage.bitsPerPixel,
-//                                   bytesPerRow: maskCGImage.bytesPerRow,
-//                                   provider: maskCGImage.dataProvider!,
-//                                   decode: nil,
-//                                   shouldInterpolate: true)
-//                
-//                context.cgContext.clip(to: maskingView.bounds, mask: mask!)
-//                context.cgContext.setBlendMode(.normal)
-//                context.cgContext.fill(maskingView.bounds)
-//            }
 //        }
 //        maskLayer.contents = image.cgImage
-//        maskImage = image
-//        
-////        let imageName = UUID().uuidString
-////        DocDirectoryHelper.shared.saveImageToDoc(imgName: imageName, image: sampleMaskImage)
-////
-////        self.object = EverythingTogether(
-////            adjustVariable: AdjustFilterManager.shared.getCurrentAdjustModel(),
-////            filterVariable: FilterModel(selectedCategory: selectedFilterCategory, selectedContent: selectedFilterContent, filter: currentFilter), bgVariable: BackgroundModel(bgImage: UIImage(named: "sample")),
-////            cropVariable: ERCropModel(cropRect : currentCropRect, scale: 1, translation: CGPoint(x: 0, y: 0)), eraseRestoreImageModel: EraseRestoreImageModel(imageName: imageName)
-////        )
 //    }
+    
+    private func installSampleMask() {
+        
+        guard let renderer = renderer else { return }
+        let image = renderer.image { (context) in
+            // Draw the base image
+            fullImage.draw(in: maskingView.bounds)
+            
+            // Set the blend mode to normal and draw the mask image
+            context.cgContext.setBlendMode(.clear)
+            maskImage?.draw(in: maskingView.bounds, blendMode: .clear, alpha: 1.0)
+            
+            // Save the current graphics state
+            context.cgContext.saveGState()
+            
+            // Apply a horizontal flip transformation
+            context.cgContext.translateBy(x: 0, y: maskingView.bounds.height)
+            context.cgContext.scaleBy(x: 1.0, y: -1.0)
+            
+            // Create a new image from the mask image where the alpha is used as the mask
+            if let maskCGImage = maskImage?.convertUIImageToCGImage() {
+                let mask = CGImage(maskWidth: maskCGImage.width,
+                                   height: maskCGImage.height,
+                                   bitsPerComponent: maskCGImage.bitsPerComponent,
+                                   bitsPerPixel: maskCGImage.bitsPerPixel,
+                                   bytesPerRow: maskCGImage.bytesPerRow,
+                                   provider: maskCGImage.dataProvider!,
+                                   decode: nil,
+                                   shouldInterpolate: true)
+                
+                context.cgContext.clip(to: maskingView.bounds, mask: mask!)
+                context.cgContext.setBlendMode(.normal)
+                context.cgContext.fill(maskingView.bounds)
+            }
+        }
+        maskLayer.contents = image.cgImage
+        maskImage = image
+        
+//        let imageName = UUID().uuidString
+//        DocDirectoryHelper.shared.saveImageToDoc(imgName: imageName, image: sampleMaskImage)
+//
+//        self.object = EverythingTogether(
+//            adjustVariable: AdjustFilterManager.shared.getCurrentAdjustModel(),
+//            filterVariable: FilterModel(selectedCategory: selectedFilterCategory, selectedContent: selectedFilterContent, filter: currentFilter), bgVariable: BackgroundModel(bgImage: UIImage(named: "sample")),
+//            cropVariable: ERCropModel(cropRect : currentCropRect, scale: 1, translation: CGPoint(x: 0, y: 0)), eraseRestoreImageModel: EraseRestoreImageModel(imageName: imageName)
+//        )
+    }
    
     var panGesture : UIPanGestureRecognizer?
     func addPanGestureToView(View vw : UIView){
@@ -295,10 +300,10 @@ extension BrushViewController : UICollectionViewDelegateFlowLayout, UICollection
         switch EditState.allCases[indexPath.row] {
         case .erase : selectedState = .erase
         case .restore : selectedState = .restore
-//        case .invert : break;
-//            if let mask = maskImage {
-//                maskLayer.contents = invertMaskImage(maskImg: mask)
-//            }
+        case .invert :
+            if let mask = maskImage {
+                maskLayer.contents = invertMaskImage(maskImg: mask)?.cgImage
+            }
         case .reset : installSampleMask()
         }
     }

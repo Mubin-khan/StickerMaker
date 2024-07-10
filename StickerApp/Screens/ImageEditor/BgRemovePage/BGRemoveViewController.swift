@@ -225,7 +225,7 @@ class BGRemoveViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func backAction(_ sender: Any) {
-        
+        dismiss(animated: true)
     }
     
     @IBAction func doneAction(_ sender: Any) {

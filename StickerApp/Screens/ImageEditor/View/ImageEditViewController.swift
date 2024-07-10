@@ -74,6 +74,11 @@ class ImageEditViewController: UIViewController {
         }
     }
     
+    
+    @IBAction func backAction(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
 }
 
 extension ImageEditViewController : UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
