@@ -9,6 +9,8 @@ import UIKit
 
 class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
 
+    @IBOutlet weak var maskingView: UIView!
+    @IBOutlet weak var blurImageView: UIImageView!
     @IBOutlet weak var imageContainerView: UIView!
     @IBOutlet weak var topImageView: UIImageView!
     @IBOutlet weak var imageViewHeightCon: NSLayoutConstraint!
@@ -17,10 +19,14 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
     
     let fullImage : UIImage
     var blurImage : UIImage?
+    var pixelate : UIImage?
     var blurImageLayer : CALayer?
     var blurImageLayerMaskLayer : CAShapeLayer?
     var initialSize : CGSize = .zero
     
+    let maskLayer = CALayer()
+    private var renderer: UIGraphicsImageRenderer?
+    var maskImage : UIImage?
     
     init(fullImage: UIImage) {
         self.fullImage = fullImage
@@ -34,17 +40,76 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if let mask = createAlphaMask(size: fullImage.size) {
+            maskImage = UIImage(cgImage: mask)
+        }
+        
+        blurImage = fullImage.blurImage()
+        pixelate = fullImage.pixelateImage()
+        
+        blurImageView.image = blurImage
+        
         initialSize = fullImage.size.calculateFinalSize(in: CGSize(width: containerView.bounds.size.width, height: containerView.bounds.size.height - 100))
         imageViewHeightCon.constant = initialSize.height
         imageViewWidthCon.constant = initialSize.width
         
         topImageView.image = fullImage
+        maskingView.layer.mask = maskLayer
         
         DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
             self.readyBlurTool()
         }
         
-        addPanGestureToView(View: topImageView)
+        addPanGestureToView(View: containerView)
+    }
+    
+    func createClearMaskImage(size: CGSize) -> UIImage? {
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1 // Use a scale factor of 1 for pixel-perfect rendering
+        let renderer = UIGraphicsImageRenderer(size: size, format: format)
+        
+        let image = renderer.image { context in
+            // Set the fill color to black
+            UIColor.black.setFill()
+            context.fill(CGRect(origin: .zero, size: size))
+        }
+        
+        return image
+    }
+    
+    func createAlphaMask(size: CGSize) -> CGImage? {
+        let bitsPerComponent: Int = 8
+        let bytesPerPixel: Int = 1
+        let bytesPerRow: Int = bytesPerPixel * Int(size.width)
+        let totalBytes = bytesPerRow * Int(size.height)
+        
+        var alphaData = [UInt8](repeating: 255, count: totalBytes)
+        
+//        for y in 0..<Int(size.height) {
+//            for x in 0..<Int(size.width) {
+//                let distanceFromCenter = hypot(CGFloat(x) - size.width / 2, CGFloat(y) - size.height / 2)
+//                let maxDistance = hypot(size.width / 2, size.height / 2)
+//                let alpha = UInt8((1.0 - min(distanceFromCenter / maxDistance, 1.0)) * 255.0)
+//                alphaData[y * bytesPerRow + x] = alpha
+//                print(alpha, distanceFromCenter)
+//            }
+//        }
+        
+        let colorSpace = CGColorSpaceCreateDeviceGray()
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.none.rawValue)
+        let dataProvider = CGDataProvider(data: NSData(bytes: &alphaData, length: totalBytes))!
+        let maskImage = CGImage(width: Int(size.width),
+                                height: Int(size.height),
+                                bitsPerComponent: bitsPerComponent,
+                                bitsPerPixel: bitsPerComponent,
+                                bytesPerRow: bytesPerRow,
+                                space: colorSpace,
+                                bitmapInfo: bitmapInfo,
+                                provider: dataProvider,
+                                decode: nil,
+                                shouldInterpolate: false,
+                                intent: .defaultIntent)
+        return maskImage
     }
     
     var panGesture : UIPanGestureRecognizer?
@@ -60,17 +125,15 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
     
     var lastGesturePoint : CGPoint = .zero
     var lineWidth : CGFloat = 30
-    var blendMode : CGBlendMode = .clear
-    var bazierPaths: [ERBlurPath] = []
+    var blendMode : CGBlendMode = .normal
+    var bazierPaths: [ERPath] = []
     
     @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
-        let point = gesture.location(in: topImageView)
+        let point = gesture.location(in: maskingView)
 
         if gesture.state == .began {
             let updatedLineWidth = lineWidth //(lineWidth / contentScrollView.zoomScale) / currentScale
-            let path = ERBlurPath(pathWidth: updatedLineWidth, ratio: 1, startPoint: point, blendMode: blendMode)
-            blurImageLayerMaskLayer?.lineWidth = updatedLineWidth
-            blurImageLayerMaskLayer?.path = path.path.cgPath
+            let path = ERPath(pathWidth: updatedLineWidth, ratio: 1, startPoint: point, blendMode: blendMode)
             bazierPaths.append(path)
             lastGesturePoint = point
         }
@@ -79,36 +142,34 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
             guard let path = bazierPaths.last else {return}
             let lastPoint = path.linePoints.last
             path.addLine(to: point, from: lastPoint)
-            blurImageLayerMaskLayer?.path = path.path.cgPath
             
-//            let newPath = ERPath(pathWidth: path.pathWidth, ratio: path.ratio, startPoint: lastGesturePoint, blendMode: blendMode)
-//            
-//            let count = path.linePoints.count
-//            if count > 2 {
-//                let first = path.linePoints[count - 3]
-//                let second = path.linePoints[count - 2]
-//                let third = path.linePoints[count - 1]
-//                
-//                // Get two mid points. Mid points are just the average of the two points
-//                let firstMid = CGPoint(x: (first.x + second.x) / 2, y: (first.y + second.y) / 2)
-//                let secondMid = CGPoint(x: (third.x + second.x) / 2, y: (third.y + second.y) / 2)
-//                
-//                newPath.path.move(to: firstMid)
-//                newPath.path.addQuadCurve(to: secondMid, controlPoint: second)
-//                blurImageLayerMaskLayer?.path = newPath.path.cgPath
-////                redrawPath(path: newPath, blendMode: path.blendMode, lineWidth: path.pathWidth)
-//            }
-//            else {
-//                newPath.path.move(to: lastGesturePoint)
-//                newPath.path.addQuadCurve(to: point, controlPoint: lastGesturePoint)
-//                blurImageLayerMaskLayer?.path = newPath.path.cgPath
-////                redrawPath(path: newPath, blendMode: path.blendMode, lineWidth: path.pathWidth)
-//            }
+            let newPath = ERPath(pathWidth: path.pathWidth, ratio: path.ratio, startPoint: lastGesturePoint, blendMode: blendMode)
+            
+            let count = path.linePoints.count
+            if count > 2 {
+                let first = path.linePoints[count - 3]
+                let second = path.linePoints[count - 2]
+                let third = path.linePoints[count - 1]
+                
+                // Get two mid points. Mid points are just the average of the two points
+                let firstMid = CGPoint(x: (first.x + second.x) / 2, y: (first.y + second.y) / 2)
+                let secondMid = CGPoint(x: (third.x + second.x) / 2, y: (third.y + second.y) / 2)
+                
+                newPath.path.move(to: firstMid)
+                newPath.path.addQuadCurve(to: secondMid, controlPoint: second)
+                
+                redrawPath(path: newPath, blendMode: path.blendMode, lineWidth: path.pathWidth)
+            }
+            else {
+                newPath.path.move(to: lastGesturePoint)
+                newPath.path.addQuadCurve(to: point, controlPoint: lastGesturePoint)
+                redrawPath(path: newPath, blendMode: path.blendMode, lineWidth: path.pathWidth)
+            }
             
             lastGesturePoint = point
 //            print(lastGesturePoint)
         }
-        else if gesture.state == .ended || gesture.state == .cancelled{
+        else if gesture.state == .ended {
 //            let pathImage = maskingView.asImage()
 //            let imageName = UUID().uuidString
 //            DocDirectoryHelper.shared.saveImageToDoc(imgName: imageName, image: pathImage)
@@ -119,117 +180,101 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
 //                    setObject(obj)
 //                }
 //            }
-            generateNewMosaicImage()
         }
     }
     
-    /// 传入inputImage 和 inputMosaicImage则代表仅想要获取新生成的mosaic图片
-    @discardableResult
-    func generateNewMosaicImage(inputImage: UIImage? = nil, inputMosaicImage: UIImage? = nil) -> UIImage? {
-        let renderRect = CGRect(origin: .zero, size: fullImage.size)
+    private func redrawPath(path : ERPath, blendMode : CGBlendMode, lineWidth : CGFloat){
         
-        UIGraphicsBeginImageContextWithOptions(fullImage.size, false, fullImage.scale)
-//        if inputImage != nil {
-//            inputImage?.draw(in: renderRect)
-//        } else {
-            var drawImage: UIImage?
-//            if tools.contains(.filter), let image = filterImages[currentFilter.name] {
-//                drawImage = image
-//            } else {
-                drawImage = fullImage
-//            }
-
-            drawImage?.draw(at: .zero)
-//            if tools.contains(.adjust), brightness != 0 || contrast != 0 || saturation != 0 {
-//                drawImage = drawImage?.zl.adjust(brightness: brightness, contrast: contrast, saturation: saturation)
-//            }
-
-            drawImage?.draw(in: renderRect)
-//        }
-        
-        let context = UIGraphicsGetCurrentContext()
-        bazierPaths.forEach { path in
-            var startPointX = path.startPoint.x / (imageViewWidthCon.constant / fullImage.size.width)
-            var startPointY = path.startPoint.y / (imageViewHeightCon.constant / fullImage.size.height)
-            context?.move(to: CGPoint(x: startPointX, y: startPointY))
-            path.linePoints.forEach { point in
-                var pointX = point.x / (imageViewWidthCon.constant / fullImage.size.width)
-                var pointY = point.y / (imageViewHeightCon.constant / fullImage.size.height)
-                context?.addLine(to: CGPoint(x: pointX, y: pointY))
-            }
-            context?.setLineWidth(path.path.lineWidth / (imageViewWidthCon.constant / fullImage.size.width))
-            context?.setLineCap(.round)
-            context?.setLineJoin(.round)
-            context?.setBlendMode(.clear)
-            context?.strokePath()
+        guard let renderer = renderer else { return }
+        let image = renderer.image { (context) in
+            maskLayer.render(in: context.cgContext)
+            context.cgContext.setLineWidth(lineWidth)
+            context.cgContext.setLineCap(.round)
+            context.cgContext.setLineJoin(.round)
+            context.cgContext.setBlendMode(blendMode)
+            context.cgContext.addPath(path.path.cgPath)
+            context.cgContext.strokePath()
         }
         
-        var midImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        guard let midCgImage = midImage?.cgImage else {
-            return nil
-        }
-        
-        midImage = UIImage(cgImage: midCgImage, scale: fullImage.scale, orientation: .up)
-        
-        UIGraphicsBeginImageContextWithOptions(fullImage.size, false, fullImage.scale)
-        // 由于生成的mosaic图片可能在边缘区域出现空白部分，导致合成后会有黑边，所以在最下面先画一张原图
-        fullImage.draw(in: renderRect)
-        (inputMosaicImage ?? blurImage)?.draw(in: renderRect)
-        midImage?.draw(at: .zero)
-        
-        let temp = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        guard let cgi = temp?.cgImage else {
-            return nil
-        }
-        let image = UIImage(cgImage: cgi, scale: fullImage.scale, orientation: .up)
-        
-        if inputImage != nil {
-            return image
-        }
-        
-//        editImage = image
-        topImageView.image = image
-        blurImageLayerMaskLayer?.path = nil
-        
-        return image
+        maskLayer.contents = image.cgImage
+        maskImage = image
     }
-
    
     func readyBlurTool(){
-        blurImage = fullImage.blurImage()
+        renderer = UIGraphicsImageRenderer(size: maskingView.bounds.size)
+        maskLayer.frame = maskingView.bounds
+        installSampleMask()
+    }
+    
+    private func installSampleMask() {
         
-        blurImageLayer = CALayer()
-        blurImageLayer?.contents = blurImage?.cgImage
-        topImageView.layer.addSublayer(blurImageLayer!)
+        guard let renderer = renderer else { return }
+        let image = renderer.image { (context) in
+            // Draw the base image
+            fullImage.draw(in: maskingView.bounds)
+            
+            // Set the blend mode to normal and draw the mask image
+            context.cgContext.setBlendMode(.clear)
+            maskImage?.draw(in: maskingView.bounds, blendMode: .clear, alpha: 1.0)
+            
+            // Save the current graphics state
+            context.cgContext.saveGState()
+            
+            // Apply a horizontal flip transformation
+            context.cgContext.translateBy(x: 0, y: maskingView.bounds.height)
+            context.cgContext.scaleBy(x: 1.0, y: -1.0)
+            
+            // Create a new image from the mask image where the alpha is used as the mask
+            if let maskCGImage = maskImage?.convertUIImageToCGImage() {
+                let mask = CGImage(maskWidth: maskCGImage.width,
+                                   height: maskCGImage.height,
+                                   bitsPerComponent: maskCGImage.bitsPerComponent,
+                                   bitsPerPixel: maskCGImage.bitsPerPixel,
+                                   bytesPerRow: maskCGImage.bytesPerRow,
+                                   provider: maskCGImage.dataProvider!,
+                                   decode: nil,
+                                   shouldInterpolate: true)
+                
+                context.cgContext.clip(to: maskingView.bounds, mask: mask!)
+                context.cgContext.setBlendMode(.normal)
+                context.cgContext.fill(maskingView.bounds)
+            }
+        }
+        maskLayer.contents = image.cgImage
+        maskImage = image
         
-        blurImageLayerMaskLayer = CAShapeLayer()
-        blurImageLayerMaskLayer?.strokeColor = UIColor.blue.cgColor
-        blurImageLayerMaskLayer?.fillColor = nil
-        blurImageLayerMaskLayer?.lineCap = .round
-        blurImageLayerMaskLayer?.lineJoin = .round
-        topImageView.layer.addSublayer(blurImageLayerMaskLayer!)
-        
-        blurImageLayer?.frame = topImageView.bounds
-        blurImageLayerMaskLayer?.frame = topImageView.bounds
-        blurImageLayer?.mask = blurImageLayerMaskLayer
+//        let imageName = UUID().uuidString
+//        DocDirectoryHelper.shared.saveImageToDoc(imgName: imageName, image: sampleMaskImage)
+//
+//        self.object = EverythingTogether(
+//            adjustVariable: AdjustFilterManager.shared.getCurrentAdjustModel(),
+//            filterVariable: FilterModel(selectedCategory: selectedFilterCategory, selectedContent: selectedFilterContent, filter: currentFilter), bgVariable: BackgroundModel(bgImage: UIImage(named: "sample")),
+//            cropVariable: ERCropModel(cropRect : currentCropRect, scale: 1, translation: CGPoint(x: 0, y: 0)), eraseRestoreImageModel: EraseRestoreImageModel(imageName: imageName)
+//        )
     }
     
     @IBAction func blurAction(_ sender: Any) {
-        blurImage = fullImage.blurImage()
-//        blurImageLayer?.contents = blurImage?.cgImage
+        blendMode = .normal
+        blurImageView.image = blurImage
     }
     
     @IBAction func clearAction(_ sender: Any) {
-//        blurImage =
-//        blurImageLayer?.contents = blurImage?.cgImage
+        blendMode = .clear
     }
     
+    @IBAction func pixelateAction(_ sender: Any) {
+        blendMode = .normal
+        blurImageView.image = pixelate
+    }
     
     @IBAction func doneAction(_ sender: Any) {
         let img = imageContainerView.toImage()
         let vc = ImageEditViewController(image: img)
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @IBAction func backAction(_ sender: Any) {
+        dismiss(animated: true)
+    }
+    
 }
