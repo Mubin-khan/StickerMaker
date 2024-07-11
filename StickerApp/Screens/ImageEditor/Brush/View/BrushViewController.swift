@@ -17,6 +17,7 @@ class BrushViewController: UIViewController, UIGestureRecognizerDelegate {
         case reset = "Reset"
     }
     
+    @IBOutlet weak var contentScrollView: UIScrollView!
     @IBOutlet weak var imageViewHeightCon: NSLayoutConstraint!
     @IBOutlet weak var imageViewWidthCon: NSLayoutConstraint!
     @IBOutlet weak var topImageView: UIImageView!
@@ -72,6 +73,10 @@ class BrushViewController: UIViewController, UIGestureRecognizerDelegate {
         fetureCollectionView.register(nib, forCellWithReuseIdentifier: BrushCollectionViewCell.brushIdentifier)
         fetureCollectionView.delegate = self
         fetureCollectionView.dataSource = self
+        
+        contentScrollView.delegate = self
+        contentScrollView.minimumZoomScale = 1
+        contentScrollView.maximumZoomScale = 4
     }
     
     func createBlackImage(size: CGSize) -> UIImage? {
@@ -175,7 +180,7 @@ class BrushViewController: UIViewController, UIGestureRecognizerDelegate {
         let point = gesture.location(in: maskingView)
 
         if gesture.state == .began {
-            let updatedLineWidth = lineWidth //(lineWidth / contentScrollView.zoomScale) / currentScale
+            let updatedLineWidth = (lineWidth / contentScrollView.zoomScale) 
             let path = ERPath(pathWidth: updatedLineWidth, ratio: 1, startPoint: point, blendMode: blendMode)
             bazierPaths.append(path)
             lastGesturePoint = point
@@ -306,5 +311,13 @@ extension BrushViewController : UICollectionViewDelegateFlowLayout, UICollection
             }
         case .reset : installSampleMask()
         }
+    }
+}
+
+
+extension BrushViewController : UIScrollViewDelegate {
+    // UIScrollViewDelegate method to return the view for zooming
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return containerView
     }
 }

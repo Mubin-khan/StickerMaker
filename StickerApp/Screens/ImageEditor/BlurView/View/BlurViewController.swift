@@ -9,6 +9,7 @@ import UIKit
 
 class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
 
+    @IBOutlet weak var contentScrollView: UIScrollView!
     @IBOutlet weak var maskingView: UIView!
     @IBOutlet weak var blurImageView: UIImageView!
     @IBOutlet weak var imageContainerView: UIView!
@@ -61,6 +62,10 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         
         addPanGestureToView(View: containerView)
+        
+        contentScrollView.delegate = self
+        contentScrollView.minimumZoomScale = 1
+        contentScrollView.maximumZoomScale = 4
     }
     
     func createClearMaskImage(size: CGSize) -> UIImage? {
@@ -132,7 +137,7 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
         let point = gesture.location(in: maskingView)
 
         if gesture.state == .began {
-            let updatedLineWidth = lineWidth //(lineWidth / contentScrollView.zoomScale) / currentScale
+            let updatedLineWidth = lineWidth / contentScrollView.zoomScale
             let path = ERPath(pathWidth: updatedLineWidth, ratio: 1, startPoint: point, blendMode: blendMode)
             bazierPaths.append(path)
             lastGesturePoint = point
@@ -277,4 +282,15 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
         dismiss(animated: true)
     }
     
+    @IBAction func sliderAction(_ sender: UISlider, forEvent event: UIEvent) {
+        lineWidth = CGFloat(sender.value * 60)
+    }
+
+}
+
+extension BlurViewController : UIScrollViewDelegate {
+    // UIScrollViewDelegate method to return the view for zooming
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return containerView
+    }
 }

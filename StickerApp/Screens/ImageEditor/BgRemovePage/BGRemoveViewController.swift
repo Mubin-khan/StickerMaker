@@ -14,6 +14,7 @@ class BGRemoveViewController: UIViewController, UIGestureRecognizerDelegate {
         case restore
     }
 
+    @IBOutlet weak var contentScrollView: UIScrollView!
     @IBOutlet weak var maskingView: UIView!
     @IBOutlet weak var ContainerView: UIView!
     @IBOutlet weak var contentviewHeightCon: NSLayoutConstraint!
@@ -65,6 +66,9 @@ class BGRemoveViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         
         addPanGestureToView(View: ContainerView)
+        contentScrollView.delegate = self
+        contentScrollView.minimumZoomScale = 1
+        contentScrollView.maximumZoomScale = 4
     }
     
     override func viewDidLayoutSubviews() {
@@ -144,7 +148,7 @@ class BGRemoveViewController: UIViewController, UIGestureRecognizerDelegate {
         let point = gesture.location(in: maskingView)
 
         if gesture.state == .began {
-            let updatedLineWidth = lineWidth //(lineWidth / contentScrollView.zoomScale) / currentScale
+            let updatedLineWidth = (lineWidth / contentScrollView.zoomScale)
             let path = ERPath(pathWidth: updatedLineWidth, ratio: 1, startPoint: point, blendMode: blendMode)
             bazierPaths.append(path)
             lastGesturePoint = point
@@ -237,3 +241,10 @@ class BGRemoveViewController: UIViewController, UIGestureRecognizerDelegate {
     
 }
  
+
+extension BGRemoveViewController : UIScrollViewDelegate {
+    // UIScrollViewDelegate method to return the view for zooming
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return ContainerView
+    }
+}
