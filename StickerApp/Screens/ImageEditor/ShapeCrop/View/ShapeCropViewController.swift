@@ -165,19 +165,14 @@ class ShapeCropViewController: UIViewController {
     var begginingCenter : CGPoint = .zero
     
     @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
-        let point = gesture.location(in: maskingView)
-        if gesture.state == .began {
-            lastpanPoint = point
-            begginingCenter = CGPoint(x: imageXanchorCon.constant, y: imageYanchorCon.constant)
-//            pinchGesture?.isEnabled = false
-        }else if gesture.state == .changed {
-            imageXanchorCon.constant = begginingCenter.x + (point.x - lastpanPoint.x)
-            imageYanchorCon.constant = begginingCenter.y + (point.y - lastpanPoint.y)
-        }
-        
-        else if gesture.state == .ended {
-//            pinchGesture?.isEnabled = true
-        }
+        guard let gestureView = gesture.view else { return }
+               let translation = gesture.translation(in: maskingView)
+               
+               
+        imageXanchorCon.constant = imageXanchorCon.constant + translation.x
+        imageYanchorCon.constant = imageYanchorCon.constant + translation.y
+            
+        gesture.setTranslation(.zero, in: view)
     }
     
     let minScale : CGFloat = 0.5
