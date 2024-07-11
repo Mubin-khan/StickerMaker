@@ -32,14 +32,14 @@ extension UIImage {
         
         guard let cgImage = self.cgImage else { return nil }
         
-        guard let imgData = cgImage.isPNG ? self.pngData() : self.jpegData(compressionQuality: 0.75) else { return nil }
+        guard let imgData = cgImage.isPNG ? self.pngData() : self.jpegData(compressionQuality: 1) else { return nil }
         
         guard let source = CGImageSourceCreateWithData(imgData as CFData, sourceOptions) else { return nil }
         
         let downsampleOptions = [
             kCGImageSourceCreateThumbnailFromImageAlways: true,
             kCGImageSourceCreateThumbnailWithTransform: true,
-            kCGImageSourceThumbnailMaxPixelSize: 720,
+            kCGImageSourceThumbnailMaxPixelSize: 1920,
         ] as CFDictionary
         
         guard let cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, downsampleOptions) else { return nil }
@@ -48,7 +48,7 @@ extension UIImage {
         guard let imageDestination = CGImageDestinationCreateWithData(data, kUTTypeJPEG, 1, nil) else { return nil }
         
         // Don't compress PNGs, they're too pretty
-        let destinationProperties = [kCGImageDestinationLossyCompressionQuality: cgImage.isPNG ? 1.0 : 0.75] as CFDictionary
+        let destinationProperties = [kCGImageDestinationLossyCompressionQuality: cgImage.isPNG ? 1.0 : 1] as CFDictionary
         CGImageDestinationAddImage(imageDestination, cgImage, destinationProperties)
         CGImageDestinationFinalize(imageDestination)
         
