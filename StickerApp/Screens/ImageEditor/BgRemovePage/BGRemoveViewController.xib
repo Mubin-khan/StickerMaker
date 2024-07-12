@@ -15,8 +15,10 @@
                 <outlet property="contentviewHeightCon" destination="Dxx-r7-oSv" id="fQY-3h-hOn"/>
                 <outlet property="contentviewWidthCon" destination="Stb-mN-Vhd" id="KWL-R9-DXe"/>
                 <outlet property="maskingView" destination="vmr-9C-ohT" id="kj8-Gk-29R"/>
+                <outlet property="redoButton" destination="thH-9z-TAt" id="QVU-ie-dfF"/>
                 <outlet property="sliderViewBottomCon" destination="ahA-Wg-R35" id="HS1-c9-HhH"/>
                 <outlet property="topImageView" destination="KME-qA-Kd3" id="eUe-0X-VN5"/>
+                <outlet property="undoButton" destination="KCx-lC-9qs" id="Vdz-ni-wpg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -197,16 +199,36 @@
                                 <constraint firstAttribute="width" secondItem="QLP-Vi-e1h" secondAttribute="height" multiplier="1:1" id="wV2-gK-06a"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KCx-lC-9qs">
+                            <rect key="frame" x="63.999999999999993" y="7.6666666666666714" width="65.333333333333314" height="35"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Undo"/>
+                            <connections>
+                                <action selector="undoButtonAction:" destination="-1" eventType="touchUpInside" id="Wzc-wO-JI0"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="thH-9z-TAt">
+                            <rect key="frame" x="265.66666666666669" y="7.6666666666666714" width="63.333333333333314" height="35"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Redo"/>
+                            <connections>
+                                <action selector="redoButtonAction:" destination="-1" eventType="touchUpInside" id="lmN-hQ-4fS"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="kbQ-4h-cDh" firstAttribute="centerX" secondItem="JOy-BC-4zA" secondAttribute="centerX" id="3xf-Jr-i95"/>
+                        <constraint firstItem="thH-9z-TAt" firstAttribute="centerY" secondItem="JOy-BC-4zA" secondAttribute="centerY" id="7zc-d7-2vc"/>
+                        <constraint firstItem="KCx-lC-9qs" firstAttribute="leading" secondItem="3vx-kV-lhO" secondAttribute="trailing" constant="20" id="Czf-KB-3RE"/>
                         <constraint firstItem="kbQ-4h-cDh" firstAttribute="centerY" secondItem="JOy-BC-4zA" secondAttribute="centerY" id="ImS-aL-XAp"/>
                         <constraint firstItem="3vx-kV-lhO" firstAttribute="leading" secondItem="JOy-BC-4zA" secondAttribute="leading" constant="20" id="M8c-ka-lh3"/>
                         <constraint firstItem="3vx-kV-lhO" firstAttribute="centerY" secondItem="JOy-BC-4zA" secondAttribute="centerY" id="ei7-Iw-k9x"/>
                         <constraint firstAttribute="height" constant="50" id="j9A-Ng-FVJ"/>
+                        <constraint firstItem="QLP-Vi-e1h" firstAttribute="leading" secondItem="thH-9z-TAt" secondAttribute="trailing" constant="20" id="kmI-zX-VMQ"/>
                         <constraint firstItem="QLP-Vi-e1h" firstAttribute="centerY" secondItem="JOy-BC-4zA" secondAttribute="centerY" id="lrd-Nu-kdm"/>
                         <constraint firstAttribute="trailing" secondItem="QLP-Vi-e1h" secondAttribute="trailing" constant="20" id="rXp-tR-4aE"/>
+                        <constraint firstItem="KCx-lC-9qs" firstAttribute="centerY" secondItem="JOy-BC-4zA" secondAttribute="centerY" id="ujg-2V-JXx"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sfb-55-K5B">

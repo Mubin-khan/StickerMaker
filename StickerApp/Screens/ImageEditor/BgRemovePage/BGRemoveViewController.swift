@@ -13,7 +13,13 @@ class BGRemoveViewController: UIViewController, UIGestureRecognizerDelegate {
         case erase
         case restore
     }
+    
+    // undo redo
+    var undoMng = UndoManager()
+    var object : Any = "none"
 
+    @IBOutlet weak var redoButton: UIButton!
+    @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var contentScrollView: UIScrollView!
     @IBOutlet weak var maskingView: UIView!
     @IBOutlet weak var ContainerView: UIView!
@@ -69,6 +75,9 @@ class BGRemoveViewController: UIViewController, UIGestureRecognizerDelegate {
         contentScrollView.delegate = self
         contentScrollView.minimumZoomScale = 1
         contentScrollView.maximumZoomScale = 4
+        
+        undoButton.isEnabled = false
+        redoButton.isEnabled = false
     }
     
     override func viewDidLayoutSubviews() {
@@ -118,14 +127,10 @@ class BGRemoveViewController: UIViewController, UIGestureRecognizerDelegate {
         maskLayer.contents = image.cgImage
         sampleMaskImage = image
         
-//        let imageName = UUID().uuidString
-//        DocDirectoryHelper.shared.saveImageToDoc(imgName: imageName, image: sampleMaskImage)
-//        
-//        self.object = EverythingTogether(
-//            adjustVariable: AdjustFilterManager.shared.getCurrentAdjustModel(),
-//            filterVariable: FilterModel(selectedCategory: selectedFilterCategory, selectedContent: selectedFilterContent, filter: currentFilter), bgVariable: BackgroundModel(bgImage: UIImage(named: "sample")),
-//            cropVariable: ERCropModel(cropRect : currentCropRect, scale: 1, translation: CGPoint(x: 0, y: 0)), eraseRestoreImageModel: EraseRestoreImageModel(imageName: imageName)
-//        )
+        let imageName = UUID().uuidString
+        let isSaved = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: image, imageName: imageName)
+        
+        self.object = EraseRestoreImageModel(imageName: imageName)
     }
     
     var panGesture : UIPanGestureRecognizer?
@@ -186,17 +191,12 @@ class BGRemoveViewController: UIViewController, UIGestureRecognizerDelegate {
             lastGesturePoint = point
 //            print(lastGesturePoint)
         }
-        else if gesture.state == .ended {
-//            let pathImage = maskingView.asImage()
-//            let imageName = UUID().uuidString
-//            DocDirectoryHelper.shared.saveImageToDoc(imgName: imageName, image: pathImage)
-//            let imgObj = EraseRestoreImageModel(imageName: imageName)
-//            if var obj = object as? EverythingTogether {
-//                if obj.eraseRestoreImageModel != imgObj {
-//                    obj.eraseRestoreImageModel = imgObj
-//                    setObject(obj)
-//                }
-//            }
+        else if gesture.state == .ended || gesture.state == .cancelled, let mask = maskImage {
+            let imageName = UUID().uuidString
+            let isSaved = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: mask, imageName: imageName)
+            
+            let obj = EraseRestoreImageModel(imageName: imageName)
+            setObject(obj)
         }
     }
     
@@ -214,6 +214,7 @@ class BGRemoveViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         
         maskLayer.contents = image.cgImage
+        maskImage = image
     }
 
     @IBAction func sliderAction(_ sender: UISlider, forEvent event: UIEvent) {
@@ -239,6 +240,19 @@ class BGRemoveViewController: UIViewController, UIGestureRecognizerDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    @IBAction func undoButtonAction(_ sender: Any) {
+        if self.undoMng.canUndo {
+            self.undoMng.undo()
+        }
+        self.enableDisableUIControl()
+    }
+    
+    @IBAction func redoButtonAction(_ sender: Any) {
+        if self.undoMng.canRedo {
+            self.undoMng.redo()
+        }
+        self.enableDisableUIControl()
+    }
 }
  
 
@@ -246,5 +260,48 @@ extension BGRemoveViewController : UIScrollViewDelegate {
     // UIScrollViewDelegate method to return the view for zooming
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return ContainerView
+    }
+}
+
+extension BGRemoveViewController {
+    @objc func setObject(_ newObject: Any) {
+        
+        let oldObject = object
+        object = newObject
+        
+        // 1. First way to register Undo
+        self.undoMng.registerUndo(withTarget: self, selector:
+                                    #selector(self.setObject(_:)), object: oldObject)
+        
+        if undoMng.isUndoing || undoMng.isRedoing {
+            if let obj1 = object as? EraseRestoreImageModel, let obj2 = oldObject as? EraseRestoreImageModel {
+                if obj1 != obj2 {
+                    setMaskImageFromUndoRedo(obj: obj1)
+                }
+            }
+        }
+        
+        self.enableDisableUIControl()
+    }
+    
+    func enableDisableUIControl(){
+        undoButton.isEnabled = undoMng.canUndo
+        redoButton.isEnabled = undoMng.canRedo
+//        if undoMng.canUndo {
+//            undoIconImageView.setImageColor(color: .white)
+//        }else {
+//            undoIconImageView.setImageColor(color: .gray)
+//        }
+//        
+//        if undoMng.canRedo {
+//            redoIconImageView.setImageColor(color: .white)
+//        }else {
+//            redoIconImageView.setImageColor(color: .gray)
+//        }
+    }
+    
+    func setMaskImageFromUndoRedo(obj : EraseRestoreImageModel){
+        let img = ImageSaveRetrieveManager.shared.retrieveImageFromDocumentsFolder(imageName: obj.imageName)
+        maskLayer.contents = img?.cgImage
     }
 }

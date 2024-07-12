@@ -30,6 +30,8 @@
 		86ADC36D2C39378000FF9849 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ADC36C2C39378000FF9849 /* UIViewController+Extensions.swift */; };
 		86ADC3722C39484E00FF9849 /* ShapeCropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ADC3702C39484E00FF9849 /* ShapeCropViewController.swift */; };
 		86ADC3732C39484E00FF9849 /* ShapeCropViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86ADC3712C39484E00FF9849 /* ShapeCropViewController.xib */; };
+		86AFD0FE2C413A2100674A10 /* ImageSaveRetrieveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD0FD2C413A2100674A10 /* ImageSaveRetrieveManager.swift */; };
+		86AFD1022C413C9F00674A10 /* UndoRedoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD1012C413C9F00674A10 /* UndoRedoModel.swift */; };
 		86BB93F42C31AFE400D92A7D /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB93F32C31AFE400D92A7D /* FilterManager.swift */; };
 		86BB93F92C31B4A700D92A7D /* ImageEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86BB93F82C31B4A700D92A7D /* ImageEditViewController.xib */; };
 		86BB93FA2C31B4A700D92A7D /* ImageEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB93F72C31B4A700D92A7D /* ImageEditViewController.swift */; };
@@ -101,6 +103,8 @@
 		86ADC36C2C39378000FF9849 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		86ADC3702C39484E00FF9849 /* ShapeCropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeCropViewController.swift; sourceTree = "<group>"; };
 		86ADC3712C39484E00FF9849 /* ShapeCropViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShapeCropViewController.xib; sourceTree = "<group>"; };
+		86AFD0FD2C413A2100674A10 /* ImageSaveRetrieveManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaveRetrieveManager.swift; sourceTree = "<group>"; };
+		86AFD1012C413C9F00674A10 /* UndoRedoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoModel.swift; sourceTree = "<group>"; };
 		86BB93F32C31AFE400D92A7D /* FilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
 		86BB93F72C31B4A700D92A7D /* ImageEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditViewController.swift; sourceTree = "<group>"; };
 		86BB93F82C31B4A700D92A7D /* ImageEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageEditViewController.xib; sourceTree = "<group>"; };
@@ -347,9 +351,26 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		86AFD0FC2C413A0000674A10 /* DocManager */ = {
+			isa = PBXGroup;
+			children = (
+				86AFD0FD2C413A2100674A10 /* ImageSaveRetrieveManager.swift */,
+			);
+			path = DocManager;
+			sourceTree = "<group>";
+		};
+		86AFD1002C413C8F00674A10 /* CommonModel */ = {
+			isa = PBXGroup;
+			children = (
+				86AFD1012C413C9F00674A10 /* UndoRedoModel.swift */,
+			);
+			path = CommonModel;
+			sourceTree = "<group>";
+		};
 		86BB93F22C31AFC000D92A7D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				86AFD0FC2C413A0000674A10 /* DocManager */,
 				86BB93F32C31AFE400D92A7D /* FilterManager.swift */,
 			);
 			path = Managers;
@@ -358,6 +379,7 @@
 		86BB93F52C31B48000D92A7D /* ImageEditor */ = {
 			isa = PBXGroup;
 			children = (
+				86AFD1002C413C8F00674A10 /* CommonModel */,
 				86CBCBF52C3C319100805DF2 /* BlurView */,
 				86ADC36E2C39482F00FF9849 /* ShapeCrop */,
 				86ADC35F2C390BC600FF9849 /* Brush */,
@@ -754,9 +776,11 @@
 				86F7C31C2C2C8E2800684B5B /* frameCollectionViewCell.swift in Sources */,
 				86ADC36D2C39378000FF9849 /* UIViewController+Extensions.swift in Sources */,
 				86CD4B292C2DFFB5001C4AFD /* GifCollectionViewCell.swift in Sources */,
+				86AFD1022C413C9F00674A10 /* UndoRedoModel.swift in Sources */,
 				864F32412C19FF95006A62AD /* AppDelegate.swift in Sources */,
 				86C662942C29C1FC00E2F04D /* TextInputViewController.swift in Sources */,
 				86BB93FA2C31B4A700D92A7D /* ImageEditViewController.swift in Sources */,
+				86AFD0FE2C413A2100674A10 /* ImageSaveRetrieveManager.swift in Sources */,
 				86CD4B232C2DFF9A001C4AFD /* RESTNetworkRequest.swift in Sources */,
 				86C14DAF2C3868E200B506D2 /* BGRemoveViewController.swift in Sources */,
 				86C775172C240F3D003A58F8 /* IntermediateViewController.swift in Sources */,
