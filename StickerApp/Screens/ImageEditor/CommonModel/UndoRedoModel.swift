@@ -10,3 +10,8 @@ import Foundation
 struct EraseRestoreImageModel : Equatable {
     var imageName : String
 }
+
+struct BlurUndoRedoModel : Equatable {
+    var isBlur : Bool
+    var imageName : String
+}

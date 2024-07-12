@@ -8,7 +8,13 @@
 import UIKit
 
 class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
+    
+    // undo redo
+    var undoMng = UndoManager()
+    var object : Any = "none"
 
+    @IBOutlet weak var redoButton: UIButton!
+    @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var contentScrollView: UIScrollView!
     @IBOutlet weak var maskingView: UIView!
     @IBOutlet weak var blurImageView: UIImageView!
@@ -18,6 +24,7 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var imageViewWidthCon: NSLayoutConstraint!
     @IBOutlet weak var containerView: UIView!
     
+    var isBlur : Bool = true
     let fullImage : UIImage
     var blurImage : UIImage?
     var pixelate : UIImage?
@@ -66,6 +73,9 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
         contentScrollView.delegate = self
         contentScrollView.minimumZoomScale = 1
         contentScrollView.maximumZoomScale = 4
+        
+        undoButton.isEnabled = false
+        redoButton.isEnabled = false
     }
     
     func createClearMaskImage(size: CGSize) -> UIImage? {
@@ -174,18 +184,17 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
             lastGesturePoint = point
 //            print(lastGesturePoint)
         }
-        else if gesture.state == .ended {
-//            let pathImage = maskingView.asImage()
-//            let imageName = UUID().uuidString
-//            DocDirectoryHelper.shared.saveImageToDoc(imgName: imageName, image: pathImage)
-//            let imgObj = EraseRestoreImageModel(imageName: imageName)
-//            if var obj = object as? EverythingTogether {
-//                if obj.eraseRestoreImageModel != imgObj {
-//                    obj.eraseRestoreImageModel = imgObj
-//                    setObject(obj)
-//                }
-//            }
+        else if gesture.state == .ended || gesture.state == .cancelled, let mask = maskImage {
+           saveImageforUndoRedo(img: mask)
         }
+    }
+    
+    private func saveImageforUndoRedo(img : UIImage) {
+        let imageName = UUID().uuidString
+        let isSaved = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: img, imageName: imageName)
+        
+        let obj = BlurUndoRedoModel(isBlur: isBlur, imageName: imageName)
+        setObject(obj)
     }
     
     private func redrawPath(path : ERPath, blendMode : CGBlendMode, lineWidth : CGFloat){
@@ -248,19 +257,24 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
         maskLayer.contents = image.cgImage
         maskImage = image
         
-//        let imageName = UUID().uuidString
-//        DocDirectoryHelper.shared.saveImageToDoc(imgName: imageName, image: sampleMaskImage)
-//
-//        self.object = EverythingTogether(
-//            adjustVariable: AdjustFilterManager.shared.getCurrentAdjustModel(),
-//            filterVariable: FilterModel(selectedCategory: selectedFilterCategory, selectedContent: selectedFilterContent, filter: currentFilter), bgVariable: BackgroundModel(bgImage: UIImage(named: "sample")),
-//            cropVariable: ERCropModel(cropRect : currentCropRect, scale: 1, translation: CGPoint(x: 0, y: 0)), eraseRestoreImageModel: EraseRestoreImageModel(imageName: imageName)
-//        )
+        let imageName = UUID().uuidString
+        let isSaved = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: image, imageName: imageName)
+        
+        self.object = BlurUndoRedoModel(isBlur: isBlur, imageName: imageName)
+        enableDisableUIControl()
     }
     
     @IBAction func blurAction(_ sender: Any) {
+        isBlur = true
         blendMode = .normal
         blurImageView.image = blurImage
+        
+        if let obj = object as? BlurUndoRedoModel {
+            let newObj = BlurUndoRedoModel(isBlur: isBlur, imageName: obj.imageName)
+            if obj != newObj {
+                setObject(newObj)
+            }
+        }
     }
     
     @IBAction func clearAction(_ sender: Any) {
@@ -268,8 +282,16 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func pixelateAction(_ sender: Any) {
+        isBlur = false
         blendMode = .normal
         blurImageView.image = pixelate
+        
+        if let obj = object as? BlurUndoRedoModel {
+            let newObj = BlurUndoRedoModel(isBlur: isBlur, imageName: obj.imageName)
+            if obj != newObj {
+                setObject(newObj)
+            }
+        }
     }
     
     @IBAction func doneAction(_ sender: Any) {
@@ -285,6 +307,20 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func sliderAction(_ sender: UISlider, forEvent event: UIEvent) {
         lineWidth = CGFloat(sender.value * 60)
     }
+    
+    @IBAction func undoButtonAction(_ sender: Any) {
+        if self.undoMng.canUndo {
+            self.undoMng.undo()
+        }
+        self.enableDisableUIControl()
+    }
+    
+    @IBAction func redoButtonAction(_ sender: Any) {
+        if self.undoMng.canRedo {
+            self.undoMng.redo()
+        }
+        self.enableDisableUIControl()
+    }
 
 }
 
@@ -292,5 +328,57 @@ extension BlurViewController : UIScrollViewDelegate {
     // UIScrollViewDelegate method to return the view for zooming
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return containerView
+    }
+}
+
+
+extension BlurViewController {
+    @objc func setObject(_ newObject: Any) {
+        
+        let oldObject = object
+        object = newObject
+        
+        // 1. First way to register Undo
+        self.undoMng.registerUndo(withTarget: self, selector:
+                                    #selector(self.setObject(_:)), object: oldObject)
+        
+        if undoMng.isUndoing || undoMng.isRedoing {
+            if let obj1 = object as? BlurUndoRedoModel, let obj2 = oldObject as? BlurUndoRedoModel {
+                if obj1 != obj2 {
+                    setMaskImageFromUndoRedo(obj: obj1)
+                }
+            }
+        }
+        
+        self.enableDisableUIControl()
+    }
+    
+    func enableDisableUIControl(){
+        undoButton.isEnabled = undoMng.canUndo
+        redoButton.isEnabled = undoMng.canRedo
+//        if undoMng.canUndo {
+//            undoIconImageView.setImageColor(color: .white)
+//        }else {
+//            undoIconImageView.setImageColor(color: .gray)
+//        }
+//
+//        if undoMng.canRedo {
+//            redoIconImageView.setImageColor(color: .white)
+//        }else {
+//            redoIconImageView.setImageColor(color: .gray)
+//        }
+    }
+    
+    func setMaskImageFromUndoRedo(obj : BlurUndoRedoModel){
+        let img = ImageSaveRetrieveManager.shared.retrieveImageFromDocumentsFolder(imageName: obj.imageName)
+        maskLayer.contents = img?.cgImage
+        
+        if obj.isBlur {
+            isBlur = true
+            blurImageView.image = blurImage
+        }else {
+            isBlur = false
+            blurImageView.image = pixelate
+        }
     }
 }

@@ -17,7 +17,9 @@
                 <outlet property="imageViewHeightCon" destination="vG9-eZ-kcK" id="8Lc-82-0NG"/>
                 <outlet property="imageViewWidthCon" destination="u0e-yh-WEI" id="1Mb-3z-Vpl"/>
                 <outlet property="maskingView" destination="sNE-qi-dE1" id="Opr-xG-lbQ"/>
+                <outlet property="redoButton" destination="zuK-St-eaB" id="cT5-Ot-gO5"/>
                 <outlet property="topImageView" destination="69v-mK-nBa" id="tK4-1A-rQc"/>
+                <outlet property="undoButton" destination="SOy-r3-CHP" id="2zm-Xl-Bg3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -92,6 +94,22 @@
                                 <constraint firstItem="31K-Xa-X5r" firstAttribute="leading" secondItem="g5T-tJ-cez" secondAttribute="leading" constant="2" id="zll-4Q-a7B"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SOy-r3-CHP">
+                            <rect key="frame" x="63.999999999999993" y="7.6666666666666714" width="65.333333333333314" height="35"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Undo"/>
+                            <connections>
+                                <action selector="undoButtonAction:" destination="-1" eventType="touchUpInside" id="0Cx-eJ-49A"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zuK-St-eaB">
+                            <rect key="frame" x="265.66666666666669" y="7.6666666666666714" width="63.333333333333314" height="35"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Redo"/>
+                            <connections>
+                                <action selector="redoButtonAction:" destination="-1" eventType="touchUpInside" id="k7O-qB-PrY"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -100,8 +118,12 @@
                         <constraint firstItem="ZHa-6C-Bz9" firstAttribute="centerY" secondItem="Yof-Gm-IRh" secondAttribute="centerY" id="L6f-AG-LHw"/>
                         <constraint firstAttribute="height" constant="50" id="Ndk-96-mhk"/>
                         <constraint firstItem="qGg-AB-YnC" firstAttribute="centerY" secondItem="Yof-Gm-IRh" secondAttribute="centerY" id="Trr-1E-wbw"/>
+                        <constraint firstItem="zuK-St-eaB" firstAttribute="centerY" secondItem="Yof-Gm-IRh" secondAttribute="centerY" id="Z7u-9b-NBS"/>
                         <constraint firstItem="g5T-tJ-cez" firstAttribute="centerY" secondItem="Yof-Gm-IRh" secondAttribute="centerY" id="gT7-AX-qXc"/>
+                        <constraint firstItem="SOy-r3-CHP" firstAttribute="leading" secondItem="ZHa-6C-Bz9" secondAttribute="trailing" constant="20" id="hbB-gl-pXs"/>
+                        <constraint firstItem="SOy-r3-CHP" firstAttribute="centerY" secondItem="Yof-Gm-IRh" secondAttribute="centerY" id="mcX-Bu-hB4"/>
                         <constraint firstItem="ZHa-6C-Bz9" firstAttribute="leading" secondItem="Yof-Gm-IRh" secondAttribute="leading" constant="20" id="rBB-nI-KBL"/>
+                        <constraint firstItem="g5T-tJ-cez" firstAttribute="leading" secondItem="zuK-St-eaB" secondAttribute="trailing" constant="20" id="sIw-u0-VLM"/>
                     </constraints>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="aU8-Om-GrY">
