@@ -12,7 +12,7 @@ class ImageEditViewController: UIViewController {
     @IBOutlet weak var filterView: UIView!
     @IBOutlet weak var filterCollectionView: UICollectionView!
     @IBOutlet weak var colorView: UIView!
-    var thickness : CGFloat = .zero
+    var thickness : CGFloat = 10
     var selectedBorderColor : UIColor = .white
     @IBOutlet weak var colorCollectionView: UICollectionView!
     @IBOutlet weak var fetureCollectionView: UICollectionView!
@@ -58,19 +58,17 @@ class ImageEditViewController: UIViewController {
         filterCollectionView.dataSource = self
         
         navigationController?.isNavigationBarHidden = true
+        applycifilter()
     }
     
+    var lastPoint : Float = .zero
     @IBAction func sliderAction(_ sender: UISlider, forEvent event: UIEvent) {
         DispatchQueue.main.async { [self] in
-            var img : UIImage = image
-            if sender.value != 0 {
-                img = image.stroked(with: selectedBorderColor, thickness: CGFloat(round(sender.value)), quality: 5)
-                borderedImage = img
-            }else {
-                borderedImage = nil
+            if round(sender.value) != lastPoint {
+                thickness = CGFloat(round(sender.value))
+                lastPoint = round(sender.value)
+                applycifilter()
             }
-            thickness = CGFloat(round(sender.value))
-           applycifilter()
         }
     }
     
@@ -131,10 +129,15 @@ extension ImageEditViewController : UICollectionViewDelegateFlowLayout, UICollec
         20
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == colorCollectionView {
             let color = availableColors[indexPath.row]
-            applyBorderToImage(color: color)
+            selectedBorderColor = color
+            applycifilter()
             filterView.isHidden = true
         }else if collectionView == filterCollectionView {
             selectedFilter = SMFilter.ciFilters[indexPath.row]
@@ -150,20 +153,16 @@ extension ImageEditViewController : UICollectionViewDelegateFlowLayout, UICollec
     }
     
     
-    func applyBorderToImage(color : UIColor){
-        if thickness != 0 {
-            let img = image.stroked(with: color, thickness: thickness, quality: 5)
-            borderedImage = img
-        }else {
-            borderedImage = nil
-        }
-       
-        applycifilter()
-        selectedBorderColor = color
+    func applyBorderToImage(image : UIImage, color : UIColor){
+        sampleImageView.image = image.stroked(with: color, thickness: thickness, quality: 10)
     }
     
     func applycifilter(){
-        let img = borderedImage ?? image
-        sampleImageView.image = selectedFilter.applier?(img) ?? img
+        let img = selectedFilter.applier?(image) ?? image
+        if thickness != 0 {
+            applyBorderToImage(image: img, color: selectedBorderColor)
+        }else {
+            sampleImageView.image = img
+        }
     }
 }

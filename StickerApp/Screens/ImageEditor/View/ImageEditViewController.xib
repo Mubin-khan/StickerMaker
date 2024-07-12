@@ -32,7 +32,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="393" height="463"/>
                         </imageView>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fIy-tj-z3p">
-                            <rect key="frame" x="71.666666666666686" y="106.66666666666666" width="249.99999999999994" height="249.99999999999997"/>
+                            <rect key="frame" x="71.666666666666686" y="106.66666666666666" width="250" height="249.99999999999997"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="250" id="5jM-yZ-wZW"/>
                                 <constraint firstAttribute="width" secondItem="fIy-tj-z3p" secondAttribute="height" multiplier="1:1" id="jxr-4o-WzD"/>
@@ -143,7 +143,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ce1-px-xTh">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="100"/>
                             <subviews>
-                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="30" translatesAutoresizingMaskIntoConstraints="NO" id="g5X-br-bDA">
+                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="0.0" maxValue="30" translatesAutoresizingMaskIntoConstraints="NO" id="g5X-br-bDA">
                                     <rect key="frame" x="48" y="10" width="297" height="31"/>
                                     <connections>
                                         <action selector="sliderAction:forEvent:" destination="-1" eventType="valueChanged" id="GWF-rQ-uSU"/>
