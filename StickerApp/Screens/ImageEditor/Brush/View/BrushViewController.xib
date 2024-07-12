@@ -16,7 +16,9 @@
                 <outlet property="imageViewHeightCon" destination="QbC-ns-jaz" id="xN1-0c-UfH"/>
                 <outlet property="imageViewWidthCon" destination="9vN-4s-8wP" id="bjs-fv-UBt"/>
                 <outlet property="maskingView" destination="7Jj-a3-3Co" id="8Zn-qU-Urf"/>
+                <outlet property="redoButton" destination="1U5-xR-j8k" id="Em0-N0-G0O"/>
                 <outlet property="topImageView" destination="AqZ-47-A0F" id="Lvg-8V-Opl"/>
+                <outlet property="undoButton" destination="tkq-RG-6WI" id="h1K-8X-dBy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -122,15 +124,35 @@
                                 <constraint firstAttribute="bottom" secondItem="UKg-8t-YoM" secondAttribute="bottom" constant="2" id="yhI-U4-xvI"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkq-RG-6WI">
+                            <rect key="frame" x="63.999999999999993" y="7.6666666666666714" width="65.333333333333314" height="35"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Undo"/>
+                            <connections>
+                                <action selector="undoButtonAction:" destination="-1" eventType="touchUpInside" id="QfY-X1-E1o"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1U5-xR-j8k">
+                            <rect key="frame" x="265.66666666666669" y="7.6666666666666714" width="63.333333333333314" height="35"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Redo"/>
+                            <connections>
+                                <action selector="redoButtonAction:" destination="-1" eventType="touchUpInside" id="Ewx-C2-M2n"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="Fzx-u3-LPt" firstAttribute="leading" secondItem="1U5-xR-j8k" secondAttribute="trailing" constant="20" id="6gb-Iv-YrZ"/>
                         <constraint firstItem="geD-vS-nm5" firstAttribute="centerX" secondItem="NlK-C7-eVr" secondAttribute="centerX" id="Br4-Gq-EdJ"/>
+                        <constraint firstItem="tkq-RG-6WI" firstAttribute="leading" secondItem="POf-hm-qHg" secondAttribute="trailing" constant="20" id="Ca8-j9-t83"/>
                         <constraint firstItem="POf-hm-qHg" firstAttribute="centerY" secondItem="NlK-C7-eVr" secondAttribute="centerY" id="DH3-Jq-xJu"/>
                         <constraint firstItem="POf-hm-qHg" firstAttribute="leading" secondItem="NlK-C7-eVr" secondAttribute="leading" constant="20" id="Rse-XC-bl8"/>
                         <constraint firstAttribute="trailing" secondItem="Fzx-u3-LPt" secondAttribute="trailing" constant="20" id="TwF-6r-Kpd"/>
                         <constraint firstAttribute="height" constant="50" id="dX3-8z-S0C"/>
+                        <constraint firstItem="tkq-RG-6WI" firstAttribute="centerY" secondItem="NlK-C7-eVr" secondAttribute="centerY" id="g0z-lD-DTD"/>
                         <constraint firstItem="Fzx-u3-LPt" firstAttribute="centerY" secondItem="NlK-C7-eVr" secondAttribute="centerY" id="jvM-df-Ara"/>
+                        <constraint firstItem="1U5-xR-j8k" firstAttribute="centerY" secondItem="NlK-C7-eVr" secondAttribute="centerY" id="n0d-cp-BHJ"/>
                         <constraint firstItem="geD-vS-nm5" firstAttribute="centerY" secondItem="NlK-C7-eVr" secondAttribute="centerY" id="soN-jD-kwL"/>
                     </constraints>
                 </view>

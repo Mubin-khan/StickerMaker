@@ -142,8 +142,8 @@
             filePath = "StickerApp/Screens/ImageEditor/Brush/View/BrushViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
             landmarkName = "invertMaskImage(maskImg:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -158,8 +158,8 @@
             filePath = "StickerApp/Screens/ImageEditor/Brush/View/BrushViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
             landmarkName = "redrawPath(path:blendMode:lineWidth:)"
             landmarkType = "7">
          </BreakpointContent>
