@@ -62,7 +62,7 @@ class BrushViewController: UIViewController, UIGestureRecognizerDelegate {
 
         maskImage = createBlackImage(size: fullImage.size)
         
-        initialSize = fullImage.size.calculateFinalSize(in: CGSize(width: containerView.bounds.size.width, height: containerView.bounds.size.height - 100))
+        initialSize = fullImage.size.calculateFinalSize(in: CGSize(width: containerView.bounds.size.width - 60, height: containerView.bounds.size.height - 100))
         imageViewHeightCon.constant = initialSize.height
         imageViewWidthCon.constant = initialSize.width
         

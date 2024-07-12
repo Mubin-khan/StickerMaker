@@ -217,7 +217,7 @@ extension UIImage {
             return nil
         }
         
-        let cropRect = CGRect(x: minX, y: minY, width: maxX - minX + 1, height: maxY - minY + 1)
+        let cropRect = CGRect(x: minX - 30, y: minY - 30, width: maxX - minX + 1 + 60, height: maxY - minY + 1 + 60)
         guard let croppedCgImage = cgImage.cropping(to: cropRect) else { return nil }
         
         return UIImage(cgImage: croppedCgImage, scale: self.scale, orientation: self.imageOrientation)

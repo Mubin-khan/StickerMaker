@@ -60,7 +60,7 @@ class BGRemoveViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        initialSize = fullImage.size.calculateFinalSize(in: ContainerView.bounds.size)
+        initialSize = fullImage.size.calculateFinalSize(in: CGSize(width: ContainerView.bounds.size.width - 60, height: ContainerView.bounds.size.width - 60))
         contentviewHeightCon.constant = initialSize.height
         contentviewWidthCon.constant = initialSize.width
         

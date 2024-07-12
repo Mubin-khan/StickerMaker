@@ -32,18 +32,20 @@
                             <rect key="frame" x="0.0" y="0.0" width="393" height="463"/>
                         </imageView>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fIy-tj-z3p">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="463"/>
+                            <rect key="frame" x="71.666666666666686" y="106.66666666666666" width="249.99999999999994" height="249.99999999999997"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="250" id="5jM-yZ-wZW"/>
+                                <constraint firstAttribute="width" secondItem="fIy-tj-z3p" secondAttribute="height" multiplier="1:1" id="jxr-4o-WzD"/>
+                            </constraints>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="fIy-tj-z3p" secondAttribute="trailing" id="4GW-SK-cVe"/>
                         <constraint firstItem="btw-g4-qJZ" firstAttribute="leading" secondItem="d5V-5f-G1V" secondAttribute="leading" id="Dad-fG-Nfs"/>
-                        <constraint firstAttribute="bottom" secondItem="fIy-tj-z3p" secondAttribute="bottom" id="MxU-8e-C6W"/>
+                        <constraint firstItem="fIy-tj-z3p" firstAttribute="centerX" secondItem="d5V-5f-G1V" secondAttribute="centerX" id="OsE-Ez-w67"/>
+                        <constraint firstItem="fIy-tj-z3p" firstAttribute="centerY" secondItem="d5V-5f-G1V" secondAttribute="centerY" id="T09-6Q-JGv"/>
                         <constraint firstItem="btw-g4-qJZ" firstAttribute="top" secondItem="d5V-5f-G1V" secondAttribute="top" id="V4t-BV-bss"/>
                         <constraint firstAttribute="bottom" secondItem="btw-g4-qJZ" secondAttribute="bottom" id="cMk-dY-wfS"/>
-                        <constraint firstItem="fIy-tj-z3p" firstAttribute="leading" secondItem="d5V-5f-G1V" secondAttribute="leading" id="d1P-rb-vOm"/>
-                        <constraint firstItem="fIy-tj-z3p" firstAttribute="top" secondItem="d5V-5f-G1V" secondAttribute="top" id="gAD-GO-IpS"/>
                         <constraint firstAttribute="trailing" secondItem="btw-g4-qJZ" secondAttribute="trailing" id="uqH-F1-NBY"/>
                     </constraints>
                 </view>
