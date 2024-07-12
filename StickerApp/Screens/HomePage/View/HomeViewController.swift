@@ -127,8 +127,11 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate {
                     if let img = im as? UIImage {
                         DispatchQueue.main.async {
                             let mainImage = img.asSmallImage ?? img
-                            let vc = EraseViewController(contentImg: mainImage)
-                            self.navigationController?.pushViewController(vc, animated: true)
+                            let vc = CropperViewController(originalImage: mainImage)
+                            let navVC = UINavigationController(rootViewController: vc)
+                            navVC.isNavigationBarHidden = true
+                            navVC.modalPresentationStyle = .fullScreen
+                            self.present(navVC, animated: true, completion: nil)
                         }
                     }
                 }

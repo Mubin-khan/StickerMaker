@@ -225,7 +225,8 @@ class ShapeCropViewController: UIViewController {
     }
     
     @IBAction func closeAction(_ sender: Any) {
-        dismiss(animated: true)
+//        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
 }
 

@@ -301,7 +301,8 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func backAction(_ sender: Any) {
-        dismiss(animated: true)
+//        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func sliderAction(_ sender: UISlider, forEvent event: UIEvent) {

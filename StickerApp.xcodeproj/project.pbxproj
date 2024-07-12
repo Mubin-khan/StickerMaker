@@ -32,6 +32,37 @@
 		86ADC3732C39484E00FF9849 /* ShapeCropViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86ADC3712C39484E00FF9849 /* ShapeCropViewController.xib */; };
 		86AFD0FE2C413A2100674A10 /* ImageSaveRetrieveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD0FD2C413A2100674A10 /* ImageSaveRetrieveManager.swift */; };
 		86AFD1022C413C9F00674A10 /* UndoRedoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD1012C413C9F00674A10 /* UndoRedoModel.swift */; };
+		86AFD2212C41808B00674A10 /* QCropper.aspectratio.fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86AFD1FD2C41808A00674A10 /* QCropper.aspectratio.fill@2x.png */; };
+		86AFD2222C41808B00674A10 /* HelperExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD1FE2C41808A00674A10 /* HelperExtensions.swift */; };
+		86AFD2232C41808B00674A10 /* UIImage+Cropping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD1FF2C41808A00674A10 /* UIImage+Cropping.swift */; };
+		86AFD2242C41808B00674A10 /* UIImage+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2002C41808A00674A10 /* UIImage+Helper.swift */; };
+		86AFD2252C41808B00674A10 /* UIView+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2012C41808A00674A10 /* UIView+Helper.swift */; };
+		86AFD2262C41808B00674A10 /* QCropper.aspectratio.fill@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86AFD2032C41808A00674A10 /* QCropper.aspectratio.fill@3x.png */; };
+		86AFD2272C41808B00674A10 /* QCropper.flip.horizontal.fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86AFD2042C41808A00674A10 /* QCropper.flip.horizontal.fill@2x.png */; };
+		86AFD2282C41808B00674A10 /* QCropper.rotate.right.fill@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86AFD2052C41808A00674A10 /* QCropper.rotate.right.fill@3x.png */; };
+		86AFD2292C41808B00674A10 /* QCropper.check.mark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86AFD2062C41808B00674A10 /* QCropper.check.mark@3x.png */; };
+		86AFD22A2C41808B00674A10 /* CropBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2072C41808B00674A10 /* CropBox.swift */; };
+		86AFD22B2C41808B00674A10 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2082C41808B00674A10 /* Grid.swift */; };
+		86AFD22C2C41808B00674A10 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2092C41808B00674A10 /* Overlay.swift */; };
+		86AFD22D2C41808B00674A10 /* AngleRuler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD20B2C41808B00674A10 /* AngleRuler.swift */; };
+		86AFD22E2C41808B00674A10 /* AspectRatioPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD20C2C41808B00674A10 /* AspectRatioPicker.swift */; };
+		86AFD22F2C41808B00674A10 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD20D2C41808B00674A10 /* Toolbar.swift */; };
+		86AFD2302C41808B00674A10 /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD20E2C41808B00674A10 /* TopBar.swift */; };
+		86AFD2312C41808B00674A10 /* AngleAssist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2102C41808B00674A10 /* AngleAssist.swift */; };
+		86AFD2322C41808B00674A10 /* AspectRatioSettable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2112C41808B00674A10 /* AspectRatioSettable.swift */; };
+		86AFD2332C41808B00674A10 /* CropBoxEdgeDraggable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2122C41808B00674A10 /* CropBoxEdgeDraggable.swift */; };
+		86AFD2342C41808B00674A10 /* Flipable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2132C41808B00674A10 /* Flipable.swift */; };
+		86AFD2352C41808B00674A10 /* Rotatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2142C41808B00674A10 /* Rotatable.swift */; };
+		86AFD2362C41808B00674A10 /* Stasisable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2152C41808B00674A10 /* Stasisable.swift */; };
+		86AFD2372C41808B00674A10 /* StateRestorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2162C41808B00674A10 /* StateRestorable.swift */; };
+		86AFD2382C41808B00674A10 /* AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2182C41808B00674A10 /* AspectRatio.swift */; };
+		86AFD2392C41808B00674A10 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2192C41808B00674A10 /* Config.swift */; };
+		86AFD23A2C41808B00674A10 /* CropperState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD21A2C41808B00674A10 /* CropperState.swift */; };
+		86AFD23B2C41808B00674A10 /* CropperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD21B2C41808B00674A10 /* CropperViewController.swift */; };
+		86AFD23C2C41808B00674A10 /* ScrollViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD21C2C41808B00674A10 /* ScrollViewContainer.swift */; };
+		86AFD23D2C41808B00674A10 /* QCropper.check.mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86AFD21E2C41808B00674A10 /* QCropper.check.mark@2x.png */; };
+		86AFD23E2C41808B00674A10 /* QCropper.rotate.right.fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86AFD21F2C41808B00674A10 /* QCropper.rotate.right.fill@2x.png */; };
+		86AFD23F2C41808B00674A10 /* QCropper.flip.horizontal.fill@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86AFD2202C41808B00674A10 /* QCropper.flip.horizontal.fill@3x.png */; };
 		86BB93F42C31AFE400D92A7D /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB93F32C31AFE400D92A7D /* FilterManager.swift */; };
 		86BB93F92C31B4A700D92A7D /* ImageEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86BB93F82C31B4A700D92A7D /* ImageEditViewController.xib */; };
 		86BB93FA2C31B4A700D92A7D /* ImageEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB93F72C31B4A700D92A7D /* ImageEditViewController.swift */; };
@@ -105,6 +136,37 @@
 		86ADC3712C39484E00FF9849 /* ShapeCropViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShapeCropViewController.xib; sourceTree = "<group>"; };
 		86AFD0FD2C413A2100674A10 /* ImageSaveRetrieveManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaveRetrieveManager.swift; sourceTree = "<group>"; };
 		86AFD1012C413C9F00674A10 /* UndoRedoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoModel.swift; sourceTree = "<group>"; };
+		86AFD1FD2C41808A00674A10 /* QCropper.aspectratio.fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QCropper.aspectratio.fill@2x.png"; sourceTree = "<group>"; };
+		86AFD1FE2C41808A00674A10 /* HelperExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperExtensions.swift; sourceTree = "<group>"; };
+		86AFD1FF2C41808A00674A10 /* UIImage+Cropping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Cropping.swift"; sourceTree = "<group>"; };
+		86AFD2002C41808A00674A10 /* UIImage+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Helper.swift"; sourceTree = "<group>"; };
+		86AFD2012C41808A00674A10 /* UIView+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Helper.swift"; sourceTree = "<group>"; };
+		86AFD2032C41808A00674A10 /* QCropper.aspectratio.fill@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QCropper.aspectratio.fill@3x.png"; sourceTree = "<group>"; };
+		86AFD2042C41808A00674A10 /* QCropper.flip.horizontal.fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QCropper.flip.horizontal.fill@2x.png"; sourceTree = "<group>"; };
+		86AFD2052C41808A00674A10 /* QCropper.rotate.right.fill@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QCropper.rotate.right.fill@3x.png"; sourceTree = "<group>"; };
+		86AFD2062C41808B00674A10 /* QCropper.check.mark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QCropper.check.mark@3x.png"; sourceTree = "<group>"; };
+		86AFD2072C41808B00674A10 /* CropBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropBox.swift; sourceTree = "<group>"; };
+		86AFD2082C41808B00674A10 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		86AFD2092C41808B00674A10 /* Overlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
+		86AFD20B2C41808B00674A10 /* AngleRuler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AngleRuler.swift; sourceTree = "<group>"; };
+		86AFD20C2C41808B00674A10 /* AspectRatioPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AspectRatioPicker.swift; sourceTree = "<group>"; };
+		86AFD20D2C41808B00674A10 /* Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
+		86AFD20E2C41808B00674A10 /* TopBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
+		86AFD2102C41808B00674A10 /* AngleAssist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AngleAssist.swift; sourceTree = "<group>"; };
+		86AFD2112C41808B00674A10 /* AspectRatioSettable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AspectRatioSettable.swift; sourceTree = "<group>"; };
+		86AFD2122C41808B00674A10 /* CropBoxEdgeDraggable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropBoxEdgeDraggable.swift; sourceTree = "<group>"; };
+		86AFD2132C41808B00674A10 /* Flipable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flipable.swift; sourceTree = "<group>"; };
+		86AFD2142C41808B00674A10 /* Rotatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rotatable.swift; sourceTree = "<group>"; };
+		86AFD2152C41808B00674A10 /* Stasisable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stasisable.swift; sourceTree = "<group>"; };
+		86AFD2162C41808B00674A10 /* StateRestorable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateRestorable.swift; sourceTree = "<group>"; };
+		86AFD2182C41808B00674A10 /* AspectRatio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AspectRatio.swift; sourceTree = "<group>"; };
+		86AFD2192C41808B00674A10 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		86AFD21A2C41808B00674A10 /* CropperState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropperState.swift; sourceTree = "<group>"; };
+		86AFD21B2C41808B00674A10 /* CropperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropperViewController.swift; sourceTree = "<group>"; };
+		86AFD21C2C41808B00674A10 /* ScrollViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewContainer.swift; sourceTree = "<group>"; };
+		86AFD21E2C41808B00674A10 /* QCropper.check.mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QCropper.check.mark@2x.png"; sourceTree = "<group>"; };
+		86AFD21F2C41808B00674A10 /* QCropper.rotate.right.fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QCropper.rotate.right.fill@2x.png"; sourceTree = "<group>"; };
+		86AFD2202C41808B00674A10 /* QCropper.flip.horizontal.fill@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QCropper.flip.horizontal.fill@3x.png"; sourceTree = "<group>"; };
 		86BB93F32C31AFE400D92A7D /* FilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
 		86BB93F72C31B4A700D92A7D /* ImageEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditViewController.swift; sourceTree = "<group>"; };
 		86BB93F82C31B4A700D92A7D /* ImageEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageEditViewController.xib; sourceTree = "<group>"; };
@@ -213,7 +275,6 @@
 		86973D2D2C21665B00445778 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				86C14DA92C38668A00B506D2 /* ImageCropper */,
 				862B97E92C3306960074A09D /* StickerPage */,
 				86BB93F52C31B48000D92A7D /* ImageEditor */,
 				86F7C3112C2C680800684B5B /* Gif */,
@@ -367,9 +428,90 @@
 			path = CommonModel;
 			sourceTree = "<group>";
 		};
+		86AFD1B92C417A5E00674A10 /* Cropper */ = {
+			isa = PBXGroup;
+			children = (
+				86AFD21D2C41808B00674A10 /* Core */,
+				86AFD20F2C41808B00674A10 /* CustomUI */,
+				86AFD2022C41808A00674A10 /* HelperExtensions */,
+				86AFD20A2C41808B00674A10 /* Overlay */,
+				86AFD1FD2C41808A00674A10 /* QCropper.aspectratio.fill@2x.png */,
+				86AFD2032C41808A00674A10 /* QCropper.aspectratio.fill@3x.png */,
+				86AFD21E2C41808B00674A10 /* QCropper.check.mark@2x.png */,
+				86AFD2062C41808B00674A10 /* QCropper.check.mark@3x.png */,
+				86AFD2042C41808A00674A10 /* QCropper.flip.horizontal.fill@2x.png */,
+				86AFD2202C41808B00674A10 /* QCropper.flip.horizontal.fill@3x.png */,
+				86AFD21F2C41808B00674A10 /* QCropper.rotate.right.fill@2x.png */,
+				86AFD2052C41808A00674A10 /* QCropper.rotate.right.fill@3x.png */,
+			);
+			path = Cropper;
+			sourceTree = "<group>";
+		};
+		86AFD2022C41808A00674A10 /* HelperExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				86AFD1FE2C41808A00674A10 /* HelperExtensions.swift */,
+				86AFD1FF2C41808A00674A10 /* UIImage+Cropping.swift */,
+				86AFD2002C41808A00674A10 /* UIImage+Helper.swift */,
+				86AFD2012C41808A00674A10 /* UIView+Helper.swift */,
+			);
+			name = HelperExtensions;
+			path = ../../../../QCropper/QCropper/HelperExtensions;
+			sourceTree = "<group>";
+		};
+		86AFD20A2C41808B00674A10 /* Overlay */ = {
+			isa = PBXGroup;
+			children = (
+				86AFD2072C41808B00674A10 /* CropBox.swift */,
+				86AFD2082C41808B00674A10 /* Grid.swift */,
+				86AFD2092C41808B00674A10 /* Overlay.swift */,
+			);
+			name = Overlay;
+			path = ../../../../QCropper/QCropper/Overlay;
+			sourceTree = "<group>";
+		};
+		86AFD20F2C41808B00674A10 /* CustomUI */ = {
+			isa = PBXGroup;
+			children = (
+				86AFD20B2C41808B00674A10 /* AngleRuler.swift */,
+				86AFD20C2C41808B00674A10 /* AspectRatioPicker.swift */,
+				86AFD20D2C41808B00674A10 /* Toolbar.swift */,
+				86AFD20E2C41808B00674A10 /* TopBar.swift */,
+			);
+			path = CustomUI;
+			sourceTree = "<group>";
+		};
+		86AFD2172C41808B00674A10 /* CropperProtocols */ = {
+			isa = PBXGroup;
+			children = (
+				86AFD2102C41808B00674A10 /* AngleAssist.swift */,
+				86AFD2112C41808B00674A10 /* AspectRatioSettable.swift */,
+				86AFD2122C41808B00674A10 /* CropBoxEdgeDraggable.swift */,
+				86AFD2132C41808B00674A10 /* Flipable.swift */,
+				86AFD2142C41808B00674A10 /* Rotatable.swift */,
+				86AFD2152C41808B00674A10 /* Stasisable.swift */,
+				86AFD2162C41808B00674A10 /* StateRestorable.swift */,
+			);
+			path = CropperProtocols;
+			sourceTree = "<group>";
+		};
+		86AFD21D2C41808B00674A10 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				86AFD2172C41808B00674A10 /* CropperProtocols */,
+				86AFD2182C41808B00674A10 /* AspectRatio.swift */,
+				86AFD2192C41808B00674A10 /* Config.swift */,
+				86AFD21A2C41808B00674A10 /* CropperState.swift */,
+				86AFD21B2C41808B00674A10 /* CropperViewController.swift */,
+				86AFD21C2C41808B00674A10 /* ScrollViewContainer.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		86BB93F22C31AFC000D92A7D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				86AFD1B92C417A5E00674A10 /* Cropper */,
 				86AFD0FC2C413A0000674A10 /* DocManager */,
 				86BB93F32C31AFE400D92A7D /* FilterManager.swift */,
 			);
@@ -397,13 +539,6 @@
 				86BB93F82C31B4A700D92A7D /* ImageEditViewController.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		86C14DA92C38668A00B506D2 /* ImageCropper */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ImageCropper;
 			sourceTree = "<group>";
 		};
 		86C14DAA2C3868A800B506D2 /* BgRemovePage */ = {
@@ -688,11 +823,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86AFD23E2C41808B00674A10 /* QCropper.rotate.right.fill@2x.png in Resources */,
 				86973D3A2C2189E000445778 /* EditViewController.xib in Resources */,
 				86C14DAE2C3868E200B506D2 /* BGRemoveViewController.xib in Resources */,
+				86AFD2282C41808B00674A10 /* QCropper.rotate.right.fill@3x.png in Resources */,
 				86C662A92C29C84100E2F04D /* ColorCollectionViewCell.xib in Resources */,
+				86AFD2272C41808B00674A10 /* QCropper.flip.horizontal.fill@2x.png in Resources */,
 				86F7C31D2C2C8E2800684B5B /* frameCollectionViewCell.xib in Resources */,
 				86ADC3732C39484E00FF9849 /* ShapeCropViewController.xib in Resources */,
+				86AFD23F2C41808B00674A10 /* QCropper.flip.horizontal.fill@3x.png in Resources */,
+				86AFD2262C41808B00674A10 /* QCropper.aspectratio.fill@3x.png in Resources */,
 				86ADC36A2C390FB300FF9849 /* BrushCollectionViewCell.xib in Resources */,
 				86C662AD2C29DCD000E2F04D /* FontsCollectionViewCell.xib in Resources */,
 				86BB93F92C31B4A700D92A7D /* ImageEditViewController.xib in Resources */,
@@ -702,13 +842,16 @@
 				86C662952C29C1FC00E2F04D /* TextInputViewController.xib in Resources */,
 				862B97EC2C3306B10074A09D /* StickersViewController.xib in Resources */,
 				864F324A2C19FF96006A62AD /* Assets.xcassets in Resources */,
+				86AFD2212C41808B00674A10 /* QCropper.aspectratio.fill@2x.png in Resources */,
 				864F324D2C19FF96006A62AD /* Base in Resources */,
 				86973D342C2166FC00445778 /* HomeViewController.xib in Resources */,
 				86CBCBF92C3C31B000805DF2 /* BlurViewController.xib in Resources */,
+				86AFD23D2C41808B00674A10 /* QCropper.check.mark@2x.png in Resources */,
 				86C14DB72C38784C00B506D2 /* EraseViewController.xib in Resources */,
 				86F7C3182C2C683A00684B5B /* GifViewController.xib in Resources */,
 				86C662A52C29C72200E2F04D /* TextFeatureCollectionViewCell.xib in Resources */,
 				86C662B22C29DF9900E2F04D /* AnimCollectionViewCell.xib in Resources */,
+				86AFD2292C41808B00674A10 /* QCropper.check.mark@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -761,27 +904,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86AFD22E2C41808B00674A10 /* AspectRatioPicker.swift in Sources */,
 				86C662B92C29F0D500E2F04D /* CustomTextLabel.swift in Sources */,
 				86C662AC2C29DCD000E2F04D /* FontsCollectionViewCell.swift in Sources */,
 				8696EAD52C2B434700B4E7C2 /* UILabel+Extensions.swift in Sources */,
+				86AFD23B2C41808B00674A10 /* CropperViewController.swift in Sources */,
 				86973D3B2C2189E000445778 /* EditViewController.swift in Sources */,
 				86CD4B222C2DFF9A001C4AFD /* Query.swift in Sources */,
+				86AFD2372C41808B00674A10 /* StateRestorable.swift in Sources */,
+				86AFD2232C41808B00674A10 /* UIImage+Cropping.swift in Sources */,
 				86ADC3642C390BF800FF9849 /* BrushViewController.swift in Sources */,
 				86BB93F42C31AFE400D92A7D /* FilterManager.swift in Sources */,
 				86CBCBFA2C3C31B000805DF2 /* BlurViewController.swift in Sources */,
+				86AFD22A2C41808B00674A10 /* CropBox.swift in Sources */,
 				86CD4B252C2DFFAD001C4AFD /* SearchAdaptor.swift in Sources */,
 				86CD4B202C2DFF9A001C4AFD /* Cache.swift in Sources */,
 				86C14DB12C38717900B506D2 /* AppleBgRemover.swift in Sources */,
 				86CD4B172C2DF1BB001C4AFD /* Double+Extensions.swift in Sources */,
+				86AFD2362C41808B00674A10 /* Stasisable.swift in Sources */,
 				86F7C31C2C2C8E2800684B5B /* frameCollectionViewCell.swift in Sources */,
+				86AFD2352C41808B00674A10 /* Rotatable.swift in Sources */,
 				86ADC36D2C39378000FF9849 /* UIViewController+Extensions.swift in Sources */,
+				86AFD22C2C41808B00674A10 /* Overlay.swift in Sources */,
 				86CD4B292C2DFFB5001C4AFD /* GifCollectionViewCell.swift in Sources */,
 				86AFD1022C413C9F00674A10 /* UndoRedoModel.swift in Sources */,
 				864F32412C19FF95006A62AD /* AppDelegate.swift in Sources */,
 				86C662942C29C1FC00E2F04D /* TextInputViewController.swift in Sources */,
+				86AFD2242C41808B00674A10 /* UIImage+Helper.swift in Sources */,
+				86AFD23C2C41808B00674A10 /* ScrollViewContainer.swift in Sources */,
 				86BB93FA2C31B4A700D92A7D /* ImageEditViewController.swift in Sources */,
 				86AFD0FE2C413A2100674A10 /* ImageSaveRetrieveManager.swift in Sources */,
 				86CD4B232C2DFF9A001C4AFD /* RESTNetworkRequest.swift in Sources */,
+				86AFD2312C41808B00674A10 /* AngleAssist.swift in Sources */,
+				86AFD2322C41808B00674A10 /* AspectRatioSettable.swift in Sources */,
 				86C14DAF2C3868E200B506D2 /* BGRemoveViewController.swift in Sources */,
 				86C775172C240F3D003A58F8 /* IntermediateViewController.swift in Sources */,
 				86F7C3172C2C683A00684B5B /* GifViewController.swift in Sources */,
@@ -792,19 +947,30 @@
 				864F32432C19FF95006A62AD /* SceneDelegate.swift in Sources */,
 				86C662A82C29C84100E2F04D /* ColorCollectionViewCell.swift in Sources */,
 				862B97EF2C3324EA0074A09D /* UIView+Extensions.swift in Sources */,
+				86AFD2332C41808B00674A10 /* CropBoxEdgeDraggable.swift in Sources */,
 				86CD4B212C2DFF9A001C4AFD /* ModelStore.swift in Sources */,
+				86AFD2302C41808B00674A10 /* TopBar.swift in Sources */,
+				86AFD2342C41808B00674A10 /* Flipable.swift in Sources */,
+				86AFD2252C41808B00674A10 /* UIView+Helper.swift in Sources */,
 				86C7751B2C241107003A58F8 /* CornerPointView.swift in Sources */,
 				86C662A42C29C72200E2F04D /* TextFeatureCollectionViewCell.swift in Sources */,
 				86973D412C21A57200445778 /* CGSize+Extensions.swift in Sources */,
 				86EDC9002C308F9C00E68835 /* CGPoint+Extensions.swift in Sources */,
 				86ADC3722C39484E00FF9849 /* ShapeCropViewController.swift in Sources */,
+				86AFD2222C41808B00674A10 /* HelperExtensions.swift in Sources */,
 				86C662B12C29DF9900E2F04D /* AnimCollectionViewCell.swift in Sources */,
+				86AFD22F2C41808B00674A10 /* Toolbar.swift in Sources */,
+				86AFD22D2C41808B00674A10 /* AngleRuler.swift in Sources */,
+				86AFD22B2C41808B00674A10 /* Grid.swift in Sources */,
 				86AB70B42C2E8B070030E5C2 /* NetworkManager.swift in Sources */,
 				86ADC3692C390FB300FF9849 /* BrushCollectionViewCell.swift in Sources */,
 				865845472C2317EF00AAAA27 /* CIImage+Extensions.swift in Sources */,
+				86AFD2382C41808B00674A10 /* AspectRatio.swift in Sources */,
 				86CD4B1F2C2DFF9A001C4AFD /* AssetModel.swift in Sources */,
+				86AFD2392C41808B00674A10 /* Config.swift in Sources */,
 				862B97ED2C3306B10074A09D /* StickersViewController.swift in Sources */,
 				86973D352C2166FC00445778 /* HomeViewController.swift in Sources */,
+				86AFD23A2C41808B00674A10 /* CropperState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

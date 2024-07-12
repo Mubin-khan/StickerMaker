@@ -45,40 +45,49 @@ class EraseViewController: UIViewController {
     
     func gotoBGRemover(maskimg : UIImage?){
         let vc = BGRemoveViewController(fullImage: contentImg, maskImage: maskimg)
-        let navVC = UINavigationController(rootViewController: vc)
-        navVC.isNavigationBarHidden = true
-        navVC.modalPresentationStyle = .fullScreen
-        self.present(navVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+//        let navVC = UINavigationController(rootViewController: vc)
+//        navVC.isNavigationBarHidden = true
+//        navVC.modalPresentationStyle = .fullScreen
+//        self.present(navVC, animated: true, completion: nil)
     }
     
     @IBAction func brushAction(_ sender: Any) {
         let vc = BrushViewController(fullImage: contentImg)
-        let navVC = UINavigationController(rootViewController: vc)
-        navVC.isNavigationBarHidden = true
-        navVC.modalPresentationStyle = .fullScreen
-        self.present(navVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+//        let navVC = UINavigationController(rootViewController: vc)
+//        navVC.isNavigationBarHidden = true
+//        navVC.modalPresentationStyle = .fullScreen
+//        self.present(navVC, animated: true, completion: nil)
     }
     
     
     @IBAction func shapeAction(_ sender: Any) {
         let vc = ShapeCropViewController(fullImage: contentImg)
-        let navVC = UINavigationController(rootViewController: vc)
-        navVC.isNavigationBarHidden = true
-        navVC.modalPresentationStyle = .fullScreen
-        self.present(navVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+//        let navVC = UINavigationController(rootViewController: vc)
+//        navVC.isNavigationBarHidden = true
+//        navVC.modalPresentationStyle = .fullScreen
+//        self.present(navVC, animated: true, completion: nil)
     }
     
     
     @IBAction func BlurAction(_ sender: Any) {
         let vc = BlurViewController(fullImage: contentImg)
-        let navVC = UINavigationController(rootViewController: vc)
-        navVC.isNavigationBarHidden = true
-        navVC.modalPresentationStyle = .fullScreen
-        self.present(navVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+//        let navVC = UINavigationController(rootViewController: vc)
+//        navVC.isNavigationBarHidden = true
+//        navVC.modalPresentationStyle = .fullScreen
+//        self.present(navVC, animated: true, completion: nil)
     }
     
     @IBAction func nextPageAction(_ sender: Any) {
         let vc = ImageEditViewController(image: contentImg)
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @IBAction func backAction(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
 }

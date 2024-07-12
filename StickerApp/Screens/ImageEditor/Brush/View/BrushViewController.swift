@@ -260,7 +260,8 @@ class BrushViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func closeAction(_ sender: Any) {
-        dismiss(animated: true)
+//        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func doneAction(_ sender: Any) {
