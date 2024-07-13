@@ -63,6 +63,9 @@
 		86AFD23D2C41808B00674A10 /* QCropper.check.mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86AFD21E2C41808B00674A10 /* QCropper.check.mark@2x.png */; };
 		86AFD23E2C41808B00674A10 /* QCropper.rotate.right.fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86AFD21F2C41808B00674A10 /* QCropper.rotate.right.fill@2x.png */; };
 		86AFD23F2C41808B00674A10 /* QCropper.flip.horizontal.fill@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86AFD2202C41808B00674A10 /* QCropper.flip.horizontal.fill@3x.png */; };
+		86B18DD12C42550100E1AB97 /* StickerViewMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B18DD02C42550100E1AB97 /* StickerViewMain.swift */; };
+		86B18DD52C42577F00E1AB97 /* EmojiCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86B18DD32C42577F00E1AB97 /* EmojiCollectionViewCell.swift */; };
+		86B18DD62C42577F00E1AB97 /* EmojiCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86B18DD42C42577F00E1AB97 /* EmojiCollectionViewCell.xib */; };
 		86BB93F42C31AFE400D92A7D /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB93F32C31AFE400D92A7D /* FilterManager.swift */; };
 		86BB93F92C31B4A700D92A7D /* ImageEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86BB93F82C31B4A700D92A7D /* ImageEditViewController.xib */; };
 		86BB93FA2C31B4A700D92A7D /* ImageEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BB93F72C31B4A700D92A7D /* ImageEditViewController.swift */; };
@@ -167,6 +170,9 @@
 		86AFD21E2C41808B00674A10 /* QCropper.check.mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QCropper.check.mark@2x.png"; sourceTree = "<group>"; };
 		86AFD21F2C41808B00674A10 /* QCropper.rotate.right.fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QCropper.rotate.right.fill@2x.png"; sourceTree = "<group>"; };
 		86AFD2202C41808B00674A10 /* QCropper.flip.horizontal.fill@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QCropper.flip.horizontal.fill@3x.png"; sourceTree = "<group>"; };
+		86B18DD02C42550100E1AB97 /* StickerViewMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerViewMain.swift; sourceTree = "<group>"; };
+		86B18DD32C42577F00E1AB97 /* EmojiCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewCell.swift; sourceTree = "<group>"; };
+		86B18DD42C42577F00E1AB97 /* EmojiCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmojiCollectionViewCell.xib; sourceTree = "<group>"; };
 		86BB93F32C31AFE400D92A7D /* FilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
 		86BB93F72C31B4A700D92A7D /* ImageEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditViewController.swift; sourceTree = "<group>"; };
 		86BB93F82C31B4A700D92A7D /* ImageEditViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageEditViewController.xib; sourceTree = "<group>"; };
@@ -508,6 +514,23 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		86B18DCF2C4254DD00E1AB97 /* CustomSticker */ = {
+			isa = PBXGroup;
+			children = (
+				86B18DD02C42550100E1AB97 /* StickerViewMain.swift */,
+			);
+			path = CustomSticker;
+			sourceTree = "<group>";
+		};
+		86B18DD22C42574000E1AB97 /* NIB */ = {
+			isa = PBXGroup;
+			children = (
+				86B18DD32C42577F00E1AB97 /* EmojiCollectionViewCell.swift */,
+				86B18DD42C42577F00E1AB97 /* EmojiCollectionViewCell.xib */,
+			);
+			path = NIB;
+			sourceTree = "<group>";
+		};
 		86BB93F22C31AFC000D92A7D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -521,6 +544,7 @@
 		86BB93F52C31B48000D92A7D /* ImageEditor */ = {
 			isa = PBXGroup;
 			children = (
+				86B18DCF2C4254DD00E1AB97 /* CustomSticker */,
 				86AFD1002C413C8F00674A10 /* CommonModel */,
 				86CBCBF52C3C319100805DF2 /* BlurView */,
 				86ADC36E2C39482F00FF9849 /* ShapeCrop */,
@@ -535,6 +559,7 @@
 		86BB93F62C31B48800D92A7D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				86B18DD22C42574000E1AB97 /* NIB */,
 				86BB93F72C31B4A700D92A7D /* ImageEditViewController.swift */,
 				86BB93F82C31B4A700D92A7D /* ImageEditViewController.xib */,
 			);
@@ -832,6 +857,7 @@
 				86F7C31D2C2C8E2800684B5B /* frameCollectionViewCell.xib in Resources */,
 				86ADC3732C39484E00FF9849 /* ShapeCropViewController.xib in Resources */,
 				86AFD23F2C41808B00674A10 /* QCropper.flip.horizontal.fill@3x.png in Resources */,
+				86B18DD62C42577F00E1AB97 /* EmojiCollectionViewCell.xib in Resources */,
 				86AFD2262C41808B00674A10 /* QCropper.aspectratio.fill@3x.png in Resources */,
 				86ADC36A2C390FB300FF9849 /* BrushCollectionViewCell.xib in Resources */,
 				86C662AD2C29DCD000E2F04D /* FontsCollectionViewCell.xib in Resources */,
@@ -909,6 +935,7 @@
 				86C662AC2C29DCD000E2F04D /* FontsCollectionViewCell.swift in Sources */,
 				8696EAD52C2B434700B4E7C2 /* UILabel+Extensions.swift in Sources */,
 				86AFD23B2C41808B00674A10 /* CropperViewController.swift in Sources */,
+				86B18DD12C42550100E1AB97 /* StickerViewMain.swift in Sources */,
 				86973D3B2C2189E000445778 /* EditViewController.swift in Sources */,
 				86CD4B222C2DFF9A001C4AFD /* Query.swift in Sources */,
 				86AFD2372C41808B00674A10 /* StateRestorable.swift in Sources */,
@@ -931,6 +958,7 @@
 				864F32412C19FF95006A62AD /* AppDelegate.swift in Sources */,
 				86C662942C29C1FC00E2F04D /* TextInputViewController.swift in Sources */,
 				86AFD2242C41808B00674A10 /* UIImage+Helper.swift in Sources */,
+				86B18DD52C42577F00E1AB97 /* EmojiCollectionViewCell.swift in Sources */,
 				86AFD23C2C41808B00674A10 /* ScrollViewContainer.swift in Sources */,
 				86BB93FA2C31B4A700D92A7D /* ImageEditViewController.swift in Sources */,
 				86AFD0FE2C413A2100674A10 /* ImageSaveRetrieveManager.swift in Sources */,

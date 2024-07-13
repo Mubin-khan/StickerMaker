@@ -15,6 +15,7 @@ class StickersViewController: UIViewController {
     @IBOutlet weak var stickerContainer: UIView!
     var stickers: [MSSticker] = []
     var gifUrl : URL?
+    var imgUrl : URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,16 @@ class StickersViewController: UIViewController {
         setupStickerBrowser()
         if let url = gifUrl, let sticker = makeSticker(with: url) {
             stickers.append(sticker)
+        }
+        
+        
+        if let url = imgUrl {
+            let imageUrls = ImageSaveRetrieveManager.shared.retrieveAllImagesFromFolder(folderName: ImageSaveRetrieveManager.imageStickersUrlFoldername)
+            for imageUrl in imageUrls {
+                if let sticker = makeSticker(with: imageUrl) {
+                    stickers.append(sticker)
+                }
+            }
         }
     }
 

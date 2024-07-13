@@ -191,7 +191,7 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private func saveImageforUndoRedo(img : UIImage) {
         let imageName = UUID().uuidString
-        let isSaved = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: img, imageName: imageName)
+        let isSaved = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: img, imageName: imageName, foldername: ImageSaveRetrieveManager.unodRedofoldername)
         
         let obj = BlurUndoRedoModel(isBlur: isBlur, imageName: imageName)
         setObject(obj)
@@ -258,7 +258,7 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
         maskImage = image
         
         let imageName = UUID().uuidString
-        let isSaved = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: image, imageName: imageName)
+        let isSaved = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: image, imageName: imageName, foldername: ImageSaveRetrieveManager.unodRedofoldername)
         
         self.object = BlurUndoRedoModel(isBlur: isBlur, imageName: imageName)
         enableDisableUIControl()
@@ -371,7 +371,7 @@ extension BlurViewController {
     }
     
     func setMaskImageFromUndoRedo(obj : BlurUndoRedoModel){
-        let img = ImageSaveRetrieveManager.shared.retrieveImageFromDocumentsFolder(imageName: obj.imageName)
+        let img = ImageSaveRetrieveManager.shared.retrieveImageFromDocumentsFolder(imageName: obj.imageName, foldername: ImageSaveRetrieveManager.unodRedofoldername)
         maskLayer.contents = img?.cgImage
         
         if obj.isBlur {

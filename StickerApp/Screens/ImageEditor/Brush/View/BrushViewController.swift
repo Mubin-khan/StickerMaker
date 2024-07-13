@@ -151,7 +151,7 @@ class BrushViewController: UIViewController, UIGestureRecognizerDelegate {
         maskImage = image
         
         let imageName = UUID().uuidString
-        let isSaved = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: image, imageName: imageName)
+        let isSaved = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: image, imageName: imageName, foldername: ImageSaveRetrieveManager.unodRedofoldername)
         
         self.object = EraseRestoreImageModel(imageName: imageName)
         enableDisableUIControl()
@@ -249,7 +249,7 @@ class BrushViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private func saveImageforUndoRedo(img : UIImage) {
         let imageName = UUID().uuidString
-        let isSaved = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: img, imageName: imageName)
+        let isSaved = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: img, imageName: imageName, foldername: ImageSaveRetrieveManager.unodRedofoldername)
         
         let obj = EraseRestoreImageModel(imageName: imageName)
         setObject(obj)
@@ -385,7 +385,7 @@ extension BrushViewController {
     }
     
     func setMaskImageFromUndoRedo(obj : EraseRestoreImageModel){
-        let img = ImageSaveRetrieveManager.shared.retrieveImageFromDocumentsFolder(imageName: obj.imageName)
+        let img = ImageSaveRetrieveManager.shared.retrieveImageFromDocumentsFolder(imageName: obj.imageName, foldername: ImageSaveRetrieveManager.unodRedofoldername)
         maskLayer.contents = img?.cgImage
     }
 }

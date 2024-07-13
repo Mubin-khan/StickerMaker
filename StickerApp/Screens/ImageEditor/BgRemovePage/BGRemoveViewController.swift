@@ -128,7 +128,7 @@ class BGRemoveViewController: UIViewController, UIGestureRecognizerDelegate {
         sampleMaskImage = image
         
         let imageName = UUID().uuidString
-        let isSaved = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: image, imageName: imageName)
+        let url = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: image, imageName: imageName, foldername: ImageSaveRetrieveManager.unodRedofoldername)
         
         self.object = EraseRestoreImageModel(imageName: imageName)
     }
@@ -193,7 +193,7 @@ class BGRemoveViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         else if gesture.state == .ended || gesture.state == .cancelled, let mask = maskImage {
             let imageName = UUID().uuidString
-            let isSaved = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: mask, imageName: imageName)
+            let isSaved = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: mask, imageName: imageName, foldername: ImageSaveRetrieveManager.unodRedofoldername)
             
             let obj = EraseRestoreImageModel(imageName: imageName)
             setObject(obj)
@@ -302,7 +302,7 @@ extension BGRemoveViewController {
     }
     
     func setMaskImageFromUndoRedo(obj : EraseRestoreImageModel){
-        let img = ImageSaveRetrieveManager.shared.retrieveImageFromDocumentsFolder(imageName: obj.imageName)
+        let img = ImageSaveRetrieveManager.shared.retrieveImageFromDocumentsFolder(imageName: obj.imageName, foldername: ImageSaveRetrieveManager.unodRedofoldername)
         maskLayer.contents = img?.cgImage
     }
 }

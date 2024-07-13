@@ -9,6 +9,9 @@ import UIKit
 
 class ImageEditViewController: UIViewController {
     
+    @IBOutlet weak var stickerContainerView: UIView!
+    @IBOutlet weak var emojiContainerview: UIView!
+    @IBOutlet weak var emojiCollectionView: UICollectionView!
     @IBOutlet weak var filterView: UIView!
     @IBOutlet weak var filterCollectionView: UICollectionView!
     @IBOutlet weak var colorView: UIView!
@@ -24,10 +27,40 @@ class ImageEditViewController: UIViewController {
         case text = "Text"
         case filter = "Filter"
     }
+    var emojis : [String] = [
+        "emoji1",
+        "emoji2",
+        "emoji3",
+        "emoji4",
+        "emoji5"
+    ]
 
     @IBOutlet weak var sampleImageView: UIImageView!
     var selectedFilter : SMFilter = SMFilter.ciFilters[0]
     let image : UIImage
+    
+    // stikcer
+    private var _selectedStickerView:StickerViewMain?
+    var selectedStickerView:StickerViewMain? {
+        get {
+            return _selectedStickerView
+        }
+        set {
+            // if other sticker choosed then resign the handler
+            if _selectedStickerView != newValue {
+                if let selectedStickerView = _selectedStickerView {
+                    selectedStickerView.showEditingHandlers = false
+                }
+                
+                _selectedStickerView = newValue
+            }
+            // assign handler to new sticker added
+            if let selectedStickerView = _selectedStickerView {
+                selectedStickerView.showEditingHandlers = true
+                selectedStickerView.superview?.bringSubviewToFront(selectedStickerView)
+            }
+        }
+    }
     
     init(image : UIImage){
         self.image = image
@@ -42,6 +75,14 @@ class ImageEditViewController: UIViewController {
         super.viewDidLoad()
 
         sampleImageView.image = image
+        setupCollectionView()
+        
+        navigationController?.isNavigationBarHidden = true
+        applycifilter()
+        showBorderView()
+    }
+    
+    func setupCollectionView(){
         let nib = UINib(nibName: BrushCollectionViewCell.brushIdentifier, bundle: nil)
         fetureCollectionView.register(nib, forCellWithReuseIdentifier: BrushCollectionViewCell.brushIdentifier)
         fetureCollectionView.delegate = self
@@ -57,8 +98,10 @@ class ImageEditViewController: UIViewController {
         filterCollectionView.delegate = self
         filterCollectionView.dataSource = self
         
-        navigationController?.isNavigationBarHidden = true
-        applycifilter()
+        let nib3 = UINib(nibName: EmojiCollectionViewCell.emojiIdentifier, bundle: nil)
+        emojiCollectionView.register(nib3, forCellWithReuseIdentifier: EmojiCollectionViewCell.emojiIdentifier)
+        emojiCollectionView.delegate = self
+        emojiCollectionView.dataSource = self
     }
     
     var lastPoint : Float = .zero
@@ -72,6 +115,14 @@ class ImageEditViewController: UIViewController {
         }
     }
     
+    @IBAction func DoneAction(_ sender: Any) {
+        let img = stickerContainerView.toImage()
+        let imgname = UUID().uuidString
+        let savedUrl = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: img, imageName: imgname, foldername: ImageSaveRetrieveManager.imageStickersUrlFoldername)
+        let vc = StickersViewController()
+        vc.imgUrl = savedUrl
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     @IBAction func backAction(_ sender: Any) {
         navigationController?.popViewController(animated: true)
@@ -89,6 +140,9 @@ extension ImageEditViewController : UICollectionViewDelegateFlowLayout, UICollec
         }
         if collectionView == filterCollectionView {
             return SMFilter.ciFilters.count
+        }
+        if collectionView == emojiCollectionView {
+            return emojis.count
         }
         return 0
     }
@@ -110,6 +164,11 @@ extension ImageEditViewController : UICollectionViewDelegateFlowLayout, UICollec
                 cell.setUp(str: SMFilter.ciFilters[indexPath.row].name)
                 return cell
             }
+        }else if collectionView == emojiCollectionView {
+            if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmojiCollectionViewCell.emojiIdentifier, for: indexPath) as? EmojiCollectionViewCell {
+                cell.emojiImageView.image = UIImage(named: emojis[indexPath.row])
+                return cell
+            }
         }
         return UICollectionViewCell()
     }
@@ -117,6 +176,8 @@ extension ImageEditViewController : UICollectionViewDelegateFlowLayout, UICollec
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == colorCollectionView {
             return CGSize(width: 30, height: 30)
+        }else if collectionView == emojiCollectionView {
+            return CGSize(width: 60, height: 60)
         }
         return CGSize(width: 80, height: collectionView.bounds.height)
     }
@@ -130,7 +191,10 @@ extension ImageEditViewController : UICollectionViewDelegateFlowLayout, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        if collectionView == fetureCollectionView {
+            return UIEdgeInsets(top: 0, left: 20, bottom: 30, right: 20)
+        }
+        return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -145,11 +209,54 @@ extension ImageEditViewController : UICollectionViewDelegateFlowLayout, UICollec
             filterView.isHidden = false
         }else if collectionView == fetureCollectionView {
             switch feature.allCases[indexPath.row] {
-                case .border : filterView.isHidden = true
-            case .filter : filterView.isHidden = false
+            case .border :
+               showBorderView()
+            case .filter :
+               showFilterView()
+            case .emoji :
+               showEmojiView()
             default : break
             }
+        }else if collectionView == emojiCollectionView {
+            addFinalSticker(stickerName: emojis[indexPath.row])
         }
+    }
+    
+    func showBorderView(){
+        emojiContainerview.isHidden = true
+        filterView.isHidden = true
+        colorView.isHidden = false
+    }
+    
+    func showFilterView(){
+        emojiContainerview.isHidden = true
+        filterView.isHidden = false
+        colorView.isHidden = true
+    }
+    
+    func showEmojiView(){
+        emojiContainerview.isHidden = false
+        filterView.isHidden = true
+        colorView.isHidden = true
+    }
+    
+    func addFinalSticker(stickerName : String) {
+        let stickerWidth : CGFloat = 80
+        let ww = stickerContainerView.bounds.width - stickerWidth / 2
+        let hh = stickerContainerView.bounds.height - stickerWidth / 2
+        let testImageView = UIImageView.init(frame: CGRect.init(x : 0, y : 0, width: stickerWidth, height: stickerWidth))
+        testImageView.image = UIImage(named: stickerName)
+        testImageView.contentMode = .scaleAspectFit
+        let stickerView3 = StickerViewMain.init(contentView: testImageView)
+        stickerView3.center = CGPoint(x: CGFloat.random(in: stickerWidth/2..<ww) , y: CGFloat.random(in: stickerWidth/2..<hh))
+        stickerView3.delegate = self
+        stickerView3.setImage(UIImage.init(named: "cancelStk")!, forHandler: StickerViewHandler.close)
+        stickerView3.setImage(UIImage.init(named: "resizeStk")!, forHandler: StickerViewHandler.rotate)
+        stickerView3.setImage(UIImage.init(named: "flipStk")!, forHandler: StickerViewHandler.flip)
+        stickerView3.showEditingHandlers = false
+        stickerView3.isUserInteractionEnabled = true
+        self.stickerContainerView.addSubview(stickerView3)
+        self.selectedStickerView = stickerView3
     }
     
     
@@ -164,5 +271,51 @@ extension ImageEditViewController : UICollectionViewDelegateFlowLayout, UICollec
         }else {
             sampleImageView.image = img
         }
+    }
+}
+
+
+extension ImageEditViewController : StickerViewDelegate {
+    func stickerViewDidFlipped() {
+        
+    }
+    
+    func stickerSliderHideShow(flag: Bool) {
+        
+    }
+    
+    func stickerViewDidBeginMoving(_ stickerView: StickerViewMain) {
+        self.selectedStickerView = stickerView
+    }
+    
+    func stickerViewDidChangeMoving(_ stickerView: StickerViewMain) {
+        
+    }
+    
+    func stickerViewDidEndMoving(_ stickerView: StickerViewMain) {
+    
+    }
+    
+    func stickerViewDidBeginRotating(_ stickerView: StickerViewMain) {
+        
+    }
+    
+    func stickerViewDidChangeRotating(_ stickerView: StickerViewMain) {
+        
+    }
+    
+    func stickerViewDidEndRotating(_ stickerView: StickerViewMain) {
+        setPanRoateOfStickerForUndoRedo(stickerView)
+    }
+    
+    func setPanRoateOfStickerForUndoRedo(_ stickerView: StickerViewMain){
+      
+    }
+    
+    func stickerViewDidClose(_ stickerView: StickerViewMain) {
+    }
+    
+    func stickerViewDidTap(_ stickerView: StickerViewMain) {
+        self.selectedStickerView = stickerView
     }
 }

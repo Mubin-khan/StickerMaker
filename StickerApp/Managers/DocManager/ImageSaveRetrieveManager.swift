@@ -10,10 +10,12 @@ import UIKit
 class ImageSaveRetrieveManager {
     static let shared = ImageSaveRetrieveManager()
     private init(){
-       let _ = createFolder(folderName: ImageSaveRetrieveManager.foldername)
+       let _ = createFolder(folderName: ImageSaveRetrieveManager.unodRedofoldername)
+       let _ = createFolder(folderName: ImageSaveRetrieveManager.imageStickersUrlFoldername)
     }
     
-    static let foldername = "UndoRedoFolder"
+    static let unodRedofoldername = "UndoRedoFolder"
+    static let imageStickersUrlFoldername = "SavedStickersUrl"
     
     func createFolder(folderName: String) -> URL? {
         let fileManager = FileManager.default
@@ -35,32 +37,32 @@ class ImageSaveRetrieveManager {
         return folderURL
     }
 
-    func saveImageToDocumentsFolder(image: UIImage, imageName: String) -> Bool {
-        guard let folderURL = createFolder(folderName: ImageSaveRetrieveManager.foldername) else {
-            return false
+    func saveImageToDocumentsFolder(image: UIImage, imageName: String, foldername : String) -> URL? {
+        guard let folderURL = createFolder(folderName: foldername) else {
+            return nil
         }
         
         let imageURL = folderURL.appendingPathComponent(imageName).appendingPathExtension("png")
         guard let imageData = image.pngData() else {
-            return false
+            return nil
         }
         
         do {
             try imageData.write(to: imageURL)
-            return true
+            return imageURL
         } catch {
             print("Error saving image: \(error)")
-            return false
+            return nil
         }
     }
 
-    func retrieveImageFromDocumentsFolder(imageName: String) -> UIImage? {
+    func retrieveImageFromDocumentsFolder(imageName: String, foldername : String) -> UIImage? {
         let fileManager = FileManager.default
         guard let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return nil
         }
         
-        let imageURL = documentsURL.appendingPathComponent(ImageSaveRetrieveManager.foldername).appendingPathComponent(imageName).appendingPathExtension("png")
+        let imageURL = documentsURL.appendingPathComponent(foldername).appendingPathComponent(imageName).appendingPathExtension("png")
         
         if fileManager.fileExists(atPath: imageURL.path) {
             return UIImage(contentsOfFile: imageURL.path)
@@ -70,13 +72,13 @@ class ImageSaveRetrieveManager {
         }
     }
 
-    func deleteAllImagesFromFolder() -> Bool {
+    func deleteAllImagesFromFolder(foldername : String) -> Bool {
         let fileManager = FileManager.default
         guard let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return false
         }
         
-        let folderURL = documentsURL.appendingPathComponent(ImageSaveRetrieveManager.foldername)
+        let folderURL = documentsURL.appendingPathComponent(foldername)
         
         do {
             let fileURLs = try fileManager.contentsOfDirectory(at: folderURL, includingPropertiesForKeys: nil)
@@ -87,6 +89,23 @@ class ImageSaveRetrieveManager {
         } catch {
             print("Error deleting files: \(error)")
             return false
+        }
+    }
+    
+    func retrieveAllImagesFromFolder(folderName: String) -> [URL] {
+        let fileManager = FileManager.default
+        guard let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return []
+        }
+        
+        let folderURL = documentsURL.appendingPathComponent(folderName)
+        
+        do {
+            let fileURLs = try fileManager.contentsOfDirectory(at: folderURL, includingPropertiesForKeys: nil)
+            return fileURLs
+        } catch {
+            print("Error retrieving images: \(error)")
+            return []
         }
     }
 }
