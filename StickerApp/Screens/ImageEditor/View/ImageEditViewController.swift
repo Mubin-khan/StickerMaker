@@ -24,7 +24,7 @@ class ImageEditViewController: UIViewController {
     enum feature : String, CaseIterable {
         case border = "Border"
         case emoji = "Emoji"
-        case text = "Text"
+//        case text = "Text"
         case filter = "Filter"
     }
     var emojis : [String] = [
