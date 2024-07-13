@@ -52,37 +52,37 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7r0-1F-PQE">
-                    <rect key="frame" x="200" y="266" width="56" height="35"/>
+                    <rect key="frame" x="307" y="266" width="56" height="35"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="Text"/>
                     <connections>
                         <action selector="textToStickerAction:" destination="-1" eventType="touchUpInside" id="Dr1-fX-Bl5"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Etb-is-qvb">
-                    <rect key="frame" x="159" y="490" width="75" height="35"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LDk-e4-vKj">
+                    <rect key="frame" x="186.33333333333334" y="266" width="83.333333333333343" height="35"/>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Camera"/>
                     <connections>
-                        <action selector="testAction:" destination="-1" eventType="touchUpInside" id="EoF-9w-AfK"/>
+                        <action selector="openCameraAction:" destination="-1" eventType="touchUpInside" id="GxB-t0-xEY"/>
                     </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="Etb-is-qvb" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="0MS-OE-JPe"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Etb-is-qvb" secondAttribute="bottom" constant="293" id="37e-lc-SWv"/>
                 <constraint firstItem="A7e-O3-yxb" firstAttribute="leading" secondItem="s00-bD-DsJ" secondAttribute="trailing" constant="50" id="5nc-eJ-Wg7"/>
                 <constraint firstItem="2l2-DK-aID" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="BJ2-LT-Kyy"/>
                 <constraint firstItem="mk5-TS-UZw" firstAttribute="leading" secondItem="2l2-DK-aID" secondAttribute="leading" id="CtS-Pp-6Mh"/>
                 <constraint firstItem="A7e-O3-yxb" firstAttribute="centerY" secondItem="s00-bD-DsJ" secondAttribute="centerY" id="IBD-mq-q1T"/>
                 <constraint firstItem="mk5-TS-UZw" firstAttribute="top" secondItem="2l2-DK-aID" secondAttribute="bottom" constant="50" id="R1B-Gr-TcL"/>
                 <constraint firstItem="7r0-1F-PQE" firstAttribute="centerY" secondItem="mk5-TS-UZw" secondAttribute="centerY" id="VOI-qb-Xum"/>
+                <constraint firstItem="7r0-1F-PQE" firstAttribute="centerX" secondItem="A7e-O3-yxb" secondAttribute="centerX" id="afr-wg-d4m"/>
                 <constraint firstItem="s00-bD-DsJ" firstAttribute="leading" secondItem="2l2-DK-aID" secondAttribute="trailing" constant="50" id="bYk-my-7eQ"/>
                 <constraint firstItem="2l2-DK-aID" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="122" id="ck6-qM-Eav"/>
+                <constraint firstItem="LDk-e4-vKj" firstAttribute="centerX" secondItem="s00-bD-DsJ" secondAttribute="centerX" id="hDG-N7-TDC"/>
                 <constraint firstItem="s00-bD-DsJ" firstAttribute="centerY" secondItem="2l2-DK-aID" secondAttribute="centerY" id="rst-Qq-zPd"/>
-                <constraint firstItem="7r0-1F-PQE" firstAttribute="centerX" secondItem="s00-bD-DsJ" secondAttribute="centerX" id="xxf-N8-7Hm"/>
+                <constraint firstItem="LDk-e4-vKj" firstAttribute="centerY" secondItem="mk5-TS-UZw" secondAttribute="centerY" id="zVw-Yo-6oC"/>
             </constraints>
             <point key="canvasLocation" x="102" y="20"/>
         </view>

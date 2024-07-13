@@ -27,5 +27,7 @@
 	<string>media </string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>additional photo library</string>
+	<key>NSCameraUsageDescription</key>
+	<string>camera usage</string>
 </dict>
 </plist>

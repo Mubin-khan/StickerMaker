@@ -52,6 +52,14 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    @IBAction func openCameraAction(_ sender: Any) {
+        let imagePickerController = UIImagePickerController()
+               imagePickerController.delegate = self
+               imagePickerController.sourceType = .camera
+               imagePickerController.allowsEditing = false
+               present(imagePickerController, animated: true, completion: nil)
+    }
+    
     @IBAction func getGifAction(_ sender: Any) {
         if !NetWorkManager.shared.isNetworkReachable() {
             showError(title: "Error!", message: "No Internet! Please check your network connectivity.")
@@ -127,16 +135,20 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate {
                     if let img = im as? UIImage {
                         DispatchQueue.main.async {
                             let mainImage = img.asSmallImage ?? img
-                            let vc = CropperViewController(originalImage: mainImage)
-                            let navVC = UINavigationController(rootViewController: vc)
-                            navVC.isNavigationBarHidden = true
-                            navVC.modalPresentationStyle = .fullScreen
-                            self.present(navVC, animated: true, completion: nil)
+                            self.gotoCropViewController(with: mainImage)
                         }
                     }
                 }
            }
         }
+    }
+    
+    func gotoCropViewController(with img : UIImage) {
+        let vc = CropperViewController(originalImage: img)
+        let navVC = UINavigationController(rootViewController: vc)
+        navVC.isNavigationBarHidden = true
+        navVC.modalPresentationStyle = .fullScreen
+        self.present(navVC, animated: true, completion: nil)
     }
     
     func extractFramesFromVideo(at url: URL, frameCount: Int = 10) {
@@ -232,6 +244,21 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate {
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
+}
+
+extension HomeViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    // Delegate method to handle the photo taken
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            picker.dismiss(animated: true, completion: nil)
+            if let image = info[.originalImage] as? UIImage, let finalImage = image.asSmallImage {
+                self.gotoCropViewController(with: finalImage)
+            }
+        }
+        
+        // Delegate method to handle cancellation
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            picker.dismiss(animated: true, completion: nil)
+        }
 }
 
 

@@ -9,6 +9,7 @@ import UIKit
 
 class EraseViewController: UIViewController {
 
+    @IBOutlet weak var loaderView: UIView!
     @IBOutlet weak var contentImageView: UIImageView!
     var contentImg : UIImage
     
@@ -27,20 +28,28 @@ class EraseViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         contentImageView.image = contentImg
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loaderView.isHidden = true
+    }
 
 
     @IBAction func magicAction(_ sender: Any) {
-        guard let baseImage = CIImage(image: contentImg), let maskCiImage = AppleBgRemover.shared.applyPersonSegmentation(ciImage: baseImage) else {
-            
-            openAlert(title: "Magic", message: "Sorry, we couldn't identify the image to crop", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.default], action: [{ _ in
-                self.gotoBGRemover(maskimg: nil)
-            }])
-            
-            return
+        DispatchQueue.main.async { [self] in
+            loaderView.isHidden = false
+            guard let baseImage = CIImage(image: contentImg), let maskCiImage = AppleBgRemover.shared.applyPersonSegmentation(ciImage: baseImage) else {
+    //            loaderView.isHidden = true
+                openAlert(title: "Magic", message: "Sorry, we couldn't identify the image to crop", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.default], action: [{ _ in
+                    self.gotoBGRemover(maskimg: nil)
+                }])
+                
+                return
+            }
+
+            let maskImage = UIImage(ciImage: maskCiImage)
+            gotoBGRemover(maskimg: maskImage)
         }
-        let maskImage = UIImage(ciImage: maskCiImage)
-    
-        gotoBGRemover(maskimg: maskImage)
+       
     }
     
     func gotoBGRemover(maskimg : UIImage?){

@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EraseViewController" customModule="StickerApp" customModuleProvider="target">
             <connections>
                 <outlet property="contentImageView" destination="U2n-MY-zg4" id="QK0-hv-A7c"/>
+                <outlet property="loaderView" destination="sqM-da-4Qo" id="4cR-Le-egD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -150,22 +151,40 @@
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U2n-MY-zg4">
                     <rect key="frame" x="0.0" y="149" width="393" height="535"/>
                 </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sqM-da-4Qo">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="XyG-Sy-I4U">
+                            <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
+                            <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.62569846854304634" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="XyG-Sy-I4U" firstAttribute="centerY" secondItem="sqM-da-4Qo" secondAttribute="centerY" id="Jga-7q-ucB"/>
+                        <constraint firstItem="XyG-Sy-I4U" firstAttribute="centerX" secondItem="sqM-da-4Qo" secondAttribute="centerX" id="Otw-7s-glE"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="xox-8o-jyb" secondAttribute="trailing" id="197-Gn-Vrq"/>
                 <constraint firstItem="xox-8o-jyb" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="1jm-G1-D2e"/>
+                <constraint firstItem="sqM-da-4Qo" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="2cV-DG-joo"/>
+                <constraint firstItem="sqM-da-4Qo" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="2cz-Fj-hqF"/>
                 <constraint firstItem="r0c-y0-MVK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="2od-nT-ohe"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="r0c-y0-MVK" secondAttribute="trailing" id="77h-QQ-LQs"/>
                 <constraint firstItem="U2n-MY-zg4" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="83w-pJ-5Bt"/>
                 <constraint firstItem="r0c-y0-MVK" firstAttribute="top" secondItem="U2n-MY-zg4" secondAttribute="bottom" constant="40" id="AYz-Hi-XtT"/>
                 <constraint firstItem="U2n-MY-zg4" firstAttribute="top" secondItem="xox-8o-jyb" secondAttribute="bottom" constant="40" id="CMh-th-9az"/>
+                <constraint firstItem="sqM-da-4Qo" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="GP7-r7-uJu"/>
+                <constraint firstAttribute="bottom" secondItem="sqM-da-4Qo" secondAttribute="bottom" id="VM3-82-aiS"/>
                 <constraint firstAttribute="bottom" secondItem="r0c-y0-MVK" secondAttribute="bottom" id="WRq-rh-3Nu"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="U2n-MY-zg4" secondAttribute="trailing" id="eZv-kB-CYY"/>
                 <constraint firstItem="xox-8o-jyb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="uGm-9y-VN1"/>
             </constraints>
-            <point key="canvasLocation" x="102" y="20"/>
+            <point key="canvasLocation" x="101.5267175572519" y="19.718309859154932"/>
         </view>
     </objects>
     <resources>

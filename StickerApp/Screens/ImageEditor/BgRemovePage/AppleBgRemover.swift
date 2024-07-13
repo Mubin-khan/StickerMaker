@@ -8,6 +8,7 @@
 import UIKit
 import Vision
 import Accelerate
+import CoreML
 
 final class AppleBgRemover {
     
@@ -43,7 +44,7 @@ final class AppleBgRemover {
         let height = CVPixelBufferGetHeight(pixelBuffer)
         let bytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer)
         
-        let threshold: UInt8 = 10 // Adjust threshold as needed
+        let threshold: UInt8 = 50 // Adjust threshold as needed
         var detected = false
         
         for y in 0..<height {
@@ -51,6 +52,7 @@ final class AppleBgRemover {
             for x in 0..<width {
                 let pixel = row.load(fromByteOffset: x, as: UInt8.self)
                 if pixel > threshold {
+                    print(pixel)
                     detected = true
                     break
                 }
