@@ -494,6 +494,7 @@ class TextInputViewController: UIViewController {
     
     func gotoEditPage(){
         let vc = EditViewController(frames: frames, curFeature: .text)
+        vc.framePerSecond = frames.count / 2
         navigationController?.pushViewController(vc, animated: true)
     }
     

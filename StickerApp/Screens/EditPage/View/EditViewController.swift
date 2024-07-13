@@ -24,6 +24,7 @@ class EditViewController: UIViewController {
     lazy var displayLink: CADisplayLink = CADisplayLink(target: self,
                                                       selector: #selector(displayLinkFired(link:)))
     
+    var framePerSecond : Int = 15
     var curFeature : GifFeatue
     var borderWidth : CGFloat = 5 {
         didSet {
@@ -58,7 +59,7 @@ class EditViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         
         self.displayLink.add(to: .main, forMode: .common)
-        self.displayLink.preferredFramesPerSecond = 5
+        self.displayLink.preferredFramesPerSecond = framePerSecond
  
         let availableWidth = view.bounds.width - 50
         let sz = frames[0].size.calculateFinalSize(in: CGSize(width: availableWidth, height: availableWidth))
@@ -143,7 +144,24 @@ class EditViewController: UIViewController {
             return nil
         }
         
-        return temporaryFileURL
+        let unquename = UUID().uuidString
+        guard let permanetfolderurl = ImageSaveRetrieveManager.shared.getGifFolderUrl() else {
+            return nil
+        }
+        let permanentDestination = permanetfolderurl.appendingPathComponent(unquename).appendingPathExtension("gif")
+        // Use FileManager to move the file to the permanent destination
+            do {
+                let fileManager = FileManager.default
+                if fileManager.fileExists(atPath: permanentDestination.path) {
+                    try fileManager.removeItem(at: permanentDestination) // Remove existing file at destination if it exists
+                }
+                try fileManager.moveItem(at: temporaryFileURL, to: permanentDestination)
+                return permanentDestination
+            } catch {
+                print("Error moving file to permanent destination: \(error)")
+                return nil
+            }
+//        return permanentDestination
     }
     
     func imageWithBackgroundMerging(bgImage : UIImage, topImage : UIImage) -> UIImage? {

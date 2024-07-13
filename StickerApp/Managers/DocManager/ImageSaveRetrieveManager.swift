@@ -12,10 +12,12 @@ class ImageSaveRetrieveManager {
     private init(){
        let _ = createFolder(folderName: ImageSaveRetrieveManager.unodRedofoldername)
        let _ = createFolder(folderName: ImageSaveRetrieveManager.imageStickersUrlFoldername)
+       let _ = createFolder(folderName: ImageSaveRetrieveManager.gifStickersUrlFoldername)
     }
     
     static let unodRedofoldername = "UndoRedoFolder"
     static let imageStickersUrlFoldername = "SavedStickersUrl"
+    static let gifStickersUrlFoldername = "SavedGifStickersUrl"
     
     func createFolder(folderName: String) -> URL? {
         let fileManager = FileManager.default
@@ -35,6 +37,13 @@ class ImageSaveRetrieveManager {
         }
         
         return folderURL
+    }
+    
+    func getGifFolderUrl() -> URL? {
+        guard let folderurl = createFolder(folderName: ImageSaveRetrieveManager.gifStickersUrlFoldername) else {
+            return nil
+        }
+        return folderurl
     }
 
     func saveImageToDocumentsFolder(image: UIImage, imageName: String, foldername : String) -> URL? {

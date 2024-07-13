@@ -206,6 +206,7 @@ extension GifViewController : UICollectionViewDelegateFlowLayout, UICollectionVi
                     if let frames = self.extractFramesFromGifData(gifData) {
                         DispatchQueue.main.async {
                             let vc = EditViewController(frames: frames, curFeature: .gif)
+                            vc.framePerSecond = frames.count / 2
                             self.navigationController?.pushViewController(vc, animated: true)
                         }
                     }

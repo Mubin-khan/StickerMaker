@@ -22,8 +22,14 @@ class StickersViewController: UIViewController {
 
         
         setupStickerBrowser()
-        if let url = gifUrl, let sticker = makeSticker(with: url) {
-            stickers.append(sticker)
+        
+        if let url = gifUrl {
+            let imageUrls = ImageSaveRetrieveManager.shared.retrieveAllImagesFromFolder(folderName: ImageSaveRetrieveManager.gifStickersUrlFoldername)
+            for imageUrl in imageUrls {
+                if let sticker = makeSticker(with: imageUrl) {
+                    stickers.append(sticker)
+                }
+            }
         }
         
         

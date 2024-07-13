@@ -408,7 +408,7 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
         let asset = AVAsset(url: url)
         let assetDuration = CMTimeGetSeconds(asset.duration)
         
-        let frameCount = 10
+        let frameCount = 30
         
         let frameTimes = stride(from: 0, to: assetDuration, by: assetDuration / Double(frameCount)).map {
             CMTimeMakeWithSeconds($0, preferredTimescale: asset.duration.timescale)
@@ -418,6 +418,7 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
             DispatchQueue.main.async {
                 if frames.count > 0 {
                     let vc = EditViewController(frames: frames, curFeature: .video)
+                    vc.framePerSecond = frames.count / 2
                     self.navigationController?.pushViewController(vc, animated: true)
                 }else {
                     self.hideLoaderView()
