@@ -45,9 +45,11 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
     }
     var totalDuration : CMTime = .zero
     var totalPixel : CGFloat = .zero
+    let isVideo : Bool
     
-    init(url : URL){
+    init(url : URL, isVideo : Bool){
         self.url = url
+        self.isVideo = isVideo
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -346,6 +348,8 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
     func extractFrames(at times: [CMTime], from asset: AVAsset) {
         let imageGenerator = AVAssetImageGenerator(asset: asset)
         imageGenerator.appliesPreferredTrackTransform = true
+        imageGenerator.requestedTimeToleranceBefore = .zero
+        imageGenerator.requestedTimeToleranceAfter = .zero
 
         let dispatchGroup = DispatchGroup()
 
@@ -408,9 +412,16 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
         let asset = AVAsset(url: url)
         let assetDuration = CMTimeGetSeconds(asset.duration)
         
-        let frameCount = 30
+        guard let track = asset.tracks(withMediaType: .video).first else {
+               // Handle error (e.g., no video track found)
+               return
+           }
+           
+        let frameRate = track.nominalFrameRate
+        let frm = max(1, (Float(maximumtime.seconds - minimumtime.seconds) * frameRate) / 60)
+        let frameCount = Int(assetDuration * Double(frameRate) / Double(frm))
         
-        let frameTimes = stride(from: 0, to: assetDuration, by: assetDuration / Double(frameCount)).map {
+        let frameTimes = stride(from: minimumtime.seconds, to: maximumtime.seconds, by: assetDuration / Double(frameCount)).map {
             CMTimeMakeWithSeconds($0, preferredTimescale: asset.duration.timescale)
         }
         
@@ -430,6 +441,9 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
     func extractFramesForEditPage(at times: [CMTime], from asset: AVAsset, cropRect : CGRect?, completion : @escaping ([UIImage]) -> ()) {
         let imageGenerator = AVAssetImageGenerator(asset: asset)
         imageGenerator.appliesPreferredTrackTransform = true
+//        imageGenerator.maximumSize = CGSize(width: 512, height: 512)
+        imageGenerator.requestedTimeToleranceBefore = .zero
+        imageGenerator.requestedTimeToleranceAfter = .zero
         var frames : [UIImage] = []
         let dispatchGroup = DispatchGroup()
 
@@ -440,6 +454,7 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
                     var uiImage = UIImage(cgImage: cgImage)
                     if cropRect != nil {
                         uiImage = uiImage.cropImage(toRect: cropRect!) ?? uiImage
+                        uiImage = uiImage.getResizedImage(maxSize: 280) ?? uiImage
                     }
                     frames.append(uiImage)
                 } else if let error = error {

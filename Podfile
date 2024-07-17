@@ -8,5 +8,9 @@ target 'StickerApp' do
   # Pods for StickerApp
 pod 'Kingfisher', '~> 7.0'
 pod 'Alamofire'
+pod 'WebPKit'
+pod 'SDWebImage'
+pod 'SDWebImageWebPCoder'
+
 
 end

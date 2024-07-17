@@ -7,9 +7,15 @@
 
 import UIKit
 import MobileCoreServices
+import WebPKit
+import SDWebImage
+import SDWebImageWebPCoder
+
+
 
 class EditViewController: UIViewController {
 
+    @IBOutlet weak var sdwebimg: SDAnimatedImageView!
     @IBOutlet weak var editFeatureView: UIView!
     @IBOutlet weak var borderView: UIView!
     @IBOutlet weak var borderViewWidthCon: NSLayoutConstraint!
@@ -61,7 +67,7 @@ class EditViewController: UIViewController {
         self.displayLink.add(to: .main, forMode: .common)
         self.displayLink.preferredFramesPerSecond = framePerSecond
  
-        let availableWidth = view.bounds.width - 50
+        let availableWidth = 250
         let sz = frames[0].size.calculateFinalSize(in: CGSize(width: availableWidth, height: availableWidth))
         contentImageWidthCon.constant = sz.width
         contentImageHeightCon.constant = sz.height
@@ -85,10 +91,13 @@ class EditViewController: UIViewController {
     @objc func displayLinkFired(link: CADisplayLink) {
         contentImageView.image = frames[currentFrameNumber]
         currentFrameNumber += 1;
+        print(currentFrameNumber)
         if currentFrameNumber >= frames.count {
             currentFrameNumber = 0
         }
     }
+    
+    
     
     @IBAction func backAction(_ sender: Any) {
         displayLink.invalidate()
@@ -105,6 +114,7 @@ class EditViewController: UIViewController {
     
     
     @IBAction func doneAction(_ sender: Any) {
+        displayLink.isPaused = true
         var finalImages : [UIImage] = []
         
         let tempW = borderWidth * frames[0].size.width / contentImageWidthCon.constant
@@ -115,14 +125,34 @@ class EditViewController: UIViewController {
         
         for img in frames {
             if let bgImage = backImage, let outputImg = imageWithBackgroundMerging(bgImage: bgImage, topImage: img){
+//                let imageV = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: 512, height: 512)))
+//                imageV.backgroundColor = .clear
+//                imageV.tintColor = .clear
+//                imageV.contentMode = .scaleAspectFit
+//                imageV.image = outputImg
+//                
+//                let finalImg = imageV.toImage()
                 finalImages.append(outputImg)
             }
         }
-        let gifUrl = createAnimatedGIF(with: finalImages, duration: 2)
-        
-        let vc = StickersViewController()
-        vc.gifUrl = gifUrl
-        navigationController?.pushViewController(vc, animated: true)
+        createWebP(from: finalImages)
+//        let gifUrl = createAnimatedGIF(with: finalImages, duration: 2)
+//        
+//        // Usage example
+//        if let gifUrl = gifUrl, let gifData = try? Data(contentsOf: gifUrl) {
+//            let sizeInKB = getGifSizeInKB(gifData: gifData)
+//            print("GIF size: \(sizeInKB) KB")
+//        }
+//        let vc = StickersViewController()
+//        vc.gifUrl = gifUrl
+//        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // Function to get the size of a GIF in KB
+    func getGifSizeInKB(gifData: Data) -> Double {
+        let bytes = Double(gifData.count)
+        let kilobytes = bytes / 1024
+        return kilobytes
     }
     
     func createAnimatedGIF(with images: [UIImage], duration: TimeInterval, loopCount: Int = 0) -> URL? {
@@ -181,6 +211,66 @@ class EditViewController: UIViewController {
         filter?.setValue(backgroundImage, forKey: "inputBackgroundImage")
         filter?.setValue(foregroundImage.transformed(by: CGAffineTransformMakeTranslation(xx, yy)), forKey: kCIInputImageKey )
         return filter?.outputImage
+    }
+    
+  
+    func createWebP(from images: [UIImage])  {
+        var frames : [SDImageFrame] = []
+        
+        let duration : Double = 1 / (Double(images.count) / 2)
+        for image in images {
+            let sdf = SDImageFrame(image: image, duration: duration)
+            frames.append(sdf)
+        }
+        
+        if let webdata = SDImageWebPCoder.shared.encodedData(with: frames, loopCount: 0, format: .webP, options: [.encodeMaxFileSize: 1024 * 20, .encodeWebPPartitionLimit : 100, .encodeCompressionQuality : 0.3]) {
+            let url = saveWebPDataToDocumentsDirectory(webPData: webdata, filename: "kdhskskskksks")
+            let data = retrieveDataFromDocumentsDirectory(filename: "kdhskskskksks")
+            let image = SDImageWebPCoder.shared.decodedImage(with: data, options: [:])
+            print(data?.count, webdata.count)
+            sdwebimg.image = image
+        }
+
+       
+
+    }
+    
+    func retrieveDataFromDocumentsDirectory(filename: String) -> Data? {
+        do {
+            // Get the URL of the documents directory
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+
+            // Append the filename to the documents directory URL
+            let fileURL = documentsDirectory.appendingPathComponent(filename)
+
+            // Read the data from the file
+            let data = try Data(contentsOf: fileURL)
+            
+            return data
+        } catch {
+            print("Error retrieving data from documents directory: \(error)")
+            return nil
+        }
+    }
+    
+    func saveWebPDataToDocumentsDirectory(webPData: Data, filename: String) -> URL? {
+        do {
+            // Get the URL of the documents directory
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+
+            // Append the filename to the documents directory URL
+            let fileURL = documentsDirectory.appendingPathComponent(filename)
+
+            // Write the data to the file
+            try webPData.write(to: fileURL)
+
+            print("WebP file saved successfully at: \(fileURL.path)")
+
+            return fileURL
+        } catch {
+            print("Error saving WebP file: \(error)")
+            return nil
+        }
     }
     
 }

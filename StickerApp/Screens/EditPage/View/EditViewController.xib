@@ -19,6 +19,7 @@
                 <outlet property="contentImageView" destination="Tg1-cH-sZJ" id="w5w-o8-fiE"/>
                 <outlet property="contentImageWidthCon" destination="d32-17-Cdl" id="T1I-oD-yog"/>
                 <outlet property="editFeatureView" destination="U3R-Sm-azg" id="KgY-Ly-IXk"/>
+                <outlet property="sdwebimg" destination="ujg-ex-a9O" id="UTv-LX-SUn"/>
                 <outlet property="strokeColorCollectionView" destination="feo-Vb-5cA" id="9Mm-1P-lkd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -124,14 +125,21 @@
                             <rect key="frame" x="0.0" y="0.0" width="393" height="547"/>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fV1-H7-Xhe">
-                            <rect key="frame" x="74" y="207" width="245" height="133"/>
+                            <rect key="frame" x="69" y="146" width="255" height="255"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tg1-cH-sZJ">
-                            <rect key="frame" x="76.666666666666686" y="209.66666666666669" width="240" height="128"/>
+                            <rect key="frame" x="71.666666666666686" y="148.66666666666663" width="250" height="250"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="240" id="d32-17-Cdl"/>
-                                <constraint firstAttribute="height" constant="128" id="wNf-CO-noE"/>
+                                <constraint firstAttribute="width" constant="250" id="d32-17-Cdl"/>
+                                <constraint firstAttribute="height" constant="250" id="wNf-CO-noE"/>
+                            </constraints>
+                        </imageView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ujg-ex-a9O" customClass="SDAnimatedImageView">
+                            <rect key="frame" x="71.666666666666686" y="148.66666666666663" width="250" height="250"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="250" id="PAV-Nr-dZ2"/>
+                                <constraint firstAttribute="width" secondItem="ujg-ex-a9O" secondAttribute="height" multiplier="1:1" id="eea-V9-ae5"/>
                             </constraints>
                         </imageView>
                     </subviews>
@@ -141,6 +149,8 @@
                         <constraint firstItem="Tg1-cH-sZJ" firstAttribute="centerY" secondItem="6Ah-Hw-AMB" secondAttribute="centerY" id="1W5-nj-VX9"/>
                         <constraint firstItem="aT7-FL-Ate" firstAttribute="top" secondItem="6Ah-Hw-AMB" secondAttribute="top" id="MrQ-jt-PuL"/>
                         <constraint firstItem="Tg1-cH-sZJ" firstAttribute="centerX" secondItem="6Ah-Hw-AMB" secondAttribute="centerX" id="TaF-o1-HfP"/>
+                        <constraint firstItem="ujg-ex-a9O" firstAttribute="centerY" secondItem="6Ah-Hw-AMB" secondAttribute="centerY" id="Uax-e3-ZrQ"/>
+                        <constraint firstItem="ujg-ex-a9O" firstAttribute="centerX" secondItem="6Ah-Hw-AMB" secondAttribute="centerX" id="hQz-1c-Um5"/>
                         <constraint firstItem="fV1-H7-Xhe" firstAttribute="centerX" secondItem="Tg1-cH-sZJ" secondAttribute="centerX" id="j9K-Y9-679"/>
                         <constraint firstItem="aT7-FL-Ate" firstAttribute="leading" secondItem="6Ah-Hw-AMB" secondAttribute="leading" id="ksF-Rc-w7F"/>
                         <constraint firstItem="fV1-H7-Xhe" firstAttribute="centerY" secondItem="Tg1-cH-sZJ" secondAttribute="centerY" id="lSA-dg-KYQ"/>
@@ -169,7 +179,7 @@
     </objects>
     <resources>
         <image name="arrow.backward" catalog="system" width="128" height="95"/>
-        <image name="transparentBg" width="540" height="360"/>
+        <image name="transparentBg" width="612" height="918"/>
         <systemColor name="systemMintColor">
             <color red="0.0" green="0.78039215689999997" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

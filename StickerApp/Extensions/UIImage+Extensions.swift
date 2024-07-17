@@ -56,6 +56,64 @@ extension UIImage {
         return image
     }
     
+    func getResizedImage(maxSize : CGFloat) -> UIImage? {
+        let sourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
+        
+        guard let cgImage = self.cgImage else { return nil }
+        
+        guard let imgData = cgImage.isPNG ? self.pngData() : self.jpegData(compressionQuality: 1) else { return nil }
+        
+        guard let source = CGImageSourceCreateWithData(imgData as CFData, sourceOptions) else { return nil }
+        
+        let downsampleOptions = [
+            kCGImageSourceCreateThumbnailFromImageAlways: true,
+            kCGImageSourceCreateThumbnailWithTransform: true,
+            kCGImageSourceThumbnailMaxPixelSize: maxSize,
+        ] as CFDictionary
+        
+        guard let cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, downsampleOptions) else { return nil }
+        
+        let data = NSMutableData()
+        guard let imageDestination = CGImageDestinationCreateWithData(data, kUTTypeJPEG, 1, nil) else { return nil }
+        
+        // Don't compress PNGs, they're too pretty
+        let destinationProperties = [kCGImageDestinationLossyCompressionQuality: cgImage.isPNG ? 1 : 1] as CFDictionary
+        CGImageDestinationAddImage(imageDestination, cgImage, destinationProperties)
+        CGImageDestinationFinalize(imageDestination)
+        
+        let image = UIImage(data: data as Data)
+        return image
+    }
+    
+    var as512Img: UIImage? {
+        let sourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
+        
+        guard let cgImage = self.cgImage else { return nil }
+        
+        guard let imgData = cgImage.isPNG ? self.pngData() : self.jpegData(compressionQuality: 1) else { return nil }
+        
+        guard let source = CGImageSourceCreateWithData(imgData as CFData, sourceOptions) else { return nil }
+        
+        let downsampleOptions = [
+            kCGImageSourceCreateThumbnailFromImageAlways: true,
+            kCGImageSourceCreateThumbnailWithTransform: true,
+            kCGImageSourceThumbnailMaxPixelSize: 512,
+        ] as CFDictionary
+        
+        guard let cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, downsampleOptions) else { return nil }
+        
+        let data = NSMutableData()
+        guard let imageDestination = CGImageDestinationCreateWithData(data, kUTTypeJPEG, 1, nil) else { return nil }
+        
+        // Don't compress PNGs, they're too pretty
+        let destinationProperties = [kCGImageDestinationLossyCompressionQuality: cgImage.isPNG ? 1 : 1] as CFDictionary
+        CGImageDestinationAddImage(imageDestination, cgImage, destinationProperties)
+        CGImageDestinationFinalize(imageDestination)
+        
+        let image = UIImage(data: data as Data)
+        return image
+    }
+    
     func normalizeImageOrientation() -> UIImage {
        
         UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
@@ -336,3 +394,35 @@ extension CGImage {
         }
     }
 }
+
+
+extension UIImage {
+    func resizedTo(to targetSizeKB: Int) -> UIImage? {
+        let targetBytes = targetSizeKB * 1024
+        var compressionQuality: CGFloat = 1.0
+        
+        guard var imageData = self.jpegData(compressionQuality: compressionQuality) else {
+            return nil
+        }
+        
+        // Reduce the image size by adjusting the compression quality
+        while imageData.count > targetBytes && compressionQuality > 0 {
+            compressionQuality -= 0.1
+            if let newImageData = self.jpegData(compressionQuality: compressionQuality) {
+                imageData = newImageData
+            } else {
+                return nil
+            }
+        }
+        
+        return UIImage(data: imageData) 
+    }
+    
+    func compressToMaxMB(_ maxMB: Double) -> Data? {
+        let currentSize = Double(self.jpegData(compressionQuality: 1)?.count ?? 0)
+        let quality: CGFloat = (maxMB * 1000000) / currentSize
+        print(quality)
+        return self.jpegData(compressionQuality: quality)
+    }
+}
+
