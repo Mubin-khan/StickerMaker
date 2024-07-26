@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StickersViewController" customModule="StickerApp" customModuleProvider="target">
             <connections>
+                <outlet property="animatedImgVw" destination="Qfy-ur-L9A" id="RK6-Sb-OpA"/>
                 <outlet property="stickerContainer" destination="gW7-x4-BxS" id="kEQ-dj-0ds"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -41,11 +42,34 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gW7-x4-BxS">
                     <rect key="frame" x="0.0" y="103" width="393" height="749"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qfy-ur-L9A" customClass="AnimatedImageView" customModule="Kingfisher">
+                            <rect key="frame" x="71.666666666666686" y="50" width="250" height="250"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="250" id="TBi-hD-aMg"/>
+                                <constraint firstAttribute="width" constant="250" id="ccz-ET-Qp3"/>
+                            </constraints>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uhi-3d-tgZ">
+                            <rect key="frame" x="275" y="350" width="68" height="35"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="filled" title="Share"/>
+                            <connections>
+                                <action selector="shareAction:" destination="-1" eventType="touchUpInside" id="EDx-Pn-5sZ"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="Qfy-ur-L9A" firstAttribute="centerX" secondItem="gW7-x4-BxS" secondAttribute="centerX" id="HFH-n3-gHn"/>
+                        <constraint firstItem="Qfy-ur-L9A" firstAttribute="top" secondItem="gW7-x4-BxS" secondAttribute="top" constant="50" id="crF-sx-vvU"/>
+                        <constraint firstItem="uhi-3d-tgZ" firstAttribute="top" secondItem="Qfy-ur-L9A" secondAttribute="bottom" constant="50" id="qK4-7i-ePr"/>
+                        <constraint firstAttribute="trailing" secondItem="uhi-3d-tgZ" secondAttribute="trailing" constant="50" id="xWU-sq-yCT"/>
+                    </constraints>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="KCO-x8-Lji" secondAttribute="trailing" id="3Bh-S3-c5d"/>
                 <constraint firstAttribute="bottom" secondItem="gW7-x4-BxS" secondAttribute="bottom" id="5cf-8p-EGv"/>
@@ -59,9 +83,6 @@
         </view>
     </objects>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

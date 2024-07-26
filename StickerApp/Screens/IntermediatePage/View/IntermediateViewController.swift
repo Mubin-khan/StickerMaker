@@ -418,7 +418,7 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
            }
            
         let frameRate = track.nominalFrameRate
-        let frm = max(1, (Float(maximumtime.seconds - minimumtime.seconds) * frameRate) / 60)
+        let frm = max(1, (Float(maximumtime.seconds - minimumtime.seconds) * frameRate) / 10)
         let frameCount = Int(assetDuration * Double(frameRate) / Double(frm))
         
         let frameTimes = stride(from: minimumtime.seconds, to: maximumtime.seconds, by: assetDuration / Double(frameCount)).map {
@@ -454,7 +454,7 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
                     var uiImage = UIImage(cgImage: cgImage)
                     if cropRect != nil {
                         uiImage = uiImage.cropImage(toRect: cropRect!) ?? uiImage
-                        uiImage = uiImage.getResizedImage(maxSize: 280) ?? uiImage
+                        uiImage = uiImage.getResizedImage(maxSize: 300) ?? uiImage
                     }
                     frames.append(uiImage)
                 } else if let error = error {

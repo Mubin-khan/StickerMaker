@@ -123,6 +123,8 @@ class EditViewController: UIViewController {
         let backImageSize = CGSize(width: frames[0].size.width + tempW, height: frames[0].size.height + tempH)
         let backImage = borderView.toImage().resize(backImageSize)
         
+        let maxKb = 1
+        
         for img in frames {
             if let bgImage = backImage, let outputImg = imageWithBackgroundMerging(bgImage: bgImage, topImage: img){
 //                let imageV = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: 512, height: 512)))
@@ -132,20 +134,22 @@ class EditViewController: UIViewController {
 //                imageV.image = outputImg
 //                
 //                let finalImg = imageV.toImage()
-                finalImages.append(outputImg)
+//                if let fImage = outputImg.compressToMaxKB(Double(maxKb)) {
+                    finalImages.append(outputImg)
+//                }
             }
         }
-        createWebP(from: finalImages)
-//        let gifUrl = createAnimatedGIF(with: finalImages, duration: 2)
-//        
-//        // Usage example
-//        if let gifUrl = gifUrl, let gifData = try? Data(contentsOf: gifUrl) {
-//            let sizeInKB = getGifSizeInKB(gifData: gifData)
-//            print("GIF size: \(sizeInKB) KB")
-//        }
-//        let vc = StickersViewController()
-//        vc.gifUrl = gifUrl
-//        navigationController?.pushViewController(vc, animated: true)
+//        createWebP(from: finalImages)
+        let gifUrl = createAnimatedGIF(with: finalImages, duration: 2)
+        
+        // Usage example
+        if let gifUrl = gifUrl, let gifData = try? Data(contentsOf: gifUrl) {
+            let sizeInKB = getGifSizeInKB(gifData: gifData)
+            print("GIF size: \(sizeInKB) KB")
+        }
+        let vc = StickersViewController()
+        vc.fileurl = gifUrl
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     // Function to get the size of a GIF in KB
@@ -224,11 +228,12 @@ class EditViewController: UIViewController {
         }
         
         if let webdata = SDImageWebPCoder.shared.encodedData(with: frames, loopCount: 0, format: .webP, options: [.encodeMaxFileSize: 1024 * 20, .encodeWebPPartitionLimit : 100, .encodeCompressionQuality : 0.3]) {
-            let url = saveWebPDataToDocumentsDirectory(webPData: webdata, filename: "kdhskskskksks")
-            let data = retrieveDataFromDocumentsDirectory(filename: "kdhskskskksks")
-            let image = SDImageWebPCoder.shared.decodedImage(with: data, options: [:])
-            print(data?.count, webdata.count)
-            sdwebimg.image = image
+            if let url = saveWebPDataToDocumentsDirectory(webPData: webdata, filename: "kdhskskskksks") {
+                let vc = StickersViewController()
+                vc.fileurl = url
+                navigationController?.pushViewController(vc, animated: true)
+            }
+            
         }
 
        
@@ -309,5 +314,18 @@ extension EditViewController : UICollectionViewDelegateFlowLayout, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         borderColor = availableColors[indexPath.row]
+    }
+}
+
+
+extension UIImage {
+    func compressToMaxKB(_ maxKB: Double) -> UIImage? {
+        let currentSize = Double(self.jpegData(compressionQuality: 1)?.count ?? 0)
+        let quality: CGFloat = (maxKB * 1000) / currentSize
+        guard let data = self.jpegData(compressionQuality: quality) else {
+            return nil
+            
+        }
+        return UIImage(data: data)
     }
 }

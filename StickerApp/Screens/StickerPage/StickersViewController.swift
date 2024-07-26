@@ -8,39 +8,52 @@
 import UIKit
 import Messages
 import MobileCoreServices
+import SDWebImageWebPCoder
+import Kingfisher
 
 
 class StickersViewController: UIViewController {
 
+   
+    @IBOutlet weak var animatedImgVw: AnimatedImageView!
     @IBOutlet weak var stickerContainer: UIView!
     var stickers: [MSSticker] = []
     var gifUrl : URL?
     var imgUrl : URL?
+    var fileurl : URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.navigationController?.isNavigationBarHidden = true
+//        setupStickerBrowser()
         
-        setupStickerBrowser()
+//        if let url = gifUrl {
+//            let imageUrls = ImageSaveRetrieveManager.shared.retrieveAllImagesFromFolder(folderName: ImageSaveRetrieveManager.gifStickersUrlFoldername)
+//            for imageUrl in imageUrls {
+//                if let sticker = makeSticker(with: imageUrl) {
+//                    stickers.append(sticker)
+//                }
+//            }
+//        }
+//        
+//        
+//        if let url = imgUrl {
+//            let imageUrls = ImageSaveRetrieveManager.shared.retrieveAllImagesFromFolder(folderName: ImageSaveRetrieveManager.imageStickersUrlFoldername)
+//            for imageUrl in imageUrls {
+//                if let sticker = makeSticker(with: imageUrl) {
+//                    stickers.append(sticker)
+//                }
+//            }
+//        }
         
-        if let url = gifUrl {
-            let imageUrls = ImageSaveRetrieveManager.shared.retrieveAllImagesFromFolder(folderName: ImageSaveRetrieveManager.gifStickersUrlFoldername)
-            for imageUrl in imageUrls {
-                if let sticker = makeSticker(with: imageUrl) {
-                    stickers.append(sticker)
-                }
-            }
+        if let fileurl {
+//            guard let data = try? Data(contentsOf: fileurl) else {return}
+            
+            animatedImgVw.kf.setImage(with: fileurl)
         }
         
         
-        if let url = imgUrl {
-            let imageUrls = ImageSaveRetrieveManager.shared.retrieveAllImagesFromFolder(folderName: ImageSaveRetrieveManager.imageStickersUrlFoldername)
-            for imageUrl in imageUrls {
-                if let sticker = makeSticker(with: imageUrl) {
-                    stickers.append(sticker)
-                }
-            }
-        }
     }
 
     func makeSticker(with gifURL : URL) -> MSSticker? {
@@ -134,6 +147,23 @@ class StickersViewController: UIViewController {
     
     @IBAction func backAction(_ sender: Any) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func shareAction(_ sender: Any) {
+        // image to share
+//        let image = UIImage(named: "Image")
+        
+        // set up activity view controller
+//        guard let data = try? Data(contentsOf: fileurl!) else {return}
+        let imageToShare = [ fileurl! ]
+        let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+        
+        // exclude some activity types from the list (optional)
+        activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.airDrop, UIActivity.ActivityType.postToFacebook ]
+        
+        // present the view controller
+        self.present(activityViewController, animated: true, completion: nil)
     }
     
 
