@@ -15,12 +15,12 @@ import Kingfisher
 class StickersViewController: UIViewController {
 
    
+    @IBOutlet weak var pngImgView: UIImageView!
     @IBOutlet weak var animatedImgVw: AnimatedImageView!
     @IBOutlet weak var stickerContainer: UIView!
     var stickers: [MSSticker] = []
-    var gifUrl : URL?
-    var imgUrl : URL?
-    var fileurl : URL?
+    var fileurl : URL
+    var isAnimated : Bool
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,15 +47,28 @@ class StickersViewController: UIViewController {
 //            }
 //        }
         
-        if let fileurl {
 //            guard let data = try? Data(contentsOf: fileurl) else {return}
             
+        if isAnimated {
             animatedImgVw.kf.setImage(with: fileurl)
+        }else {
+            pngImgView.kf.setImage(with: fileurl) 
         }
-        
+            
+       
         
     }
-
+    
+    init(isAnimated : Bool, fileurl : URL){
+        self.isAnimated  = isAnimated
+        self.fileurl = fileurl
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func makeSticker(with gifURL : URL) -> MSSticker? {
         do {
             let sticker = try MSSticker(contentsOfFileURL: gifURL, localizedDescription: "Animated Sticker")
@@ -155,7 +168,7 @@ class StickersViewController: UIViewController {
         
         // set up activity view controller
 //        guard let data = try? Data(contentsOf: fileurl!) else {return}
-        let imageToShare = [ fileurl! ]
+        let imageToShare = [ fileurl ]
         let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
         

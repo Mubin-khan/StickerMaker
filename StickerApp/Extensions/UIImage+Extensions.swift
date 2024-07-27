@@ -97,7 +97,7 @@ extension UIImage {
         let downsampleOptions = [
             kCGImageSourceCreateThumbnailFromImageAlways: true,
             kCGImageSourceCreateThumbnailWithTransform: true,
-            kCGImageSourceThumbnailMaxPixelSize: 512,
+            kCGImageSourceThumbnailMaxPixelSize: 400,
         ] as CFDictionary
         
         guard let cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, downsampleOptions) else { return nil }

@@ -59,6 +59,10 @@ class EditViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        displayLink.isPaused = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -145,11 +149,11 @@ class EditViewController: UIViewController {
         // Usage example
         if let gifUrl = gifUrl, let gifData = try? Data(contentsOf: gifUrl) {
             let sizeInKB = getGifSizeInKB(gifData: gifData)
-            print("GIF size: \(sizeInKB) KB")
+            print(sizeInKB)
+            let vc = StickersViewController(isAnimated: true, fileurl: gifUrl)
+            navigationController?.pushViewController(vc, animated: true)
         }
-        let vc = StickersViewController()
-        vc.fileurl = gifUrl
-        navigationController?.pushViewController(vc, animated: true)
+       
     }
     
     // Function to get the size of a GIF in KB
@@ -218,27 +222,27 @@ class EditViewController: UIViewController {
     }
     
   
-    func createWebP(from images: [UIImage])  {
-        var frames : [SDImageFrame] = []
-        
-        let duration : Double = 1 / (Double(images.count) / 2)
-        for image in images {
-            let sdf = SDImageFrame(image: image, duration: duration)
-            frames.append(sdf)
-        }
-        
-        if let webdata = SDImageWebPCoder.shared.encodedData(with: frames, loopCount: 0, format: .webP, options: [.encodeMaxFileSize: 1024 * 20, .encodeWebPPartitionLimit : 100, .encodeCompressionQuality : 0.3]) {
-            if let url = saveWebPDataToDocumentsDirectory(webPData: webdata, filename: "kdhskskskksks") {
-                let vc = StickersViewController()
-                vc.fileurl = url
-                navigationController?.pushViewController(vc, animated: true)
-            }
-            
-        }
-
-       
-
-    }
+//    func createWebP(from images: [UIImage])  {
+//        var frames : [SDImageFrame] = []
+//        
+//        let duration : Double = 1 / (Double(images.count) / 2)
+//        for image in images {
+//            let sdf = SDImageFrame(image: image, duration: duration)
+//            frames.append(sdf)
+//        }
+//        
+//        if let webdata = SDImageWebPCoder.shared.encodedData(with: frames, loopCount: 0, format: .webP, options: [.encodeMaxFileSize: 1024 * 20, .encodeWebPPartitionLimit : 100, .encodeCompressionQuality : 0.3]) {
+//            if let url = saveWebPDataToDocumentsDirectory(webPData: webdata, filename: "kdhskskskksks") {
+//                let vc = StickersViewController()
+//                vc.fileurl = url
+//                navigationController?.pushViewController(vc, animated: true)
+//            }
+//            
+//        }
+//
+//       
+//
+//    }
     
     func retrieveDataFromDocumentsDirectory(filename: String) -> Data? {
         do {

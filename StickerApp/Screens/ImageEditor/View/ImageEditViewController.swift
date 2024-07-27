@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImageEditViewController: UIViewController {
+class ImageEditViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var stickerContainerView: UIView!
     @IBOutlet weak var emojiContainerview: UIView!
@@ -80,6 +80,22 @@ class ImageEditViewController: UIViewController {
         navigationController?.isNavigationBarHidden = true
         applycifilter()
         showBorderView()
+        addTapGestureToView(View: stickerContainerView)
+    }
+    
+    var tapgesture : UITapGestureRecognizer?
+    func addTapGestureToView(View vw : UIView){
+        tapgesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
+        
+        vw.isUserInteractionEnabled = true
+        tapgesture?.delegate = self
+        if let tapgesture {
+            vw.addGestureRecognizer(tapgesture)
+        }
+    }
+    
+    @objc func handleTapGesture(_ gesture: UIPanGestureRecognizer) {
+        selectedStickerView?.showEditingHandlers = false
     }
     
     func setupCollectionView(){
@@ -116,12 +132,13 @@ class ImageEditViewController: UIViewController {
     }
     
     @IBAction func DoneAction(_ sender: Any) {
+        selectedStickerView?.showEditingHandlers = false
         let img = stickerContainerView.toImage()
         let imgname = UUID().uuidString
-        let savedUrl = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: img, imageName: imgname, foldername: ImageSaveRetrieveManager.imageStickersUrlFoldername)
-        let vc = StickersViewController()
-        vc.imgUrl = savedUrl
-        navigationController?.pushViewController(vc, animated: true)
+        if let savedUrl = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: img, imageName: imgname, foldername: ImageSaveRetrieveManager.imageStickersUrlFoldername) {
+            let vc = StickersViewController(isAnimated: false, fileurl: savedUrl)
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @IBAction func backAction(_ sender: Any) {
@@ -261,7 +278,7 @@ extension ImageEditViewController : UICollectionViewDelegateFlowLayout, UICollec
     
     
     func applyBorderToImage(image : UIImage, color : UIColor){
-        sampleImageView.image = image.stroked(with: color, thickness: thickness, quality: 10)
+        sampleImageView.image = image.stroked(with: color, thickness: thickness, quality: 8)
     }
     
     func applycifilter(){

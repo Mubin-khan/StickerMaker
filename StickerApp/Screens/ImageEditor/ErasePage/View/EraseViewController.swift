@@ -91,7 +91,7 @@ class EraseViewController: UIViewController {
     }
     
     @IBAction func nextPageAction(_ sender: Any) {
-        let img = contentImg.as512Img ?? contentImg
+        let img = contentImg.getResizedImage(maxSize: 400) ?? contentImg
         let vc = ImageEditViewController(image: img)
         navigationController?.pushViewController(vc, animated: true)
     }

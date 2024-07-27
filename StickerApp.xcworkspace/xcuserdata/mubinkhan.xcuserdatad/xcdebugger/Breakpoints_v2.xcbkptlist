@@ -190,8 +190,8 @@
             filePath = "StickerApp/Screens/ImageEditor/View/ImageEditViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
             landmarkName = "applycifilter()"
             landmarkType = "7">
          </BreakpointContent>
