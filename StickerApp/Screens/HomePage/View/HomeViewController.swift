@@ -48,8 +48,10 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate {
     
     @IBAction func textToStickerAction(_ sender: Any) {
         let vc = TextInputViewController()
-        vc.modalPresentationStyle = .overFullScreen
-        navigationController?.pushViewController(vc, animated: true)
+        let navVC = UINavigationController(rootViewController: vc)
+        navVC.isNavigationBarHidden = true
+        navVC.modalPresentationStyle = .fullScreen
+        self.present(navVC, animated: true, completion: nil)
     }
     
     @IBAction func openCameraAction(_ sender: Any) {
@@ -241,7 +243,10 @@ class HomeViewController: UIViewController, PHPickerViewControllerDelegate {
         DispatchQueue.main.async {
 //            let vc = EditViewController(frames: self.frames)
             let vc = IntermediateViewController(url: url, isVideo: isVideo)
-            self.navigationController?.pushViewController(vc, animated: true)
+            let navVC = UINavigationController(rootViewController: vc)
+            navVC.isNavigationBarHidden = true
+            navVC.modalPresentationStyle = .fullScreen
+            self.present(navVC, animated: true, completion: nil)
         }
     }
 }

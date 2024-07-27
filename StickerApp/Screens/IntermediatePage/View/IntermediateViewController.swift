@@ -57,6 +57,10 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        loaderView.isHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -380,7 +384,7 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
     }
     
     @IBAction func backAction(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true)
     }
     
     @IBAction func playPauseButtonAction(_ sender: Any) {

@@ -105,7 +105,14 @@ class EditViewController: UIViewController {
     
     @IBAction func backAction(_ sender: Any) {
         displayLink.invalidate()
-        navigationController?.popToRootViewController(animated: true)
+        if curFeature == .gif {
+            navigationController?.popToRootViewController(animated: true)
+        }else if curFeature == .text {
+            dismiss(animated: true)
+        }
+        else {
+            navigationController?.popViewController(animated: true)
+        }
     }
     
     @IBAction func strokeWidthChangeAction(_ sender: UISlider, forEvent event: UIEvent) {
