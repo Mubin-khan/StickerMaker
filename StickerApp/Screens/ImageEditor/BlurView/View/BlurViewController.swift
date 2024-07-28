@@ -64,7 +64,7 @@ class BlurViewController: UIViewController, UIGestureRecognizerDelegate {
         topImageView.image = fullImage
         maskingView.layer.mask = maskLayer
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+0.1){
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.0){
             self.readyBlurTool()
         }
         

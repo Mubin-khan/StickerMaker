@@ -67,7 +67,7 @@ class BGRemoveViewController: UIViewController, UIGestureRecognizerDelegate {
         topImageView.image = fullImage
         topImageView.layer.mask = maskLayer
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0){
             self.updateBounds()
         }
         

@@ -69,7 +69,7 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
         loadPlayer(from: url)
         setConstraints()
         configureCollectionView()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
             self.extractFramesFromVideo(at: self.url)
         }
     }
