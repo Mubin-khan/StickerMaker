@@ -8,7 +8,6 @@
 import UIKit
 import Messages
 import MobileCoreServices
-import SDWebImageWebPCoder
 import Kingfisher
 
 

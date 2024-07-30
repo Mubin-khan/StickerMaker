@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		862801692C5953ED005F594F /* UIImage+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862801652C5953ED005F594F /* UIImage+Helper.swift */; };
+		8628016A2C5953ED005F594F /* UIView+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862801662C5953ED005F594F /* UIView+Helper.swift */; };
+		8628016B2C5953ED005F594F /* HelperExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862801672C5953ED005F594F /* HelperExtensions.swift */; };
+		8628016C2C5953ED005F594F /* UIImage+Cropping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862801682C5953ED005F594F /* UIImage+Cropping.swift */; };
+		862801712C59542F005F594F /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8628016E2C59542F005F594F /* Grid.swift */; };
+		862801722C59542F005F594F /* CropBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8628016F2C59542F005F594F /* CropBox.swift */; };
+		862801732C59542F005F594F /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862801702C59542F005F594F /* Overlay.swift */; };
 		862B97EC2C3306B10074A09D /* StickersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 862B97EB2C3306B10074A09D /* StickersViewController.xib */; };
 		862B97ED2C3306B10074A09D /* StickersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862B97EA2C3306B10074A09D /* StickersViewController.swift */; };
 		862B97EF2C3324EA0074A09D /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862B97EE2C3324EA0074A09D /* UIView+Extensions.swift */; };
@@ -33,17 +40,10 @@
 		86AFD0FE2C413A2100674A10 /* ImageSaveRetrieveManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD0FD2C413A2100674A10 /* ImageSaveRetrieveManager.swift */; };
 		86AFD1022C413C9F00674A10 /* UndoRedoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD1012C413C9F00674A10 /* UndoRedoModel.swift */; };
 		86AFD2212C41808B00674A10 /* QCropper.aspectratio.fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86AFD1FD2C41808A00674A10 /* QCropper.aspectratio.fill@2x.png */; };
-		86AFD2222C41808B00674A10 /* HelperExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD1FE2C41808A00674A10 /* HelperExtensions.swift */; };
-		86AFD2232C41808B00674A10 /* UIImage+Cropping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD1FF2C41808A00674A10 /* UIImage+Cropping.swift */; };
-		86AFD2242C41808B00674A10 /* UIImage+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2002C41808A00674A10 /* UIImage+Helper.swift */; };
-		86AFD2252C41808B00674A10 /* UIView+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2012C41808A00674A10 /* UIView+Helper.swift */; };
 		86AFD2262C41808B00674A10 /* QCropper.aspectratio.fill@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86AFD2032C41808A00674A10 /* QCropper.aspectratio.fill@3x.png */; };
 		86AFD2272C41808B00674A10 /* QCropper.flip.horizontal.fill@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86AFD2042C41808A00674A10 /* QCropper.flip.horizontal.fill@2x.png */; };
 		86AFD2282C41808B00674A10 /* QCropper.rotate.right.fill@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86AFD2052C41808A00674A10 /* QCropper.rotate.right.fill@3x.png */; };
 		86AFD2292C41808B00674A10 /* QCropper.check.mark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 86AFD2062C41808B00674A10 /* QCropper.check.mark@3x.png */; };
-		86AFD22A2C41808B00674A10 /* CropBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2072C41808B00674A10 /* CropBox.swift */; };
-		86AFD22B2C41808B00674A10 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2082C41808B00674A10 /* Grid.swift */; };
-		86AFD22C2C41808B00674A10 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD2092C41808B00674A10 /* Overlay.swift */; };
 		86AFD22D2C41808B00674A10 /* AngleRuler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD20B2C41808B00674A10 /* AngleRuler.swift */; };
 		86AFD22E2C41808B00674A10 /* AspectRatioPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD20C2C41808B00674A10 /* AspectRatioPicker.swift */; };
 		86AFD22F2C41808B00674A10 /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFD20D2C41808B00674A10 /* Toolbar.swift */; };
@@ -112,6 +112,13 @@
 /* Begin PBXFileReference section */
 		1934617C2AFE5701CAD807E7 /* Pods-StickerApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StickerApp.release.xcconfig"; path = "Target Support Files/Pods-StickerApp/Pods-StickerApp.release.xcconfig"; sourceTree = "<group>"; };
 		838C76827727D296B6A94792 /* Pods-StickerApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StickerApp.debug.xcconfig"; path = "Target Support Files/Pods-StickerApp/Pods-StickerApp.debug.xcconfig"; sourceTree = "<group>"; };
+		862801652C5953ED005F594F /* UIImage+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Helper.swift"; sourceTree = "<group>"; };
+		862801662C5953ED005F594F /* UIView+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Helper.swift"; sourceTree = "<group>"; };
+		862801672C5953ED005F594F /* HelperExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperExtensions.swift; sourceTree = "<group>"; };
+		862801682C5953ED005F594F /* UIImage+Cropping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Cropping.swift"; sourceTree = "<group>"; };
+		8628016E2C59542F005F594F /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		8628016F2C59542F005F594F /* CropBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropBox.swift; sourceTree = "<group>"; };
+		862801702C59542F005F594F /* Overlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		862B97EA2C3306B10074A09D /* StickersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickersViewController.swift; sourceTree = "<group>"; };
 		862B97EB2C3306B10074A09D /* StickersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StickersViewController.xib; sourceTree = "<group>"; };
 		862B97EE2C3324EA0074A09D /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
@@ -140,17 +147,10 @@
 		86AFD0FD2C413A2100674A10 /* ImageSaveRetrieveManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaveRetrieveManager.swift; sourceTree = "<group>"; };
 		86AFD1012C413C9F00674A10 /* UndoRedoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoModel.swift; sourceTree = "<group>"; };
 		86AFD1FD2C41808A00674A10 /* QCropper.aspectratio.fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QCropper.aspectratio.fill@2x.png"; sourceTree = "<group>"; };
-		86AFD1FE2C41808A00674A10 /* HelperExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperExtensions.swift; sourceTree = "<group>"; };
-		86AFD1FF2C41808A00674A10 /* UIImage+Cropping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Cropping.swift"; sourceTree = "<group>"; };
-		86AFD2002C41808A00674A10 /* UIImage+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Helper.swift"; sourceTree = "<group>"; };
-		86AFD2012C41808A00674A10 /* UIView+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Helper.swift"; sourceTree = "<group>"; };
 		86AFD2032C41808A00674A10 /* QCropper.aspectratio.fill@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QCropper.aspectratio.fill@3x.png"; sourceTree = "<group>"; };
 		86AFD2042C41808A00674A10 /* QCropper.flip.horizontal.fill@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QCropper.flip.horizontal.fill@2x.png"; sourceTree = "<group>"; };
 		86AFD2052C41808A00674A10 /* QCropper.rotate.right.fill@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QCropper.rotate.right.fill@3x.png"; sourceTree = "<group>"; };
 		86AFD2062C41808B00674A10 /* QCropper.check.mark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QCropper.check.mark@3x.png"; sourceTree = "<group>"; };
-		86AFD2072C41808B00674A10 /* CropBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropBox.swift; sourceTree = "<group>"; };
-		86AFD2082C41808B00674A10 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
-		86AFD2092C41808B00674A10 /* Overlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
 		86AFD20B2C41808B00674A10 /* AngleRuler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AngleRuler.swift; sourceTree = "<group>"; };
 		86AFD20C2C41808B00674A10 /* AspectRatioPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AspectRatioPicker.swift; sourceTree = "<group>"; };
 		86AFD20D2C41808B00674A10 /* Toolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
@@ -234,6 +234,27 @@
 				8726EA923A62B4962A29B738 /* Pods_StickerApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8628016D2C5953F4005F594F /* HelperExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				862801672C5953ED005F594F /* HelperExtensions.swift */,
+				862801682C5953ED005F594F /* UIImage+Cropping.swift */,
+				862801652C5953ED005F594F /* UIImage+Helper.swift */,
+				862801662C5953ED005F594F /* UIView+Helper.swift */,
+			);
+			path = HelperExtensions;
+			sourceTree = "<group>";
+		};
+		862801742C595433005F594F /* Overlay */ = {
+			isa = PBXGroup;
+			children = (
+				8628016F2C59542F005F594F /* CropBox.swift */,
+				8628016E2C59542F005F594F /* Grid.swift */,
+				862801702C59542F005F594F /* Overlay.swift */,
+			);
+			path = Overlay;
 			sourceTree = "<group>";
 		};
 		862B97E92C3306960074A09D /* StickerPage */ = {
@@ -437,10 +458,10 @@
 		86AFD1B92C417A5E00674A10 /* Cropper */ = {
 			isa = PBXGroup;
 			children = (
+				862801742C595433005F594F /* Overlay */,
+				8628016D2C5953F4005F594F /* HelperExtensions */,
 				86AFD21D2C41808B00674A10 /* Core */,
 				86AFD20F2C41808B00674A10 /* CustomUI */,
-				86AFD2022C41808A00674A10 /* HelperExtensions */,
-				86AFD20A2C41808B00674A10 /* Overlay */,
 				86AFD1FD2C41808A00674A10 /* QCropper.aspectratio.fill@2x.png */,
 				86AFD2032C41808A00674A10 /* QCropper.aspectratio.fill@3x.png */,
 				86AFD21E2C41808B00674A10 /* QCropper.check.mark@2x.png */,
@@ -451,29 +472,6 @@
 				86AFD2052C41808A00674A10 /* QCropper.rotate.right.fill@3x.png */,
 			);
 			path = Cropper;
-			sourceTree = "<group>";
-		};
-		86AFD2022C41808A00674A10 /* HelperExtensions */ = {
-			isa = PBXGroup;
-			children = (
-				86AFD1FE2C41808A00674A10 /* HelperExtensions.swift */,
-				86AFD1FF2C41808A00674A10 /* UIImage+Cropping.swift */,
-				86AFD2002C41808A00674A10 /* UIImage+Helper.swift */,
-				86AFD2012C41808A00674A10 /* UIView+Helper.swift */,
-			);
-			name = HelperExtensions;
-			path = ../../../../QCropper/QCropper/HelperExtensions;
-			sourceTree = "<group>";
-		};
-		86AFD20A2C41808B00674A10 /* Overlay */ = {
-			isa = PBXGroup;
-			children = (
-				86AFD2072C41808B00674A10 /* CropBox.swift */,
-				86AFD2082C41808B00674A10 /* Grid.swift */,
-				86AFD2092C41808B00674A10 /* Overlay.swift */,
-			);
-			name = Overlay;
-			path = ../../../../QCropper/QCropper/Overlay;
 			sourceTree = "<group>";
 		};
 		86AFD20F2C41808B00674A10 /* CustomUI */ = {
@@ -934,16 +932,18 @@
 				86C662B92C29F0D500E2F04D /* CustomTextLabel.swift in Sources */,
 				86C662AC2C29DCD000E2F04D /* FontsCollectionViewCell.swift in Sources */,
 				8696EAD52C2B434700B4E7C2 /* UILabel+Extensions.swift in Sources */,
+				862801692C5953ED005F594F /* UIImage+Helper.swift in Sources */,
+				862801712C59542F005F594F /* Grid.swift in Sources */,
 				86AFD23B2C41808B00674A10 /* CropperViewController.swift in Sources */,
 				86B18DD12C42550100E1AB97 /* StickerViewMain.swift in Sources */,
 				86973D3B2C2189E000445778 /* EditViewController.swift in Sources */,
 				86CD4B222C2DFF9A001C4AFD /* Query.swift in Sources */,
 				86AFD2372C41808B00674A10 /* StateRestorable.swift in Sources */,
-				86AFD2232C41808B00674A10 /* UIImage+Cropping.swift in Sources */,
 				86ADC3642C390BF800FF9849 /* BrushViewController.swift in Sources */,
+				8628016C2C5953ED005F594F /* UIImage+Cropping.swift in Sources */,
+				862801722C59542F005F594F /* CropBox.swift in Sources */,
 				86BB93F42C31AFE400D92A7D /* FilterManager.swift in Sources */,
 				86CBCBFA2C3C31B000805DF2 /* BlurViewController.swift in Sources */,
-				86AFD22A2C41808B00674A10 /* CropBox.swift in Sources */,
 				86CD4B252C2DFFAD001C4AFD /* SearchAdaptor.swift in Sources */,
 				86CD4B202C2DFF9A001C4AFD /* Cache.swift in Sources */,
 				86C14DB12C38717900B506D2 /* AppleBgRemover.swift in Sources */,
@@ -952,19 +952,19 @@
 				86F7C31C2C2C8E2800684B5B /* frameCollectionViewCell.swift in Sources */,
 				86AFD2352C41808B00674A10 /* Rotatable.swift in Sources */,
 				86ADC36D2C39378000FF9849 /* UIViewController+Extensions.swift in Sources */,
-				86AFD22C2C41808B00674A10 /* Overlay.swift in Sources */,
 				86CD4B292C2DFFB5001C4AFD /* GifCollectionViewCell.swift in Sources */,
 				86AFD1022C413C9F00674A10 /* UndoRedoModel.swift in Sources */,
 				864F32412C19FF95006A62AD /* AppDelegate.swift in Sources */,
 				86C662942C29C1FC00E2F04D /* TextInputViewController.swift in Sources */,
-				86AFD2242C41808B00674A10 /* UIImage+Helper.swift in Sources */,
 				86B18DD52C42577F00E1AB97 /* EmojiCollectionViewCell.swift in Sources */,
 				86AFD23C2C41808B00674A10 /* ScrollViewContainer.swift in Sources */,
 				86BB93FA2C31B4A700D92A7D /* ImageEditViewController.swift in Sources */,
+				862801732C59542F005F594F /* Overlay.swift in Sources */,
 				86AFD0FE2C413A2100674A10 /* ImageSaveRetrieveManager.swift in Sources */,
 				86CD4B232C2DFF9A001C4AFD /* RESTNetworkRequest.swift in Sources */,
 				86AFD2312C41808B00674A10 /* AngleAssist.swift in Sources */,
 				86AFD2322C41808B00674A10 /* AspectRatioSettable.swift in Sources */,
+				8628016B2C5953ED005F594F /* HelperExtensions.swift in Sources */,
 				86C14DAF2C3868E200B506D2 /* BGRemoveViewController.swift in Sources */,
 				86C775172C240F3D003A58F8 /* IntermediateViewController.swift in Sources */,
 				86F7C3172C2C683A00684B5B /* GifViewController.swift in Sources */,
@@ -979,17 +979,15 @@
 				86CD4B212C2DFF9A001C4AFD /* ModelStore.swift in Sources */,
 				86AFD2302C41808B00674A10 /* TopBar.swift in Sources */,
 				86AFD2342C41808B00674A10 /* Flipable.swift in Sources */,
-				86AFD2252C41808B00674A10 /* UIView+Helper.swift in Sources */,
 				86C7751B2C241107003A58F8 /* CornerPointView.swift in Sources */,
 				86C662A42C29C72200E2F04D /* TextFeatureCollectionViewCell.swift in Sources */,
 				86973D412C21A57200445778 /* CGSize+Extensions.swift in Sources */,
 				86EDC9002C308F9C00E68835 /* CGPoint+Extensions.swift in Sources */,
+				8628016A2C5953ED005F594F /* UIView+Helper.swift in Sources */,
 				86ADC3722C39484E00FF9849 /* ShapeCropViewController.swift in Sources */,
-				86AFD2222C41808B00674A10 /* HelperExtensions.swift in Sources */,
 				86C662B12C29DF9900E2F04D /* AnimCollectionViewCell.swift in Sources */,
 				86AFD22F2C41808B00674A10 /* Toolbar.swift in Sources */,
 				86AFD22D2C41808B00674A10 /* AngleRuler.swift in Sources */,
-				86AFD22B2C41808B00674A10 /* Grid.swift in Sources */,
 				86AB70B42C2E8B070030E5C2 /* NetworkManager.swift in Sources */,
 				86ADC3692C390FB300FF9849 /* BrushCollectionViewCell.swift in Sources */,
 				865845472C2317EF00AAAA27 /* CIImage+Extensions.swift in Sources */,

@@ -7,15 +7,9 @@
 
 import UIKit
 import MobileCoreServices
-import WebPKit
-import SDWebImage
-import SDWebImageWebPCoder
-
-
 
 class EditViewController: UIViewController {
 
-    @IBOutlet weak var sdwebimg: SDAnimatedImageView!
     @IBOutlet weak var editFeatureView: UIView!
     @IBOutlet weak var borderView: UIView!
     @IBOutlet weak var borderViewWidthCon: NSLayoutConstraint!
