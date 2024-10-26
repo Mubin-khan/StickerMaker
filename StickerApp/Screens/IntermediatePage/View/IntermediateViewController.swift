@@ -349,29 +349,60 @@ class IntermediateViewController: UIViewController, UIGestureRecognizerDelegate 
         extractFrames(at: times, from: asset)
     }
     
+//    func extractFrames(at times: [CMTime], from asset: AVAsset) {
+//        let imageGenerator = AVAssetImageGenerator(asset: asset)
+//        imageGenerator.appliesPreferredTrackTransform = true
+//        imageGenerator.requestedTimeToleranceBefore = CMTimeMake(value: 1, timescale: 30)
+//        imageGenerator.requestedTimeToleranceAfter = CMTimeMake(value: 1, timescale: 30)
+//
+//        let dispatchGroup = DispatchGroup()
+//
+//        for time in times {
+//            dispatchGroup.enter()
+//            imageGenerator.generateCGImagesAsynchronously(forTimes: [NSValue(time: time)]) { _, cgImage, _, _, error in
+//                if let cgImage = cgImage {
+//                    let uiImage = UIImage(cgImage: cgImage)
+//                    self.frames[time.seconds] = uiImage.normalizeImageOrientation()
+//                    DispatchQueue.main.async {
+//                        self.frameCollectionView.reloadData()
+//                    }
+//                } else if let error = error {
+//                    print("Error generating image: \(error.localizedDescription)")
+//                }
+//                dispatchGroup.leave()
+//            }
+//        }
+//        dispatchGroup.notify(queue: .main) {
+//            print("hone done hone")
+//                self.frameCollectionView.reloadData()
+//            }
+//    }
+    
     func extractFrames(at times: [CMTime], from asset: AVAsset) {
         let imageGenerator = AVAssetImageGenerator(asset: asset)
         imageGenerator.appliesPreferredTrackTransform = true
-        imageGenerator.requestedTimeToleranceBefore = .zero
-        imageGenerator.requestedTimeToleranceAfter = .zero
+        imageGenerator.requestedTimeToleranceBefore = CMTimeMake(value: 1, timescale: 30)
+        imageGenerator.requestedTimeToleranceAfter = CMTimeMake(value: 1, timescale: 30)
 
-        let dispatchGroup = DispatchGroup()
-
+        var extractedFrames: [TimeInterval: UIImage] = [:]
+        
         for time in times {
-            dispatchGroup.enter()
-            imageGenerator.generateCGImagesAsynchronously(forTimes: [NSValue(time: time)]) { _, cgImage, _, _, error in
-                if let cgImage = cgImage {
-                    let uiImage = UIImage(cgImage: cgImage)
-                    self.frames[time.seconds] = uiImage.normalizeImageOrientation()
-                    
-                    DispatchQueue.main.async {
-                        self.frameCollectionView.reloadData()
-                    }
-                } else if let error = error {
-                    print("Error generating image: \(error.localizedDescription)")
+            do {
+                let cgImage = try imageGenerator.copyCGImage(at: time, actualTime: nil)
+                let uiImage = UIImage(cgImage: cgImage).normalizeImageOrientation()
+                frames[time.seconds] = uiImage
+                
+                DispatchQueue.main.async {
+                    self.frameCollectionView.reloadData()
                 }
-                dispatchGroup.leave()
+            } catch {
+                print("Error generating image at \(time.seconds): \(error.localizedDescription)")
+                // Optionally, retry here if needed
             }
+        }
+        
+        DispatchQueue.main.async {
+            self.frameCollectionView.reloadData()
         }
     }
     
