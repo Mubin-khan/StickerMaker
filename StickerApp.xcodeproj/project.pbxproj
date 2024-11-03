@@ -102,6 +102,8 @@
 		86CD4B292C2DFFB5001C4AFD /* GifCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CD4B262C2DFFB5001C4AFD /* GifCollectionViewCell.swift */; };
 		86CD4B2A2C2DFFB5001C4AFD /* GifCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86CD4B272C2DFFB5001C4AFD /* GifCollectionViewCell.xib */; };
 		86EDC9002C308F9C00E68835 /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86EDC8FF2C308F9C00E68835 /* CGPoint+Extensions.swift */; };
+		86EFB7AB2CD125C0001741D4 /* Interoperability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86EFB7AA2CD125C0001741D4 /* Interoperability.swift */; };
+		86EFB7AC2CD125C0001741D4 /* StickerPack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86EFB7A92CD125C0001741D4 /* StickerPack.swift */; };
 		86F7C3172C2C683A00684B5B /* GifViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F7C3152C2C683A00684B5B /* GifViewController.swift */; };
 		86F7C3182C2C683A00684B5B /* GifViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86F7C3162C2C683A00684B5B /* GifViewController.xib */; };
 		86F7C31C2C2C8E2800684B5B /* frameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F7C31A2C2C8E2800684B5B /* frameCollectionViewCell.swift */; };
@@ -209,6 +211,8 @@
 		86CD4B262C2DFFB5001C4AFD /* GifCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifCollectionViewCell.swift; sourceTree = "<group>"; };
 		86CD4B272C2DFFB5001C4AFD /* GifCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GifCollectionViewCell.xib; sourceTree = "<group>"; };
 		86EDC8FF2C308F9C00E68835 /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
+		86EFB7A92CD125C0001741D4 /* StickerPack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPack.swift; sourceTree = "<group>"; };
+		86EFB7AA2CD125C0001741D4 /* Interoperability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interoperability.swift; sourceTree = "<group>"; };
 		86F7C3152C2C683A00684B5B /* GifViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GifViewController.swift; sourceTree = "<group>"; };
 		86F7C3162C2C683A00684B5B /* GifViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GifViewController.xib; sourceTree = "<group>"; };
 		86F7C31A2C2C8E2800684B5B /* frameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = frameCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -287,6 +291,7 @@
 		864F323F2C19FF95006A62AD /* StickerApp */ = {
 			isa = PBXGroup;
 			children = (
+				86EFB7A72CD12594001741D4 /* Modules */,
 				86BB93F22C31AFC000D92A7D /* Managers */,
 				86AB70B22C2E8AF00030E5C2 /* ServiceLayer */,
 				86973D3C2C21A1C500445778 /* Extensions */,
@@ -748,6 +753,23 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
+		86EFB7A72CD12594001741D4 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				86EFB7A82CD1259C001741D4 /* WhatsAppShare */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		86EFB7A82CD1259C001741D4 /* WhatsAppShare */ = {
+			isa = PBXGroup;
+			children = (
+				86EFB7A92CD125C0001741D4 /* StickerPack.swift */,
+				86EFB7AA2CD125C0001741D4 /* Interoperability.swift */,
+			);
+			path = WhatsAppShare;
+			sourceTree = "<group>";
+		};
 		86F7C3112C2C680800684B5B /* Gif */ = {
 			isa = PBXGroup;
 			children = (
@@ -973,6 +995,8 @@
 				86973D3E2C21A52400445778 /* UIImage+Extensions.swift in Sources */,
 				86C7751D2C241210003A58F8 /* ARImageCropper.swift in Sources */,
 				864F32432C19FF95006A62AD /* SceneDelegate.swift in Sources */,
+				86EFB7AB2CD125C0001741D4 /* Interoperability.swift in Sources */,
+				86EFB7AC2CD125C0001741D4 /* StickerPack.swift in Sources */,
 				86C662A82C29C84100E2F04D /* ColorCollectionViewCell.swift in Sources */,
 				862B97EF2C3324EA0074A09D /* UIView+Extensions.swift in Sources */,
 				86AFD2332C41808B00674A10 /* CropBoxEdgeDraggable.swift in Sources */,
