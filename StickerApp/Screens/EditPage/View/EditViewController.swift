@@ -7,6 +7,7 @@
 
 import UIKit
 import MobileCoreServices
+import SDWebImageWebPCoder
 
 class EditViewController: UIViewController {
 
@@ -132,25 +133,23 @@ class EditViewController: UIViewController {
         
         for img in frames {
             if let bgImage = backImage, let outputImg = imageWithBackgroundMerging(bgImage: bgImage, topImage: img){
-//                let imageV = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: 512, height: 512)))
-//                imageV.backgroundColor = .clear
-//                imageV.tintColor = .clear
-//                imageV.contentMode = .scaleAspectFit
-//                imageV.image = outputImg
-//                
-//                let finalImg = imageV.toImage()
+                let imageV = UIImageView(frame: CGRect(origin: .zero, size: CGSize(width: 512, height: 512)))
+                imageV.backgroundColor = .clear
+                imageV.tintColor = .clear
+                imageV.contentMode = .scaleAspectFit
+                imageV.image = outputImg
+                
+                let finalImg = imageV.toImage()
 //                if let fImage = outputImg.compressToMaxKB(Double(maxKb)) {
-                    finalImages.append(outputImg)
+                finalImages.append(finalImg)
 //                }
             }
         }
-//        createWebP(from: finalImages)
-        let gifUrl = createAnimatedGIF(with: finalImages, duration: 2)
+        let gifUrl = createWebP(from: finalImages)
+//        let gifUrl = createAnimatedGIF(with: finalImages, duration: 2)
         
         // Usage example
-        if let gifUrl = gifUrl, let gifData = try? Data(contentsOf: gifUrl) {
-            let sizeInKB = getGifSizeInKB(gifData: gifData)
-            print(sizeInKB)
+        if let gifUrl = gifUrl {
             let vc = StickersViewController(isAnimated: true, fileurl: gifUrl)
             navigationController?.pushViewController(vc, animated: true)
         }
@@ -162,6 +161,24 @@ class EditViewController: UIViewController {
         let bytes = Double(gifData.count)
         let kilobytes = bytes / 1024
         return kilobytes
+    }
+    
+    func createWebP(from images: [UIImage]) -> URL? {
+        var frames : [SDImageFrame] = []
+        
+        let duration : Double = 1 / (Double(images.count) / 2)
+        for image in images {
+            let sdf = SDImageFrame(image: image, duration: duration)
+            frames.append(sdf)
+        }
+        
+        if let webdata = SDImageWebPCoder.shared.encodedData(with: frames, loopCount: 0, format: .webP, options: [.encodeMaxFileSize: 1024 * 20, .encodeWebPPartitionLimit : 100, .encodeCompressionQuality : 0.3]) {
+            let filename = UUID().uuidString
+            return saveWebPDataToDocumentsDirectory(webPData: webdata, filename: filename)
+//            let data = retrieveDataFromDocumentsDirectory(filename: filename)
+//            let image = SDImageWebPCoder.shared.decodedImage(with: data, options: [:])
+        }
+        return nil
     }
     
     func createAnimatedGIF(with images: [UIImage], duration: TimeInterval, loopCount: Int = 0) -> URL? {
