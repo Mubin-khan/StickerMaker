@@ -11,6 +11,7 @@ pod 'Alamofire'
 pod 'WebPKit'
 pod 'SDWebImage'
 pod 'SDWebImageWebPCoder'
-
+pod 'YYImage'
+pod 'YYImage/WebP'
 
 end

@@ -145,12 +145,12 @@ class EditViewController: UIViewController {
 //                }
             }
         }
-        let gifUrl = createWebP(from: finalImages)
+        let gifName = createWebP(from: finalImages)
 //        let gifUrl = createAnimatedGIF(with: finalImages, duration: 2)
         
         // Usage example
-        if let gifUrl = gifUrl {
-            let vc = StickersViewController(isAnimated: true, fileurl: gifUrl)
+        if let gifName = gifName {
+            let vc = StickersViewController(isAnimated: true, fileName: gifName)
             navigationController?.pushViewController(vc, animated: true)
         }
        
@@ -163,7 +163,7 @@ class EditViewController: UIViewController {
         return kilobytes
     }
     
-    func createWebP(from images: [UIImage]) -> URL? {
+    func createWebP(from images: [UIImage]) -> String? {
         var frames : [SDImageFrame] = []
         
         let duration : Double = 1 / (Double(images.count) / 2)
@@ -174,7 +174,8 @@ class EditViewController: UIViewController {
         
         if let webdata = SDImageWebPCoder.shared.encodedData(with: frames, loopCount: 0, format: .webP, options: [.encodeMaxFileSize: 1024 * 20, .encodeWebPPartitionLimit : 100, .encodeCompressionQuality : 0.3]) {
             let filename = UUID().uuidString
-            return saveWebPDataToDocumentsDirectory(webPData: webdata, filename: filename)
+            saveWebPDataToDocumentsDirectory(webPData: webdata, filename: filename)
+            return filename
 //            let data = retrieveDataFromDocumentsDirectory(filename: filename)
 //            let image = SDImageWebPCoder.shared.decodedImage(with: data, options: [:])
         }
@@ -280,6 +281,7 @@ class EditViewController: UIViewController {
         }
     }
     
+    @discardableResult
     func saveWebPDataToDocumentsDirectory(webPData: Data, filename: String) -> URL? {
         do {
             // Get the URL of the documents directory

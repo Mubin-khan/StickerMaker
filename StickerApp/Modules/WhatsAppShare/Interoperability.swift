@@ -9,7 +9,7 @@
 import UIKit
 
 struct Interoperability {
-    private static let DefaultBundleIdentifier: String = "WA.WAStickersThirdParty"
+    private static let DefaultBundleIdentifier: String = "com.mubin.GoogleMap"
     private static let PasteboardExpirationSeconds: TimeInterval = 60
     private static let PasteboardStickerPackDataType: String = "net.whatsapp.third-party.sticker-pack"
     private static let WhatsAppURL: URL = URL(string: "whatsapp://stickerPack")!
@@ -17,14 +17,14 @@ struct Interoperability {
     static var iOSAppStoreLink: String?
     static var AndroidStoreLink: String?
 
-    static func canSend() -> Bool {
-        return UIApplication.shared.canOpenURL(URL(string: "whatsapp://")!)
-    }
+//    static func canSend() -> Bool {
+//        return UIApplication.shared.canOpenURL(URL(string: "whatsapp://")!)
+//    }
     
     static func send(json: [String: Any]) -> Bool {
-        if Bundle.main.bundleIdentifier?.contains(DefaultBundleIdentifier) == true {
-          fatalError("Your bundle identifier must not include the default one.")
-        }
+//        if Bundle.main.bundleIdentifier?.contains(DefaultBundleIdentifier) == true {
+//          fatalError("Your bundle identifier must not include the default one.")
+//        }
 
         let pasteboard = UIPasteboard.general
 
@@ -43,13 +43,13 @@ struct Interoperability {
         }
 
         DispatchQueue.main.async {
-            if canSend() {
+//            if canSend() {
                 if #available(iOS 10.0, *) {
                     UIApplication.shared.open(WhatsAppURL)
                 } else {
                     UIApplication.shared.openURL(WhatsAppURL)
                 }
-            }
+//            }
         }
         return true
     }

@@ -133,10 +133,10 @@ class ImageEditViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBAction func DoneAction(_ sender: Any) {
         selectedStickerView?.showEditingHandlers = false
-        let img = stickerContainerView.toImage()
+        guard let img = stickerContainerView.to512x512Image() else {return}
         let imgname = UUID().uuidString
-        if let savedUrl = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: img, imageName: imgname, foldername: ImageSaveRetrieveManager.imageStickersUrlFoldername) {
-            let vc = StickersViewController(isAnimated: false, fileurl: savedUrl)
+        if let _ = ImageSaveRetrieveManager.shared.saveImageToDocumentsFolder(image: img, imageName: imgname, foldername: ImageSaveRetrieveManager.imageStickersUrlFoldername) {
+            let vc = StickersViewController(isAnimated: false, fileName: imgname)
             navigationController?.pushViewController(vc, animated: true)
         }
     }

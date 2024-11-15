@@ -9,17 +9,28 @@ import UIKit
 import Messages
 import MobileCoreServices
 import Kingfisher
-
+import SDWebImageWebPCoder
 
 class StickersViewController: UIViewController {
 
    
     @IBOutlet weak var pngImgView: UIImageView!
-    @IBOutlet weak var animatedImgVw: AnimatedImageView!
+   
+    @IBOutlet weak var animatedImgVw: SDAnimatedImageView!
     @IBOutlet weak var stickerContainer: UIView!
     var stickers: [MSSticker] = []
-    var fileurl : URL
+    var fileName : String
     var isAnimated : Bool
+    
+    init(isAnimated : Bool, fileName : String){
+        self.isAnimated  = isAnimated
+        self.fileName = fileName
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,23 +60,34 @@ class StickersViewController: UIViewController {
 //            guard let data = try? Data(contentsOf: fileurl) else {return}
             
         if isAnimated {
-            animatedImgVw.kf.setImage(with: fileurl)
+//            animatedImgVw.kf.setImage(with: fileurl)
+            let data = retrieveDataFromDocumentsDirectory(filename: fileName)
+            let image = SDImageWebPCoder.shared.decodedImage(with: data, options: [:])
+            animatedImgVw.image = image
         }else {
-            pngImgView.kf.setImage(with: fileurl) 
-        }
+            let img = ImageSaveRetrieveManager.shared.retrieveImageFromDocumentsFolder(imageName: fileName, foldername: ImageSaveRetrieveManager.imageStickersUrlFoldername)
             
-       
-        
+            pngImgView.image = img
+        }
     }
     
-    init(isAnimated : Bool, fileurl : URL){
-        self.isAnimated  = isAnimated
-        self.fileurl = fileurl
-        super.init(nibName: nil, bundle: nil)
-    }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func retrieveDataFromDocumentsDirectory(filename: String) -> Data? {
+        do {
+            // Get the URL of the documents directory
+            let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+
+            // Append the filename to the documents directory URL
+            let fileURL = documentsDirectory.appendingPathComponent(filename)
+
+            // Read the data from the file
+            let data = try Data(contentsOf: fileURL)
+            
+            return data
+        } catch {
+            print("Error retrieving data from documents directory: \(error)")
+            return nil
+        }
     }
     
     func makeSticker(with gifURL : URL) -> MSSticker? {
@@ -163,22 +185,138 @@ class StickersViewController: UIViewController {
     
     @IBAction func shareAction(_ sender: Any) {
         // image to share
-//        let image = UIImage(named: "Image")
-        
-        // set up activity view controller
-//        guard let data = try? Data(contentsOf: fileurl!) else {return}
-        let imageToShare = [ fileurl ]
-        let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
-        
-        // exclude some activity types from the list (optional)
-        activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.airDrop, UIActivity.ActivityType.postToFacebook ]
-        
-        // present the view controller
-        self.present(activityViewController, animated: true, completion: nil)
+////        let image = UIImage(named: "Image")
+//        
+//        // set up activity view controller
+////        guard let data = try? Data(contentsOf: fileurl!) else {return}
+//        let imageToShare = [ fileurl ]
+//        let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
+//        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+//        
+//        // exclude some activity types from the list (optional)
+//        activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.airDrop, UIActivity.ActivityType.postToFacebook ]
+//        
+//        // present the view controller
+//        self.present(activityViewController, animated: true, completion: nil)
+       
+            let packName: String = "New pack" //pack["name"] as! String
+            let packPublisher: String = "Mubin" //pack["publisher"] as! String
+//            let packTrayImageFileName: String = pack["tray_image_file"] as! String
+
+//            var packPublisherWebsite: String? = pack["publisher_website"] as? String
+//            var packPrivacyPolicyWebsite: String? = pack["privacy_policy_website"] as? String
+//            var packLicenseAgreementWebsite: String? = pack["license_agreement_website"] as? String
+            // If the strings are empty, consider them as nil
+//            packPublisherWebsite = packPublisherWebsite != "" ? packPublisherWebsite : nil
+//            packPrivacyPolicyWebsite = packPrivacyPolicyWebsite != "" ? packPrivacyPolicyWebsite : nil
+//            packLicenseAgreementWebsite = packLicenseAgreementWebsite != "" ? packLicenseAgreementWebsite : nil
+
+            // Pack identifier has to be a valid string and be unique
+            let packIdentifier: String? = UUID().uuidString // pack["identifier"] as? String
+//            if packIdentifier != nil && currentIdentifiers[packIdentifier!] == nil {
+//                currentIdentifiers[packIdentifier!] = true
+//            } else {
+//                if let packIdentifier = packIdentifier {
+//                    fatalError("Missing identifier or a sticker pack already has the identifier \(packIdentifier).")
+//                }
+//
+//                fatalError("\(packName) must have an identifier and it must be unique.")
+//            }
+
+//        let animatedStickerPack: Bool? = true //pack["animated_sticker_pack"] as? Bool
+
+            var stickerPack: StickerPack?
+
+            do {
+                stickerPack = try StickerPack(identifier: packIdentifier!, name: packName, publisher: packPublisher, trayImageFileName: "tray_Cuppy", animatedStickerPack: isAnimated, publisherWebsite: nil, privacyPolicyWebsite: nil, licenseAgreementWebsite: nil)
+                
+                if isAnimated {
+                    let data = retrieveDataFromDocumentsDirectory(filename: fileName)
+                    stickerPack?.sendToWhatsApp(data: data, completionHandler: { isSend in
+                        print(isSend)
+                    })
+                }else {
+                    let img = ImageSaveRetrieveManager.shared.retrieveImageFromDocumentsFolder(imageName: fileName, foldername: ImageSaveRetrieveManager.imageStickersUrlFoldername)
+                    guard let data = img?.pngData(), let upData = encode(pngData: data) else { return }
+                    stickerPack?.sendToWhatsApp(data: upData, completionHandler: { isSend in
+                        print(isSend)
+                    })
+                }
+               
+            }
+//        catch StickerPackError.fileNotFound {
+//                fatalError("\(packTrayImageFileName) not found.")
+//            } catch StickerPackError.emptyString {
+//                fatalError("The name, identifier, and publisher strings can't be empty.")
+//            } catch StickerPackError.unsupportedImageFormat(let imageFormat) {
+//                fatalError("\(packTrayImageFileName): \(imageFormat) is not a supported format.")
+//            } catch StickerPackError.invalidImage {
+//                fatalError("Tray image file size is 0 KB.")
+//            } catch StickerPackError.imageTooBig(let imageFileSize, _) {
+//                let roundedSize = round((Double(imageFileSize) / 1024) * 100) / 100;
+//                fatalError("\(packTrayImageFileName): \(roundedSize) KB is bigger than the max tray image file size (\(Limits.MaxTrayImageFileSize / 1024) KB).")
+//            } catch StickerPackError.incorrectImageSize(let imageDimensions) {
+//                fatalError("\(packTrayImageFileName): \(imageDimensions) is not compliant with tray dimensions requirements, \(Limits.TrayImageDimensions).")
+//            } catch StickerPackError.animatedImagesNotSupported {
+//                fatalError("\(packTrayImageFileName) is an animated image. Animated images are not supported.")
+//            } catch StickerPackError.stringTooLong {
+//                fatalError("Name, identifier, and publisher of sticker pack must be less than \(Limits.MaxCharLimit128) characters.")
+//            }
+            catch {
+                fatalError(error.localizedDescription)
+            }
+
+//            let stickers: [[String: Any]] = pack["stickers"] as! [[String: Any]]
+//            for sticker in stickers {
+//                let emojis: [String]? = sticker["emojis"] as? [String]
+//
+//                let filename = sticker["image_file"] as! String
+//                do {
+//                    try stickerPack!.addSticker(contentsOfFile: filename, emojis: emojis)
+//                } catch StickerPackError.stickersNumOutsideAllowableRange {
+//                    fatalError("Sticker count outside the allowable limit (\(Limits.MaxStickersPerPack) stickers per pack).")
+//                } catch StickerPackError.fileNotFound {
+//                    fatalError("\(filename) not found.")
+//                } catch StickerPackError.unsupportedImageFormat(let imageFormat) {
+//                    fatalError("\(filename): \(imageFormat) is not a supported format.")
+//                } catch StickerPackError.invalidImage {
+//                    fatalError("Image file size is 0 KB.")
+//                } catch StickerPackError.imageTooBig(let imageFileSize, let animated) {
+//                    let roundedSize = round((Double(imageFileSize) / 1024) * 100) / 100;
+//                    let maxSize = animated ? Limits.MaxAnimatedStickerFileSize : Limits.MaxStaticStickerFileSize
+//                    fatalError("\(filename): \(roundedSize) KB is bigger than the max file size (\(maxSize / 1024) KB).")
+//                } catch StickerPackError.incorrectImageSize(let imageDimensions) {
+//                    fatalError("\(filename): \(imageDimensions) is not compliant with sticker images dimensions, \(Limits.ImageDimensions).")
+//                } catch StickerPackError.tooManyEmojis {
+//                    fatalError("\(filename) has too many emojis. \(Limits.MaxEmojisCount) is the maximum number.")
+//                } catch StickerPackError.minFrameDurationTooShort(let minFrameDuration) {
+//                    let roundedDuration = round(minFrameDuration)
+//                    fatalError("\(filename): \(roundedDuration) ms is shorter than the min frame duration (\(Limits.MinAnimatedStickerFrameDurationMS) ms).")
+//                } catch StickerPackError.totalAnimationDurationTooLong(let totalFrameDuration) {
+//                    let roundedDuration = round(totalFrameDuration)
+//                    fatalError("\(filename): \(roundedDuration) ms is longer than the max total animation duration (\(Limits.MaxAnimatedStickerTotalDurationMS) ms).")
+//                } catch StickerPackError.animatedStickerPackWithStaticStickers {
+//                    fatalError("Animated sticker pack contains static stickers.")
+//                } catch StickerPackError.staticStickerPackWithAnimatedStickers {
+//                    fatalError("Static sticker pack contains animated stickers.")
+//                } catch {
+//                    fatalError(error.localizedDescription)
+//                }
+//            }
+//
+//            if stickers.count < Limits.MinStickersPerPack {
+//              fatalError("Sticker count smaller that the allowable limit (\(Limits.MinStickersPerPack) stickers per pack).")
+//            }
+//
+//            stickerPacks.append(stickerPack!)
     }
     
+    func encode(pngData data: Data) -> Data? {
+        guard let encoder = YYImageEncoder(type: YYImageType.webP) else { return nil }
 
+        encoder.addImage(with: data, duration: 0.0)
+        return encoder.encode()
+    }
 }
 
 extension StickersViewController: MSStickerBrowserViewDataSource {
