@@ -24,11 +24,6 @@
 		865845472C2317EF00AAAA27 /* CIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865845462C2317EF00AAAA27 /* CIImage+Extensions.swift */; };
 		8660336B2CD7F55F006C8B27 /* tray_Cuppy.png in Resources */ = {isa = PBXBuildFile; fileRef = 8660336A2CD7F55F006C8B27 /* tray_Cuppy.png */; };
 		8696EAD52C2B434700B4E7C2 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8696EAD42C2B434700B4E7C2 /* UILabel+Extensions.swift */; };
-		86972ECD2CE7CC5600AB236B /* YYSpriteSheetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 86972ECB2CE7CC5500AB236B /* YYSpriteSheetImage.m */; };
-		86972ECE2CE7CC5600AB236B /* YYImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 86972EC72CE7CC5500AB236B /* YYImage.m */; };
-		86972ECF2CE7CC5600AB236B /* YYAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 86972EC32CE7CC5500AB236B /* YYAnimatedImageView.m */; };
-		86972ED02CE7CC5600AB236B /* YYImageCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 86972EC92CE7CC5500AB236B /* YYImageCoder.m */; };
-		86972ED12CE7CC5600AB236B /* YYFrameImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 86972EC52CE7CC5500AB236B /* YYFrameImage.m */; };
 		86973D342C2166FC00445778 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86973D332C2166FC00445778 /* HomeViewController.xib */; };
 		86973D352C2166FC00445778 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86973D322C2166FC00445778 /* HomeViewController.swift */; };
 		86973D3A2C2189E000445778 /* EditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86973D392C2189E000445778 /* EditViewController.xib */; };
@@ -139,16 +134,6 @@
 		865845462C2317EF00AAAA27 /* CIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CIImage+Extensions.swift"; sourceTree = "<group>"; };
 		8660336A2CD7F55F006C8B27 /* tray_Cuppy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tray_Cuppy.png; sourceTree = "<group>"; };
 		8696EAD42C2B434700B4E7C2 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
-		86972EC22CE7CC5500AB236B /* YYAnimatedImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYAnimatedImageView.h; sourceTree = "<group>"; };
-		86972EC32CE7CC5500AB236B /* YYAnimatedImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYAnimatedImageView.m; sourceTree = "<group>"; };
-		86972EC42CE7CC5500AB236B /* YYFrameImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYFrameImage.h; sourceTree = "<group>"; };
-		86972EC52CE7CC5500AB236B /* YYFrameImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYFrameImage.m; sourceTree = "<group>"; };
-		86972EC62CE7CC5500AB236B /* YYImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYImage.h; sourceTree = "<group>"; };
-		86972EC72CE7CC5500AB236B /* YYImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYImage.m; sourceTree = "<group>"; };
-		86972EC82CE7CC5500AB236B /* YYImageCoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYImageCoder.h; sourceTree = "<group>"; };
-		86972EC92CE7CC5500AB236B /* YYImageCoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYImageCoder.m; sourceTree = "<group>"; };
-		86972ECA2CE7CC5500AB236B /* YYSpriteSheetImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYSpriteSheetImage.h; sourceTree = "<group>"; };
-		86972ECB2CE7CC5500AB236B /* YYSpriteSheetImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYSpriteSheetImage.m; sourceTree = "<group>"; };
 		86972ED22CE7CCB300AB236B /* StickerApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StickerApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		86973D322C2166FC00445778 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		86973D332C2166FC00445778 /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
@@ -321,23 +306,6 @@
 				86972ED22CE7CCB300AB236B /* StickerApp-Bridging-Header.h */,
 			);
 			path = StickerApp;
-			sourceTree = "<group>";
-		};
-		86972ECC2CE7CC5500AB236B /* WebP */ = {
-			isa = PBXGroup;
-			children = (
-				86972EC22CE7CC5500AB236B /* YYAnimatedImageView.h */,
-				86972EC32CE7CC5500AB236B /* YYAnimatedImageView.m */,
-				86972EC42CE7CC5500AB236B /* YYFrameImage.h */,
-				86972EC52CE7CC5500AB236B /* YYFrameImage.m */,
-				86972EC62CE7CC5500AB236B /* YYImage.h */,
-				86972EC72CE7CC5500AB236B /* YYImage.m */,
-				86972EC82CE7CC5500AB236B /* YYImageCoder.h */,
-				86972EC92CE7CC5500AB236B /* YYImageCoder.m */,
-				86972ECA2CE7CC5500AB236B /* YYSpriteSheetImage.h */,
-				86972ECB2CE7CC5500AB236B /* YYSpriteSheetImage.m */,
-			);
-			name = WebP;
 			sourceTree = "<group>";
 		};
 		86973D2D2C21665B00445778 /* Screens */ = {
@@ -801,7 +769,6 @@
 		86EFB7A82CD1259C001741D4 /* WhatsAppShare */ = {
 			isa = PBXGroup;
 			children = (
-				86972ECC2CE7CC5500AB236B /* WebP */,
 				86EFB7A92CD125C0001741D4 /* StickerPack.swift */,
 				86EFB7AA2CD125C0001741D4 /* Interoperability.swift */,
 			);
@@ -1033,11 +1000,6 @@
 				86C14DBA2C388B8300B506D2 /* PathModel.swift in Sources */,
 				86973D3E2C21A52400445778 /* UIImage+Extensions.swift in Sources */,
 				86C7751D2C241210003A58F8 /* ARImageCropper.swift in Sources */,
-				86972ECD2CE7CC5600AB236B /* YYSpriteSheetImage.m in Sources */,
-				86972ECE2CE7CC5600AB236B /* YYImage.m in Sources */,
-				86972ECF2CE7CC5600AB236B /* YYAnimatedImageView.m in Sources */,
-				86972ED02CE7CC5600AB236B /* YYImageCoder.m in Sources */,
-				86972ED12CE7CC5600AB236B /* YYFrameImage.m in Sources */,
 				864F32432C19FF95006A62AD /* SceneDelegate.swift in Sources */,
 				86EFB7AB2CD125C0001741D4 /* Interoperability.swift in Sources */,
 				86EFB7AC2CD125C0001741D4 /* StickerPack.swift in Sources */,
@@ -1227,7 +1189,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mubin.GoogleMap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mubin.stickermaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "StickerApp/StickerApp-Bridging-Header.h";
@@ -1262,7 +1224,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mubin.GoogleMap;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mubin.stickermaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "StickerApp/StickerApp-Bridging-Header.h";
